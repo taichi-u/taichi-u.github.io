@@ -5,37 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taichi Uchida - Portfolio</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>Taichi Uchida</h1>
-        <p>Welcome to my personal website!</p>
+        <div class="logo">Taichi Uchida</div>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
     </header>
-    <nav>
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-    <div class="container">
+    <main>
+        <section id="hero">
+            <h1>Welcome to My Portfolio</h1>
+            <p>Exploring the intersection of aerospace engineering, robotics, and innovation.</p>
+            <a href="#about" class="btn">Learn More</a>
+        </section>
         <section id="about">
             <h2>About Me</h2>
             <p>Hello! I'm Taichi Uchida, a student at Kyoto University studying aerospace engineering. I have a passion for satellite control, mission design, and robotics for space exploration.</p>
         </section>
         <section id="projects">
             <h2>Projects</h2>
-            <ul>
-                <li><strong>Metagenomics Analysis</strong>: Researching microbial communities in Savannah River Site sediments.</li>
-                <li><strong>Robotic Arm Control</strong>: Upcoming internship at DFKI focusing on 7-DOF robotic arms for spacecraft capture.</li>
-                <li><strong>Sustainable Tourism Project</strong>: Organized SDGs-focused initiatives to reduce food waste and support local tourism.</li>
-            </ul>
+            <div class="project-card">
+                <h3>Metagenomics Analysis</h3>
+                <p>Researching microbial communities in Savannah River Site sediments.</p>
+            </div>
+            <div class="project-card">
+                <h3>Robotic Arm Control</h3>
+                <p>Upcoming internship at DFKI focusing on 7-DOF robotic arms for spacecraft capture.</p>
+            </div>
+            <div class="project-card">
+                <h3>Sustainable Tourism Project</h3>
+                <p>Organized SDGs-focused initiatives to reduce food waste and support local tourism.</p>
+            </div>
         </section>
         <section id="contact">
             <h2>Contact</h2>
             <p>If you'd like to connect, feel free to reach out via <a href="mailto:taichi.uchida.official@gmail.com">email</a> or check out my <a href="https://github.com/taichi-u">GitHub</a>.</p>
         </section>
-    </div>
+    </main>
     <footer>
         <p>&copy; 2024 Taichi Uchida. All rights reserved.</p>
     </footer>
