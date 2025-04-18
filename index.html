@@ -5,11 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taichi Uchida - Portfolio</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="logo">Taichi Uchida</div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         <nav>
             <ul>
                 <li><a href="#about">About</a></li>
@@ -20,36 +26,127 @@
     </header>
     <main>
         <section id="hero">
-            <h1>Welcome to My Portfolio</h1>
-            <p>Exploring the intersection of aerospace engineering, robotics, and innovation.</p>
-            <a href="#about" class="btn">Learn More</a>
+            <div class="content">
+                <h1>Hi, I'm Taichi Uchida</h1>
+                <div class="typed-text-wrapper">
+                    <span id="typed-text"></span>
+                </div>
+                <p>Exploring the intersection of aerospace engineering, robotics, and innovation.</p>
+                <a href="#projects" class="btn">View My Work</a>
+            </div>
+            <div id="particles-js"></div>
         </section>
-        <section id="about">
+        
+        <section id="about" class="fade-in">
             <h2>About Me</h2>
-            <p>Hello! I'm Taichi Uchida, a student at Kyoto University studying aerospace engineering. I have a passion for satellite control, mission design, and robotics for space exploration.</p>
+            <div class="profile">
+                <img src="https://via.placeholder.com/250" alt="Taichi Uchida" class="profile-image">
+                <div>
+                    <p>Hello! I'm Taichi Uchida, a student at Kyoto University studying aerospace engineering. I have a passion for satellite control, mission design, and robotics for space exploration.</p>
+                    <p>With a background in robotics and a keen interest in innovative technologies, I'm constantly seeking opportunities to apply my knowledge to meaningful projects.</p>
+                </div>
+            </div>
+            <div class="skills">
+                <h3>Technical Skills</h3>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Aerospace Engineering</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 90%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Robotics</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 85%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Programming</span>
+                        <span>80%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 80%"></div>
+                    </div>
+                </div>
+            </div>
         </section>
-        <section id="projects">
+        
+        <section id="projects" class="fade-in">
             <h2>Projects</h2>
-            <div class="project-card">
-                <h3>Metagenomics Analysis</h3>
-                <p>Researching microbial communities in Savannah River Site sediments.</p>
+            <div class="projects-filter">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="research">Research</button>
+                <button class="filter-btn" data-filter="robotics">Robotics</button>
+                <button class="filter-btn" data-filter="sustainability">Sustainability</button>
             </div>
-            <div class="project-card">
-                <h3>Robotic Arm Control</h3>
-                <p>Upcoming internship at DFKI focusing on 7-DOF robotic arms for spacecraft capture.</p>
-            </div>
-            <div class="project-card">
-                <h3>Sustainable Tourism Project</h3>
-                <p>Organized SDGs-focused initiatives to reduce food waste and support local tourism.</p>
+            <div class="projects-container">
+                <!-- Projects will be dynamically loaded here -->
             </div>
         </section>
-        <section id="contact">
+        
+        <section id="contact" class="fade-in">
             <h2>Contact</h2>
-            <p>If you'd like to connect, feel free to reach out via <a href="mailto:taichi.uchida.official@gmail.com">email</a> or check out my <a href="https://github.com/taichi-u">GitHub</a>.</p>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <p><a href="mailto:taichi.uchida.official@gmail.com">taichi.uchida.official@gmail.com</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <div>
+                            <h4>GitHub</h4>
+                            <p><a href="https://github.com/taichi-u" target="_blank">github.com/taichi-u</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Kyoto, Japan</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <input type="text" placeholder="Subject">
+                        <textarea placeholder="Your Message" required></textarea>
+                        <button type="submit">Send Message</button>
+                    </form>
+                </div>
+            </div>
         </section>
     </main>
     <footer>
+        <div class="social-links">
+            <a href="https://github.com/taichi-u" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
         <p>&copy; 2024 Taichi Uchida. All rights reserved.</p>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
+    <script src="projects.js"></script>
 </body>
 </html>
