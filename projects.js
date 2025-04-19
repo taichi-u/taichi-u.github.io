@@ -4,7 +4,7 @@ const projects = [
         id: 1,
         title: "Metagenomic Analysis of Heavy Metal Contamination",
         description: "Research on heavy metal contaminant stabilization through metagenomic analysis at Georgia Tech, using computational approaches with R, Linux, and Python.",
-        image: "https://via.placeholder.com/600x400?text=Metagenomics",
+        image: "photo/metagenomic.jpg",
         categories: ["research", "space"],
         tags: ["Genomics", "Bioinformatics", "Environmental Science"],
         links: [
@@ -15,7 +15,7 @@ const projects = [
         id: 2,
         title: "Hydrogen Metabolism in Microorganisms",
         description: "Research on microorganisms with unique metabolic pathways for hydrogen and oxygen, with potential applications for sustainable energy and space life support systems.",
-        image: "https://via.placeholder.com/600x400?text=Hydrogen+Metabolism",
+        image: "photo/hydrogen-metabolism.jpeg",
         categories: ["research"],
         tags: ["Microbiology", "Biochemistry", "Sustainability"],
         links: [
@@ -26,7 +26,7 @@ const projects = [
         id: 3,
         title: "Extreme Halophiles in Rock Salt",
         description: "Three-year research project identifying halophilic archaea from worldwide rock salt samples, contributing to our understanding of extremophiles and astrobiology.",
-        image: "https://via.placeholder.com/600x400?text=Halophiles",
+        image: "photo/halophiles-research.jpg",
         categories: ["research", "space"],
         tags: ["Extremophiles", "Astrobiology", "Molecular Biology"],
         links: [
@@ -38,7 +38,7 @@ const projects = [
         id: 4,
         title: "Artificial Gravity Method Development",
         description: "Developed and evaluated a new method for artificial gravity generation, using Arduino to sense forces and evaluate the prototype.",
-        image: "https://via.placeholder.com/600x400?text=Artificial+Gravity",
+        image: "photo/artificial-gravity-prototype.jpeg",
         categories: ["space"],
         tags: ["Space Technology", "Engineering", "Arduino"],
         links: [
@@ -49,7 +49,7 @@ const projects = [
         id: 5,
         title: "Intelligent Water Rocket System",
         description: "Award-winning rocket design with structural controls, computer-controlled functions, and automated parachute deployment systems.",
-        image: "https://via.placeholder.com/600x400?text=Water+Rocket",
+        image: "photo/water-rocket-system.jpeg",
         categories: ["space"],
         tags: ["Rocketry", "Control Systems", "Engineering"],
         links: [
@@ -61,7 +61,7 @@ const projects = [
         id: 6,
         title: "Seiko SDGs Food Initiative",
         description: "Founded a volunteer program focused on sustainable food practices and reducing food waste in alignment with UN Sustainable Development Goals.",
-        image: "https://via.placeholder.com/600x400?text=SDGs+Food",
+        image: "photo/sdgs-food-initiative.jpg",
         categories: ["social"],
         tags: ["SDGs", "Sustainability", "Food Security"],
         links: [
@@ -72,7 +72,7 @@ const projects = [
         id: 7,
         title: "Light-Up Safety Slippers",
         description: "Designed illuminated slippers for safety during nighttime emergencies and power outages, with functional prototype development.",
-        image: "https://via.placeholder.com/600x400?text=Safety+Slippers",
+        image: "photo/safety-slippers-prototype.jpg",
         categories: ["social"],
         tags: ["Product Design", "Safety", "Innovation"],
         links: [
@@ -83,7 +83,7 @@ const projects = [
         id: 8,
         title: "International Space Technology Discussion",
         description: "Organized an online forum connecting students from India and Japan to discuss next-generation space technologies and collaborative opportunities.",
-        image: "https://via.placeholder.com/600x400?text=Space+Technology+Forum",
+        image: "photo/space-tech-forum.jpg",
         categories: ["space", "social"],
         tags: ["International Collaboration", "Space Education", "Innovation"],
         links: [
