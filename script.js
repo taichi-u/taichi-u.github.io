@@ -30,8 +30,8 @@ function initTypedText() {
         new Typed('#typed-text', {
             strings: [
                 'Aerospace Engineering Student',
+                'Researcher in Microbiology',
                 'Space Technology Enthusiast',
-                'Researcher',
                 'Innovator'
             ],
             typeSpeed: 50,
