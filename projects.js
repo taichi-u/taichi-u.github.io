@@ -2,56 +2,99 @@
 const projects = [
     {
         id: 1,
-        title: 'Metagenomics Analysis',
-        description: 'Researching microbial communities in Savannah River Site sediments through advanced DNA sequencing and computational analysis.',
-        image: 'https://via.placeholder.com/600x400?text=Metagenomics',
-        categories: ['research'],
-        tags: ['Genomics', 'Big Data', 'Environmental Science'],
+        title: "Metagenomic Analysis of Heavy Metal Contamination",
+        description: "Research on heavy metal contaminant stabilization through metagenomic analysis at Georgia Tech, using computational approaches with R, Linux, and Python.",
+        image: "https://via.placeholder.com/600x400?text=Metagenomics",
+        categories: ["research", "space"],
+        tags: ["Genomics", "Bioinformatics", "Environmental Science"],
         links: [
-            { name: 'View Project', url: '#' },
-            { name: 'GitHub', url: '#' }
+            { name: "Details", url: "#" }
         ]
     },
     {
         id: 2,
-        title: 'Robotic Arm Control',
-        description: 'Developing control systems for a 7-DOF robotic arm designed for spacecraft capture and maintenance operations in orbit.',
-        image: 'https://via.placeholder.com/600x400?text=Robotics',
-        categories: ['robotics'],
-        tags: ['Robotics', 'Control Theory', 'Space Tech'],
+        title: "Hydrogen Metabolism in Microorganisms",
+        description: "Research on microorganisms with unique metabolic pathways for hydrogen and oxygen, with potential applications for sustainable energy and space life support systems.",
+        image: "https://via.placeholder.com/600x400?text=Hydrogen+Metabolism",
+        categories: ["research"],
+        tags: ["Microbiology", "Biochemistry", "Sustainability"],
         links: [
-            { name: 'View Project', url: '#' }
+            { name: "Details", url: "#" }
         ]
     },
     {
         id: 3,
-        title: 'Sustainable Tourism Project',
-        description: 'Organized SDGs-focused initiatives to reduce food waste and support local tourism economies through digital innovation.',
-        image: 'https://via.placeholder.com/600x400?text=Sustainability',
-        categories: ['sustainability'],
-        tags: ['SDGs', 'Tourism', 'Waste Reduction'],
+        title: "Extreme Halophiles in Rock Salt",
+        description: "Three-year research project identifying halophilic archaea from worldwide rock salt samples, contributing to our understanding of extremophiles and astrobiology.",
+        image: "https://via.placeholder.com/600x400?text=Halophiles",
+        categories: ["research", "space"],
+        tags: ["Extremophiles", "Astrobiology", "Molecular Biology"],
         links: [
-            { name: 'View Project', url: '#' },
-            { name: 'Case Study', url: '#' }
+            { name: "Publication", url: "#" },
+            { name: "Details", url: "#" }
         ]
     },
     {
         id: 4,
-        title: 'Space Debris Monitoring System',
-        description: 'Developing an AI-powered system to track and categorize space debris for satellite collision avoidance.',
-        image: 'https://via.placeholder.com/600x400?text=Space+Debris',
-        categories: ['research', 'robotics'],
-        tags: ['AI', 'Space Tech', 'Orbital Mechanics'],
+        title: "Artificial Gravity Method Development",
+        description: "Developed and evaluated a new method for artificial gravity generation, using Arduino to sense forces and evaluate the prototype.",
+        image: "https://via.placeholder.com/600x400?text=Artificial+Gravity",
+        categories: ["space"],
+        tags: ["Space Technology", "Engineering", "Arduino"],
         links: [
-            { name: 'View Project', url: '#' },
-            { name: 'GitHub', url: '#' }
+            { name: "Details", url: "#" }
+        ]
+    },
+    {
+        id: 5,
+        title: "Intelligent Water Rocket System",
+        description: "Award-winning rocket design with structural controls, computer-controlled functions, and automated parachute deployment systems.",
+        image: "https://via.placeholder.com/600x400?text=Water+Rocket",
+        categories: ["space"],
+        tags: ["Rocketry", "Control Systems", "Engineering"],
+        links: [
+            { name: "Details", url: "#" },
+            { name: "Gallery", url: "#" }
+        ]
+    },
+    {
+        id: 6,
+        title: "Seiko SDGs Food Initiative",
+        description: "Founded a volunteer program focused on sustainable food practices and reducing food waste in alignment with UN Sustainable Development Goals.",
+        image: "https://via.placeholder.com/600x400?text=SDGs+Food",
+        categories: ["social"],
+        tags: ["SDGs", "Sustainability", "Food Security"],
+        links: [
+            { name: "Details", url: "#" }
+        ]
+    },
+    {
+        id: 7,
+        title: "Light-Up Safety Slippers",
+        description: "Designed illuminated slippers for safety during nighttime emergencies and power outages, with functional prototype development.",
+        image: "https://via.placeholder.com/600x400?text=Safety+Slippers",
+        categories: ["social"],
+        tags: ["Product Design", "Safety", "Innovation"],
+        links: [
+            { name: "Details", url: "#" }
+        ]
+    },
+    {
+        id: 8,
+        title: "International Space Technology Discussion",
+        description: "Organized an online forum connecting students from India and Japan to discuss next-generation space technologies and collaborative opportunities.",
+        image: "https://via.placeholder.com/600x400?text=Space+Technology+Forum",
+        categories: ["space", "social"],
+        tags: ["International Collaboration", "Space Education", "Innovation"],
+        links: [
+            { name: "Details", url: "#" }
         ]
     }
 ];
 
 // Function to render projects
 function renderProjects(projectsToRender = projects) {
-    const projectsContainer = document.querySelector('.projects-container');
+    const projectsContainer = document.getElementById('projects-container');
     projectsContainer.innerHTML = '';
     
     projectsToRender.forEach(project => {
@@ -75,25 +118,27 @@ function renderProjects(projectsToRender = projects) {
 
     // Trigger animation for newly added elements
     setTimeout(() => {
-        document.querySelectorAll('.project-card.fade-in').forEach(card => {
+        document.querySelectorAll('#projects-container .fade-in').forEach(card => {
             card.classList.add('visible');
         });
     }, 100);
 }
 
-// Filter projects
-function setupProjectFilters() {
-    const filterButtons = document.querySelectorAll('.filter-btn');
+// Initialize once DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    renderProjects();
     
-    filterButtons.forEach(button => {
+    // Setup filter buttons
+    document.querySelectorAll('.filter-btn').forEach(button => {
         button.addEventListener('click', () => {
             // Update active button
-            filterButtons.forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
             button.classList.add('active');
             
-            const filter = button.getAttribute('data-filter');
-            
             // Filter projects
+            const filter = button.getAttribute('data-filter');
             if (filter === 'all') {
                 renderProjects();
             } else {
@@ -104,10 +149,4 @@ function setupProjectFilters() {
             }
         });
     });
-}
-
-// Initialize once DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    renderProjects();
-    setupProjectFilters();
 });

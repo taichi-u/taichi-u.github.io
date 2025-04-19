@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taichi Uchida - Portfolio</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -21,7 +20,9 @@
         <nav>
             <ul>
                 <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
                 <li><a href="#projects">Projects</a></li>
+                <li><a href="#achievements">Achievements</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
@@ -44,37 +45,288 @@
             <div class="profile">
                 <img src="https://via.placeholder.com/250" alt="Taichi Uchida" class="profile-image">
                 <div>
-                    <p>Hello! I'm Taichi Uchida, a student at Kyoto University studying aerospace engineering. I have a passion for satellite control, mission design, and robotics for space exploration.</p>
-                    <p>With a background in robotics and a keen interest in innovative technologies, I'm constantly seeking opportunities to apply my knowledge to meaningful projects.</p>
+                    <p>Hello! I'm Taichi Uchida, a student at Kyoto University studying aerospace engineering with a passion for satellite control, mission design, and robotics for space exploration.</p>
+                    <p>With a background in robotics and a keen interest in innovative technologies, I'm constantly seeking opportunities to apply my knowledge to meaningful projects that contribute to space exploration and scientific advancement.</p>
                 </div>
             </div>
-            <div class="skills">
-                <h3>Technical Skills</h3>
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>Aerospace Engineering</span>
-                        <span>90%</span>
+            
+            <div class="about-tabs">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="education">Education</button>
+                    <button class="tab-btn" data-tab="research">Research</button>
+                    <button class="tab-btn" data-tab="qualifications">Qualifications</button>
+                    <button class="tab-btn" data-tab="skills">Special Skills</button>
+                </div>
+
+                <div class="tab-content">
+                    <!-- Education Tab -->
+                    <div class="tab-pane active" id="education">
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-date">2023 - Present</div>
+                                <div class="timeline-content">
+                                    <h4>Kyoto University</h4>
+                                    <p>Aeronautics and Astronautics Course, Undergraduate School of Engineering Science</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-date">2020 - 2023</div>
+                                <div class="timeline-content">
+                                    <h4>Seiko Gakuin High School</h4>
+                                    <p>Kanagawa, Japan</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-date">2018 - 2020</div>
+                                <div class="timeline-content">
+                                    <h4>Pathways School Gurgaon</h4>
+                                    <p>IB Middle School, Haryana, India</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-date">2017 - 2018</div>
+                                <div class="timeline-content">
+                                    <h4>Seiko Gakuin Junior High School</h4>
+                                    <p>Kanagawa, Japan</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 90%"></div>
+                    
+                    <!-- Research Tab -->
+                    <div class="tab-pane" id="research">
+                        <div class="research-container">
+                            <div class="research-item">
+                                <div class="research-date">Aug 2023 - Present</div>
+                                <div class="research-content">
+                                    <h4>Dr. Atomi Lab, Kyoto University</h4>
+                                    <p>Wet lab experience. Towards finding ecologies of microorganisms with metabolic pathways for hydrogen and oxygen.</p>
+                                </div>
+                            </div>
+                            <div class="research-item">
+                                <div class="research-date">Aug 2024</div>
+                                <div class="research-content">
+                                    <h4>Dr. DiChristina Lab, Georgia Institute of Technology</h4>
+                                    <p>Research fellow/Affiliate. Metagenomic analysis towards the stabilization of heavy metal contaminants. Using R, Linux, Python for the research. (In silico). Fully Funded.</p>
+                                </div>
+                            </div>
+                            <div class="research-item">
+                                <div class="research-date">Dec 2020 - Mar 2023</div>
+                                <div class="research-content">
+                                    <h4>Dr. Fujishima Lab, Earth Life Science Institute, Tokyo Institute of Technology</h4>
+                                    <p>Research Internship. Three years of wet lab experience. Major methods: PCR, Electrophoresis, Sequence analysis, and drawing phylogenetic trees with PhyML. The research topic: "Isolation and identification of Extreme Halophiles in world-wide rock salts with a specific carbon source". Funded by Japan Science and Technology Agency (JST).</p>
+                                </div>
+                            </div>
+                            <div class="research-item">
+                                <div class="research-date">Aug 2020 - Aug 2021</div>
+                                <div class="research-content">
+                                    <h4>Seiko Gakuin High School</h4>
+                                    <p>Individual Research. Development of new method of artificial gravity and its evaluation. Using "Arduino" for censoring forces to evaluate the prototype of the new method. Funded by Seiko Gakuin.</p>
+                                </div>
+                            </div>
+                            <div class="research-item">
+                                <div class="research-date">Aug 2021 - Feb 2022</div>
+                                <div class="research-content">
+                                    <h4>Meteorite Research Group, Seiko Gakuin High School</h4>
+                                    <p>Experience in using electron microscope. Collaborating with several universities' faculties and a high school in Britain.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Qualifications Tab -->
+                    <div class="tab-pane" id="qualifications">
+                        <div class="qualifications-grid">
+                            <div class="qualification-item">
+                                <div class="qualification-icon">
+                                    <i class="fa-solid fa-certificate"></i>
+                                </div>
+                                <div class="qualification-details">
+                                    <h4>EIKEN Grade 1</h4>
+                                    <p>July 2021</p>
+                                </div>
+                            </div>
+                            <div class="qualification-item">
+                                <div class="qualification-icon">
+                                    <i class="fa-solid fa-rocket"></i>
+                                </div>
+                                <div class="qualification-details">
+                                    <h4>Nihon Model-Rocket License Grade 4</h4>
+                                    <p>July 2021</p>
+                                </div>
+                            </div>
+                            <div class="qualification-item">
+                                <div class="qualification-icon">
+                                    <i class="fa-solid fa-language"></i>
+                                </div>
+                                <div class="qualification-details">
+                                    <h4>TOEFL iBT</h4>
+                                    <p>MyBest-Score: 100 (May 2022)</p>
+                                </div>
+                            </div>
+                            <div class="qualification-item">
+                                <div class="qualification-icon">
+                                    <i class="fa-solid fa-water"></i>
+                                </div>
+                                <div class="qualification-details">
+                                    <h4>NAUI Open Water Diver</h4>
+                                    <p>October 2023</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Skills Tab -->
+                    <div class="tab-pane" id="skills">
+                        <div class="skills-container">
+                            <div class="skill-category">
+                                <h4><i class="fa-solid fa-code"></i> Programming</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">R</span>
+                                    <span class="skill-tag">Linux</span>
+                                    <span class="skill-tag">Python</span>
+                                    <span class="skill-tag">MATLAB</span>
+                                    <span class="skill-tag">Arduino</span>
+                                    <span class="skill-tag">Raspberry Pi</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4><i class="fa-solid fa-flask"></i> Laboratory</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">PCR</span>
+                                    <span class="skill-tag">3 years wet lab experience</span>
+                                    <span class="skill-tag">PhyML</span>
+                                    <span class="skill-tag">Sequence Analysis</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4><i class="fa-solid fa-earth-asia"></i> Languages</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">Japanese (Native)</span>
+                                    <span class="skill-tag">English (Proficient)</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4><i class="fa-solid fa-cubes"></i> Design</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">Blender</span>
+                                    <span class="skill-tag">Inverse and Forward Kinematics</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>Robotics</span>
-                        <span>85%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 85%"></div>
+            </div>
+        </section>
+        
+        <section id="experience" class="fade-in">
+            <h2>Experience</h2>
+            <div class="conference-grid">
+                <div class="conference-item">
+                    <span>Dec 2023</span>
+                    <h4>7th GLOBAL MOON VILLAGE WORKSHOP & SYMPOSIUM</h4>
+                    <p>Worked as a Staff</p>
+                </div>
+                <div class="conference-item">
+                    <span>2023</span>
+                    <h4>The Japan Society of Aerospace and Environmental Medicine</h4>
+                    <p>Poster Session (General Session) / Oral Presentation (Students Session)</p>
+                </div>
+                <div class="conference-item">
+                    <span>May 2022</span>
+                    <h4>NASA x AGI x High School Students Exchange Session</h4>
+                    <p>Online Presentation</p>
+                </div>
+                <div class="conference-item">
+                    <span>May 2022</span>
+                    <h4>Japan Geoscience Union 2022</h4>
+                    <p>Poster Session / Online Presentation</p>
+                </div>
+                <div class="conference-item">
+                    <span>Mar 2022</span>
+                    <h4>The Japanese Society of Scientific Fisheries</h4>
+                    <p>Online Presentation</p>
+                </div>
+                <div class="conference-item">
+                    <span>Jan 2022</span>
+                    <h4>International Research for School</h4>
+                    <p>Online Presentation</p>
+                </div>
+            </div>
+            
+            <h3 class="mt-5">Activities</h3>
+            <div class="activities-grid" id="activities-container">
+                <div class="activity-card">
+                    <div class="activity-icon"><i class="fa-solid fa-microscope"></i></div>
+                    <div class="activity-content">
+                        <h4>Kyoto University Space Medicine</h4>
+                        <p>Hosted Study Tour at Kyoto University (Aug 2023)</p>
+                        <button class="activity-details-btn" data-activity-id="activity1">Read More</button>
                     </div>
                 </div>
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>Programming</span>
-                        <span>80%</span>
+                <div class="activity-card">
+                    <div class="activity-icon"><i class="fa-solid fa-fish"></i></div>
+                    <div class="activity-content">
+                        <h4>Marine Biology Program</h4>
+                        <p>Summer Program at Ryukyu University (Sep 2023)</p>
+                        <button class="activity-details-btn" data-activity-id="activity2">Read More</button>
                     </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 80%"></div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-icon"><i class="fa-solid fa-user-astronaut"></i></div>
+                    <div class="activity-content">
+                        <h4>Space Medicine Workshop</h4>
+                        <p>At Oita University, hosted by Kyoto University (Sep 2023)</p>
+                        <button class="activity-details-btn" data-activity-id="activity3">Read More</button>
+                    </div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-icon"><i class="fa-solid fa-seedling"></i></div>
+                    <div class="activity-content">
+                        <h4>Rice Farming Circle</h4>
+                        <p>12 years participation in traditional organic rice farming</p>
+                        <button class="activity-details-btn" data-activity-id="activity4">Read More</button>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="show-more-btn" id="show-more-activities">
+                Show More Activities <i class="fas fa-chevron-down"></i>
+            </button>
+            
+            <div class="hidden-content" id="more-activities">
+                <div class="activities-grid">
+                    <div class="activity-card">
+                        <div class="activity-icon"><i class="fa-solid fa-globe"></i></div>
+                        <div class="activity-content">
+                            <h4>Japan Students Space Forum</h4>
+                            <p>Founded and hosted forum for space enthusiasts</p>
+                            <button class="activity-details-btn" data-activity-id="activity5">Read More</button>
+                        </div>
+                    </div>
+                    <div class="activity-card">
+                        <div class="activity-icon"><i class="fa-solid fa-utensils"></i></div>
+                        <div class="activity-content">
+                            <h4>Seiko SDGs Food Ambassador</h4>
+                            <p>Founded volunteer activity focusing on sustainable food</p>
+                            <button class="activity-details-btn" data-activity-id="activity6">Read More</button>
+                        </div>
+                    </div>
+                    <div class="activity-card">
+                        <div class="activity-icon"><i class="fa-solid fa-flask-vial"></i></div>
+                        <div class="activity-content">
+                            <h4>Science Club Summit</h4>
+                            <p>Organized and hosted summit for science clubs</p>
+                            <button class="activity-details-btn" data-activity-id="activity7">Read More</button>
+                        </div>
+                    </div>
+                    <div class="activity-card">
+                        <div class="activity-icon"><i class="fa-solid fa-landmark"></i></div>
+                        <div class="activity-content">
+                            <h4>Political Internship</h4>
+                            <p>With Mr. Motohashi (Vice-chairperson of Tokyo Metropolitan Assembly)</p>
+                            <button class="activity-details-btn" data-activity-id="activity8">Read More</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -85,11 +337,82 @@
             <div class="projects-filter">
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="research">Research</button>
-                <button class="filter-btn" data-filter="robotics">Robotics</button>
-                <button class="filter-btn" data-filter="sustainability">Sustainability</button>
+                <button class="filter-btn" data-filter="space">Space</button>
+                <button class="filter-btn" data-filter="social">Social</button>
             </div>
-            <div class="projects-container">
+            <div class="projects-container" id="projects-container">
                 <!-- Projects will be dynamically loaded here -->
+            </div>
+        </section>
+        
+        <section id="achievements" class="fade-in">
+            <h2>Awards & Achievements</h2>
+            <div class="awards-timeline">
+                <div class="award-item">
+                    <div class="award-year">May 2022</div>
+                    <div class="award-content">
+                        <i class="award-icon fas fa-medal"></i>
+                        <h4>Japan Geoscience Union 2022</h4>
+                        <p>Awards for Academic Excellence for High School Students (Research for Haloarchaea)</p>
+                    </div>
+                </div>
+                <div class="award-item">
+                    <div class="award-year">Mar 2022</div>
+                    <div class="award-content">
+                        <i class="award-icon fas fa-medal"></i>
+                        <h4>The Japanese Society of Scientific Fisheries</h4>
+                        <p>Awards for Academic Excellence for High School Students (Research for Haloarchaea)</p>
+                    </div>
+                </div>
+                <div class="award-item">
+                    <div class="award-year">Dec 2021</div>
+                    <div class="award-content">
+                        <i class="award-icon fas fa-rocket"></i>
+                        <h4>Intelligent Water Rocket Competition 2021</h4>
+                        <p>Awards for the success of all the missions (Structural Controlled Rockets, Computer Controlled Functions, Deploying a Parachute)</p>
+                    </div>
+                </div>
+                <div class="award-item">
+                    <div class="award-year">Aug 2021</div>
+                    <div class="award-content">
+                        <i class="award-icon fas fa-star"></i>
+                        <h4>Super Science High School Research Symposium</h4>
+                        <p>Awards for Academic Excellence (Research for the artificial gravity)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="show-more-btn" id="show-more-awards">
+                Show More Awards <i class="fas fa-chevron-down"></i>
+            </button>
+            
+            <div class="hidden-content" id="more-awards">
+                <div class="awards-timeline">
+                    <div class="award-item">
+                        <div class="award-year">Feb 2020</div>
+                        <div class="award-content">
+                            <i class="award-icon fas fa-running"></i>
+                            <h4>Annual Athletic Meet 2019-2020</h4>
+                            <p>Under-17 Boys: 400m (3rd), 800m (1st), 1500m (1st), Individual Championship</p>
+                        </div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-year">Feb 2020</div>
+                        <div class="award-content">
+                            <i class="award-icon fas fa-running"></i>
+                            <h4>MYP Cross Country Run</h4>
+                            <p>1st Place with New Record</p>
+                        </div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-year">2019</div>
+                        <div class="award-content">
+                            <i class="award-icon fas fa-trophy"></i>
+                            <h4>ISSO National Games 2019 Athletic</h4>
+                            <p>800m, 1500m, 3000m (1st), 4×100m relay, 4×400 relay (2nd)</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
         
@@ -103,7 +426,7 @@
                         </div>
                         <div>
                             <h4>Email</h4>
-                            <p><a href="mailto:taichi.uchida.official@gmail.com">taichi.uchida.official@gmail.com</a></p>
+                            <p><a href="mailto:uchida.taichi.84f@st.kyoto-u.ac.jp">uchida.taichi.84f@st.kyoto-u.ac.jp</a></p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -125,15 +448,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <input type="text" placeholder="Your Name" required>
-                        <input type="email" placeholder="Your Email" required>
-                        <input type="text" placeholder="Subject">
-                        <textarea placeholder="Your Message" required></textarea>
-                        <button type="submit">Send Message</button>
-                    </form>
-                </div>
             </div>
         </section>
     </main>
@@ -143,10 +457,32 @@
             <a href="#" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
             <a href="#" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
         </div>
-        <p>&copy; 2024 Taichi Uchida. All rights reserved.</p>
+        <p>&copy; 2025 Taichi Uchida. All rights reserved.</p>
     </footer>
 
+    <!-- Activity Details Popups -->
+    <div class="activity-details-popup" id="activity1-details">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <h4>Kyoto University Space Medicine Study Tour</h4>
+            <p>Organized and hosted a comprehensive study tour focused on space medicine at Kyoto University. The event brought together students interested in the interdisciplinary field of space medicine and aerospace health.</p>
+            <p>Coordinated guest lectures from leading researchers in the field and organized hands-on workshops to explore the physiological effects of spaceflight and potential countermeasures.</p>
+        </div>
+    </div>
+
+    <div class="activity-details-popup" id="activity2-details">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <h4>Summer Marine Biology Program at Ryukyu University</h4>
+            <p>Participated in an intensive summer program focusing on marine biology at Ryukyu University. The program included field work, laboratory research, and theoretical study of marine ecosystems.</p>
+            <p>Gained hands-on experience in marine sampling techniques, species identification, and ecosystem analysis. This funded program provided valuable insights into the biodiversity of Okinawan coral reefs and their conservation challenges.</p>
+        </div>
+    </div>
+
+    <!-- More popups would follow the same pattern -->
+
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="space-animation.js"></script>
     <script src="script.js"></script>
     <script src="projects.js"></script>

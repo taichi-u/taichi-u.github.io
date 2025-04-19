@@ -1,126 +1,93 @@
-// Space-themed canvas animation
+// Space-themed canvas animation with spacecraft elements
 class SpaceAnimation {
-    constructor(elementId) {
-        this.canvas = document.getElementById(elementId);
+    constructor() {
+        this.canvas = document.createElement('canvas');
         this.ctx = this.canvas.getContext('2d');
-        this.particles = [];
-        this.stars = [];
         this.spaceObjects = [];
-        this.dimensions = { width: 0, height: 0 };
-        
-        // Space objects images
-        this.objectTypes = [
-            { type: 'satellite', probability: 0.3 },
-            { type: 'rover', probability: 0.3 },
-            { type: 'rocket', probability: 0.4 }
-        ];
-        
-        this.images = {
-            satellite: null,
-            rover: null,
-            rocket: null
-        };
-        
+        this.stars = [];
         this.init();
     }
     
     init() {
-        this.setupCanvas();
-        this.loadImages();
-        this.createStars();
-        this.animate();
-        
-        window.addEventListener('resize', () => this.setupCanvas());
-    }
-    
-    setupCanvas() {
-        this.dimensions.width = window.innerWidth;
-        this.dimensions.height = this.canvas.closest('section').offsetHeight;
-        
-        this.canvas.width = this.dimensions.width;
-        this.canvas.height = this.dimensions.height;
-        
-        // Clear and recreate particles and objects when resizing
-        if (this.particles.length > 0) {
-            this.particles = [];
-            this.stars = [];
-            this.spaceObjects = [];
+        // Add canvas to particles-js container
+        const particlesContainer = document.getElementById('particles-js');
+        if (particlesContainer) {
+            this.canvas.id = 'space-canvas';
+            this.canvas.style.position = 'absolute';
+            this.canvas.style.top = '0';
+            this.canvas.style.left = '0';
+            this.canvas.style.pointerEvents = 'none';
+            this.canvas.style.zIndex = '1';
+            particlesContainer.appendChild(this.canvas);
+            
+            // Setup canvas size
+            this.resize();
+            window.addEventListener('resize', () => this.resize());
+            
+            // Create space objects
             this.createStars();
             this.createSpaceObjects();
+            
+            // Start animation loop
+            this.animate();
         }
     }
     
-    loadImages() {
-        const loadImage = (src) => {
-            return new Promise((resolve) => {
-                const img = new Image();
-                img.onload = () => resolve(img);
-                img.src = src;
-            });
-        };
+    resize() {
+        const container = this.canvas.parentElement;
+        this.canvas.width = container.offsetWidth;
+        this.canvas.height = container.offsetHeight;
         
-        // Load SVG images for space objects
-        Promise.all([
-            loadImage('https://cdn.jsdelivr.net/gh/taichi-u/space-assets@main/satellite.svg'),
-            loadImage('https://cdn.jsdelivr.net/gh/taichi-u/space-assets@main/rover.svg'),
-            loadImage('https://cdn.jsdelivr.net/gh/taichi-u/space-assets@main/rocket.svg')
-        ]).then(([satellite, rover, rocket]) => {
-            this.images.satellite = satellite;
-            this.images.rover = rover;
-            this.images.rocket = rocket;
-            this.createSpaceObjects();
-        }).catch(err => {
-            console.error("Error loading space images, using fallback objects", err);
-            this.createSpaceObjects(true); // Use fallback shapes if images fail to load
-        });
+        // Recreate stars when resizing
+        this.stars = [];
+        this.createStars();
+        
+        // Reposition space objects to keep them on screen
+        if (this.spaceObjects.length > 0) {
+            this.spaceObjects.forEach(obj => {
+                obj.x = Math.random() * this.canvas.width;
+                obj.y = Math.random() * this.canvas.height;
+                obj.trail = []; // Reset trail when resizing
+            });
+        }
     }
     
     createStars() {
-        // Create small star particles
-        const starCount = Math.floor(this.dimensions.width * this.dimensions.height / 3000);
+        // Create small background stars
+        const areaMultiplier = this.canvas.width * this.canvas.height / 100000;
+        const starCount = Math.min(200, Math.floor(areaMultiplier * 100));
         
         for (let i = 0; i < starCount; i++) {
             this.stars.push({
-                x: Math.random() * this.dimensions.width,
-                y: Math.random() * this.dimensions.height,
+                x: Math.random() * this.canvas.width,
+                y: Math.random() * this.canvas.height,
                 radius: Math.random() * 1.5 + 0.5,
                 opacity: Math.random() * 0.8 + 0.2,
                 twinkleSpeed: Math.random() * 0.03 + 0.01,
-                twinkleDirection: 1
+                twinkleDirection: Math.random() > 0.5 ? 1 : -1
             });
         }
     }
     
-    createSpaceObjects(useFallback = false) {
-        // Create 5-10 space objects
-        const objectCount = Math.floor(Math.random() * 6) + 5;
+    createSpaceObjects() {
+        // Create spacecraft, satellites, and rovers
+        const objectTypes = ['spacecraft', 'satellite', 'rover'];
+        const objectCount = 3 + Math.floor(Math.random() * 4); // 3-6 objects
         
         for (let i = 0; i < objectCount; i++) {
-            // Select object type based on probability
-            const rand = Math.random();
-            let type = this.objectTypes[0].type;
-            let cumProb = 0;
+            const type = objectTypes[Math.floor(Math.random() * objectTypes.length)];
+            const size = type === 'spacecraft' ? 30 : (type === 'satellite' ? 20 : 25);
             
-            for (const objType of this.objectTypes) {
-                cumProb += objType.probability;
-                if (rand <= cumProb) {
-                    type = objType.type;
-                    break;
-                }
-            }
-            
-            // Create space object
-            const size = Math.random() * 30 + 20;
             this.spaceObjects.push({
                 type: type,
-                x: Math.random() * this.dimensions.width,
-                y: Math.random() * this.dimensions.height,
+                x: Math.random() * this.canvas.width,
+                y: Math.random() * this.canvas.height,
                 size: size,
-                speedX: (Math.random() - 0.5) * 0.5,
-                speedY: (Math.random() - 0.5) * 0.5,
+                speedX: (Math.random() - 0.5) * 0.8,
+                speedY: (Math.random() - 0.5) * 0.8,
                 rotation: Math.random() * Math.PI * 2,
                 rotationSpeed: (Math.random() - 0.5) * 0.02,
-                useFallback: useFallback
+                trail: []
             });
         }
     }
@@ -136,66 +103,167 @@ class SpaceAnimation {
         
         if (star.opacity >= 1) {
             star.twinkleDirection = -1;
-        } else if (star.opacity <= 0.2) {
+        } else if (star.opacity <= 0.1) {
             star.twinkleDirection = 1;
         }
     }
     
     drawSpaceObject(obj) {
-        this.ctx.save();
-        this.ctx.translate(obj.x, obj.y);
-        this.ctx.rotate(obj.rotation);
-        
-        if (obj.useFallback || !this.images[obj.type]) {
-            // Draw fallback shapes if images aren't loaded
-            this.ctx.fillStyle = '#3b82f6';
-            
-            if (obj.type === 'rocket') {
-                // Draw triangular rocket
-                this.ctx.beginPath();
-                this.ctx.moveTo(0, -obj.size/2);
-                this.ctx.lineTo(obj.size/2, obj.size/2);
-                this.ctx.lineTo(-obj.size/2, obj.size/2);
-                this.ctx.closePath();
-                this.ctx.fill();
-            } else if (obj.type === 'satellite') {
-                // Draw satellite (rectangle with wings)
-                this.ctx.fillRect(-obj.size/4, -obj.size/4, obj.size/2, obj.size/2);
-                this.ctx.fillRect(-obj.size/2, 0, obj.size, obj.size/8);
-            } else {
-                // Draw rover (rectangle)
-                this.ctx.fillRect(-obj.size/2, -obj.size/4, obj.size, obj.size/2);
-                // Draw wheels
-                this.ctx.fillStyle = '#8b5cf6';
-                this.ctx.fillRect(-obj.size/2, obj.size/4, obj.size/4, obj.size/6);
-                this.ctx.fillRect(obj.size/4, obj.size/4, obj.size/4, obj.size/6);
-            }
-        } else {
-            // Draw the image
-            this.ctx.drawImage(
-                this.images[obj.type],
-                -obj.size/2,
-                -obj.size/2,
-                obj.size,
-                obj.size
-            );
-        }
-        
-        this.ctx.restore();
-        
-        // Update position for next frame
+        // Update the position first so trail is correct
         obj.x += obj.speedX;
         obj.y += obj.speedY;
         obj.rotation += obj.rotationSpeed;
         
         // Wrap around canvas edges
-        if (obj.x < -obj.size) obj.x = this.dimensions.width + obj.size;
-        if (obj.x > this.dimensions.width + obj.size) obj.x = -obj.size;
-        if (obj.y < -obj.size) obj.y = this.dimensions.height + obj.size;
-        if (obj.y > this.dimensions.height + obj.size) obj.y = -obj.size;
+        if (obj.x < -obj.size * 2) obj.x = this.canvas.width + obj.size;
+        if (obj.x > this.canvas.width + obj.size * 2) obj.x = -obj.size;
+        if (obj.y < -obj.size * 2) obj.y = this.canvas.height + obj.size;
+        if (obj.y > this.canvas.height + obj.size * 2) obj.y = -obj.size;
+        
+        // Create a trail
+        if (obj.trail.length > 15) obj.trail.shift();
+        obj.trail.push({x: obj.x, y: obj.y});
+        
+        // Draw trail
+        this.ctx.save();
+        for (let i = 0; i < obj.trail.length - 1; i++) {
+            const opacity = i / obj.trail.length;
+            this.ctx.beginPath();
+            this.ctx.moveTo(obj.trail[i].x, obj.trail[i].y);
+            this.ctx.lineTo(obj.trail[i+1].x, obj.trail[i+1].y);
+            this.ctx.strokeStyle = `rgba(59, 130, 246, ${opacity * 0.3})`;
+            this.ctx.lineWidth = opacity * 2;
+            this.ctx.stroke();
+        }
+        this.ctx.restore();
+        
+        // Draw the object
+        this.ctx.save();
+        this.ctx.translate(obj.x, obj.y);
+        this.ctx.rotate(obj.rotation);
+        
+        // Draw different space objects
+        switch(obj.type) {
+            case 'spacecraft':
+                this.drawSpacecraft(obj.size);
+                break;
+            case 'satellite':
+                this.drawSatellite(obj.size);
+                break;
+            case 'rover':
+                this.drawRover(obj.size);
+                break;
+        }
+        
+        this.ctx.restore();
     }
     
-    draw() {
+    drawSpacecraft(size) {
+        // Main body
+        this.ctx.fillStyle = '#3b82f6';
+        this.ctx.beginPath();
+        this.ctx.moveTo(size, 0);
+        this.ctx.lineTo(size/2, -size/2);
+        this.ctx.lineTo(-size/2, -size/3);
+        this.ctx.lineTo(-size, 0);
+        this.ctx.lineTo(-size/2, size/3);
+        this.ctx.lineTo(size/2, size/2);
+        this.ctx.closePath();
+        this.ctx.fill();
+        
+        // Cockpit
+        this.ctx.fillStyle = '#64ffda'; // Changed to match secondary-color
+        this.ctx.beginPath();
+        this.ctx.arc(size/2, 0, size/4, 0, Math.PI * 2);
+        this.ctx.fill();
+        
+        // Engine glow
+        this.ctx.fillStyle = 'rgba(255, 165, 0, 0.7)';
+        this.ctx.beginPath();
+        this.ctx.moveTo(-size, -size/4);
+        this.ctx.lineTo(-size * 1.5, 0);
+        this.ctx.lineTo(-size, size/4);
+        this.ctx.closePath();
+        this.ctx.fill();
+        
+        // Add highlights to spacecraft
+        this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+        this.ctx.lineWidth = 1;
+        this.ctx.beginPath();
+        this.ctx.moveTo(size/2, -size/2);
+        this.ctx.lineTo(size/2, size/2);
+        this.ctx.stroke();
+    }
+    
+    drawSatellite(size) {
+        // Main body
+        this.ctx.fillStyle = '#8b5cf6';
+        this.ctx.fillRect(-size/4, -size/4, size/2, size/2);
+        
+        // Solar panels
+        this.ctx.fillStyle = '#60a5fa';
+        this.ctx.fillRect(-size, -size/8, size/2, size/4);
+        this.ctx.fillRect(size/4, -size/8, size/2, size/4);
+        
+        // Panel details
+        this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+        this.ctx.lineWidth = 1;
+        this.ctx.beginPath();
+        this.ctx.moveTo(-size, -size/8);
+        this.ctx.lineTo(-size/2, -size/8);
+        this.ctx.stroke();
+        this.ctx.beginPath();
+        this.ctx.moveTo(-size, size/8);
+        this.ctx.lineTo(-size/2, size/8);
+        this.ctx.stroke();
+        
+        // Antenna
+        this.ctx.strokeStyle = '#f1f5f9';
+        this.ctx.lineWidth = 2;
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, -size/4);
+        this.ctx.lineTo(0, -size/2);
+        this.ctx.stroke();
+        this.ctx.beginPath();
+        this.ctx.arc(0, -size/2, size/6, 0, Math.PI, true);
+        this.ctx.stroke();
+    }
+    
+    drawRover(size) {
+        // Body
+        this.ctx.fillStyle = '#10b981';
+        this.ctx.fillRect(-size/2, -size/4, size, size/2);
+        
+        // Wheels
+        this.ctx.fillStyle = '#3b82f6';
+        this.ctx.fillRect(-size/2, size/4, size/4, size/4);
+        this.ctx.fillRect(-size/8, size/4, size/4, size/4);
+        this.ctx.fillRect(size/4, size/4, size/4, size/4);
+        
+        // Wheel details
+        this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+        this.ctx.lineWidth = 1;
+        this.ctx.beginPath();
+        this.ctx.arc(-size/2 + size/8, size/4 + size/8, size/12, 0, Math.PI * 2);
+        this.ctx.stroke();
+        this.ctx.beginPath();
+        this.ctx.arc(0, size/4 + size/8, size/12, 0, Math.PI * 2);
+        this.ctx.stroke();
+        this.ctx.beginPath();
+        this.ctx.arc(size/2 - size/8, size/4 + size/8, size/12, 0, Math.PI * 2);
+        this.ctx.stroke();
+        
+        // Antenna/Sensors
+        this.ctx.fillStyle = '#64ffda'; // Changed to match secondary-color
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, -size/4);
+        this.ctx.lineTo(-size/4, -size/2);
+        this.ctx.lineTo(size/4, -size/2);
+        this.ctx.closePath();
+        this.ctx.fill();
+    }
+    
+    animate() {
         // Clear canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
@@ -204,30 +272,23 @@ class SpaceAnimation {
         
         // Draw space objects
         this.spaceObjects.forEach(obj => this.drawSpaceObject(obj));
-    }
-    
-    animate() {
-        this.draw();
+        
+        // Continue animation loop
         requestAnimationFrame(() => this.animate());
     }
 }
 
-// Initialize the animation when DOM is loaded
+// Initialize animation when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // Create canvas for space animation
-    const heroSection = document.getElementById('particles-js');
-    if (heroSection) {
-        const canvas = document.createElement('canvas');
-        canvas.id = 'space-canvas';
-        canvas.style.position = 'absolute';
-        canvas.style.top = '0';
-        canvas.style.left = '0';
-        canvas.style.width = '100%';
-        canvas.style.height = '100%';
-        canvas.style.zIndex = '0';
-        heroSection.appendChild(canvas);
-        
-        // Initialize animation
-        new SpaceAnimation('space-canvas');
-    }
+    // Give particles.js time to initialize first
+    setTimeout(() => {
+        const particlesContainer = document.getElementById('particles-js');
+        if (particlesContainer) {
+            new SpaceAnimation();
+            console.log('Space animation initialized');
+        } else {
+            console.warn('Particles container not found for space animation');
+        }
+    }, 500);
 });
+
