@@ -1,4 +1,3 @@
-index.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -193,6 +192,14 @@ index.html
         <section id="research" class="fade-in">
             <h2><span class="highlight">03.</span> Research Experience</h2>
             <div class="research-container">
+                <div class="research-item">
+                    <div class="research-date">Feb 2025 - Present</div>
+                    <div class="research-content">
+                        <h4>Research Internship, DFKI Bremen's Robotics Innovation Center</h4>
+                        <p>Research on control algorithms for 7-DOF robotic arms, essential for spacecraft capture, debris removal, and on-orbit servicing operations.</p>
+                        <button class="details-btn" data-popup="research6">More Details</button>
+                    </div>
+                </div>
                 <div class="research-item">
                     <div class="research-date">Aug 2024 - Present</div>
                     <div class="research-content">
@@ -601,6 +608,27 @@ index.html
         </div>
     </div>
     
+    <div class="popup-overlay" id="research6">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <h4>Research Internship, DFKI Bremen's Robotics Innovation Center</h4>
+            <div class="popup-info">
+                <p><strong>Period:</strong> February 2025 – Present</p>
+                <p><strong>Lab:</strong> Robotics Innovation Center, German Research Center for Artificial Intelligence</p>
+            </div>
+            <p>Conducting research on advanced control algorithms for 7-DOF robotic arms designed for space applications. This work focuses on developing precise control systems essential for critical space operations including spacecraft capture, space debris removal, and on-orbit servicing.</p>
+            <p>The research contributes to enhancing the autonomy and reliability of robotic systems in low Earth orbit and beyond, addressing key challenges in space robotics and supporting sustainable space utilization.</p>
+            
+            <h4>Research Visualization</h4>
+            <div class="animation-container">
+                <canvas id="robotArmCanvas" width="600" height="400"></canvas>
+                <div class="animation-caption">
+                    <p>7-DOF industrial robotic arm tracking a satellite moving in a circular orbit (90° tracking demonstration)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Activity Details Popups -->
     <div class="activity-details-popup" id="activity1-details">
         <div class="popup-content">
@@ -637,5 +665,6 @@ index.html
     <script src="script.js"></script>
     <script src="projects.js"></script>
     <script src="popups.js"></script>
+    <script src="robot-arm-animation.js"></script>
 </body>
 </html>

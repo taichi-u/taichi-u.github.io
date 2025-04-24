@@ -89,6 +89,17 @@ const projects = [
         links: [
             { name: "Details", url: "#" }
         ]
+    },
+    {
+        id: 9,
+        title: "7-DOF Robot Arm Control for Space Applications",
+        description: "Research on control algorithms for 7-DOF robotic arms at DFKI Bremen's Robotics Innovation Center, essential for spacecraft capture, debris removal, and on-orbit servicing operations.",
+        image: "photo/robot-arm-control.jpg",
+        categories: ["research", "space"],
+        tags: ["Robotics", "Control Systems", "Space Technology"],
+        links: [
+            { name: "Details", url: "#" }
+        ]
     }
 ];
 
