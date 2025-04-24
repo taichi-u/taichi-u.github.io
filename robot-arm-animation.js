@@ -134,10 +134,10 @@ class RobotArmAnimation {
         this.ctx.stroke();
         this.ctx.setLineDash([]);
         
-        // Draw tracking arc - the portion we're focused on tracking
+        // Draw tracking arc - the portion we're focused on tracking (now 180° instead of 90°)
         this.ctx.beginPath();
         this.ctx.arc(this.satelliteCenter.x, this.satelliteCenter.y, this.satelliteOrbitRadius, 
-                    -Math.PI/4, Math.PI/4, false);
+                    0, Math.PI, false);
         this.ctx.strokeStyle = 'rgba(100, 255, 218, 0.6)';
         this.ctx.lineWidth = 2;
         this.ctx.stroke();
@@ -228,9 +228,9 @@ class RobotArmAnimation {
         this.ctx.font = '12px Arial';
         this.ctx.textAlign = 'left';
         
-        // Display tracking angle progress
+        // Display tracking angle progress (now out of 180° instead of 90°)
         const trackingAngleInDegrees = Math.round(this.trackingAngle * (180 / Math.PI));
-        this.ctx.fillText(`Tracking Progress: ${trackingAngleInDegrees}° / 90°`, 20, 25);
+        this.ctx.fillText(`Tracking Progress: ${trackingAngleInDegrees}° / 180°`, 20, 25);
         
         // Draw progress bar
         const progressBarWidth = 120;
@@ -242,8 +242,8 @@ class RobotArmAnimation {
         this.ctx.fillStyle = 'rgba(255,255,255,0.2)';
         this.ctx.fillRect(progressX, progressY - progressBarHeight/2, progressBarWidth, progressBarHeight);
         
-        // Progress fill
-        const completionRatio = Math.min(1, this.trackingAngle / (Math.PI/2));
+        // Progress fill (now divided by PI instead of PI/2)
+        const completionRatio = Math.min(1, this.trackingAngle / Math.PI);
         this.ctx.fillStyle = '#64ffda';
         this.ctx.fillRect(progressX, progressY - progressBarHeight/2, progressBarWidth * completionRatio, progressBarHeight);
     }
@@ -313,10 +313,10 @@ class RobotArmAnimation {
             this.angle += 0.01;
             this.trackingAngle += 0.01;
             
-            // End tracking after 90 degrees
-            if (this.trackingAngle >= Math.PI/2) {
+            // End tracking after 180 degrees instead of 90
+            if (this.trackingAngle >= Math.PI) {
                 this.trackingComplete = true;
-                this.trackingAngle = Math.PI/2; // Ensure it stops exactly at 90 degrees
+                this.trackingAngle = Math.PI; // Ensure it stops exactly at 180 degrees
             }
         }
         
@@ -328,33 +328,32 @@ class RobotArmAnimation {
         this.update();
         this.draw();
         
-        if (!this.trackingComplete || this.trackingComplete && !this.endDelay) {
-            // If tracking is complete, add a delay before restarting
-            if (this.trackingComplete && !this.endDelay) {
-                this.endDelay = true;
-                setTimeout(() => {
-                    // Reset animation
-                    this.angle = 0;
-                    this.trackingAngle = 0;
-                    this.trackingComplete = false;
-                    this.endDelay = false;
-                    
-                    // Reset arm positions
-                    this.segments = [
-                        { length: 40, angle: -Math.PI/4, color: '#3b82f6' },
-                        { length: 50, angle: Math.PI/6, color: '#3b82f6' },
-                        { length: 45, angle: Math.PI/6, color: '#3b82f6' },
-                        { length: 40, angle: Math.PI/8, color: '#60a5fa' },
-                        { length: 35, angle: Math.PI/8, color: '#60a5fa' },
-                        { length: 30, angle: Math.PI/10, color: '#93c5fd' },
-                        { length: 25, angle: 0, color: '#93c5fd' }
-                    ];
-                    this.calculateJointPositions();
-                }, 2000); // 2 second delay before resetting
-            }
-            
-            this.animationFrame = requestAnimationFrame(this.animate.bind(this));
+        // Always continue animation
+        if (this.trackingComplete && !this.endDelay) {
+            this.endDelay = true;
+            setTimeout(() => {
+                // Reset animation
+                this.angle = 0;
+                this.trackingAngle = 0;
+                this.trackingComplete = false;
+                this.endDelay = false;
+                
+                // Reset arm positions
+                this.segments = [
+                    { length: 40, angle: -Math.PI/4, color: '#3b82f6' },
+                    { length: 50, angle: Math.PI/6, color: '#3b82f6' },
+                    { length: 45, angle: Math.PI/6, color: '#3b82f6' },
+                    { length: 40, angle: Math.PI/8, color: '#60a5fa' },
+                    { length: 35, angle: Math.PI/8, color: '#60a5fa' },
+                    { length: 30, angle: Math.PI/10, color: '#93c5fd' },
+                    { length: 25, angle: 0, color: '#93c5fd' }
+                ];
+                this.calculateJointPositions();
+            }, 1000); // Reduced delay to 1 second for quicker restart
         }
+        
+        // Always continue the animation loop
+        this.animationFrame = requestAnimationFrame(this.animate.bind(this));
     }
     
     start() {

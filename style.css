@@ -2389,6 +2389,123 @@ section::after {
     margin-left: 8px;
 }
 
+/* Media Appearances Section */
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.media-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: var(--transition);
+    border: 1px solid var(--panel-border);
+    position: relative;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.media-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: var(--transition);
+}
+
+.media-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--glow);
+    border-color: var(--accent);
+}
+
+.media-card:hover::after {
+    transform: scaleX(1);
+}
+
+.media-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.media-content h4 {
+    color: var(--text);
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.media-date {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.media-content p {
+    margin-bottom: 15px;
+    color: var(--text-muted);
+}
+
+.media-link {
+    color: var(--accent-bright);
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+    margin-top: auto;
+    width: fit-content;
+    padding: 5px 0;
+    position: relative;
+}
+
+.media-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--accent-bright);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.media-link:hover {
+    color: var(--secondary-color);
+}
+
+.media-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+    background-color: var(--secondary-color);
+}
+
+.media-note {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-style: italic;
+    margin-top: auto;
+}
+
+@media (max-width: 768px) {
+    .media-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Media queries for responsive design */
 @media (max-width: 768px) {
     .stat-item {
