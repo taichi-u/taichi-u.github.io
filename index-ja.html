@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>内田太一 - 航空宇宙工学研究者</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body { font-family: 'Noto Sans JP', 'Inter', sans-serif; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">内田 太一</div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#about">自己紹介</a></li>
+                <li><a href="#education">学歴・職歴</a></li>
+                <li><a href="#research">研究経験</a></li>
+                <li><a href="#projects">プロジェクト</a></li>
+                <li><a href="#achievements">受賞歴</a></li>
+                <li><a href="#activities">活動</a></li>
+                <li><a href="#media">メディア</a></li>
+                <li><a href="cv-ja.html">履歴書</a></li>
+                <li><a href="#contact">連絡先</a></li>
+                <li><a href="index.html" class="lang-switch">EN</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="content">
+                <h1>内田 太一</h1>
+                <div class="typed-text-wrapper">
+                    <span id="typed-text"></span>
+                </div>
+                <p>京都大学工学部物理工学科航空宇宙工学コース在籍。宇宙機軌道設計、宇宙ロボティクス、ミッション設計を専門とする。</p>
+                <div class="hero-buttons">
+                    <a href="#research" class="btn">研究を見る</a>
+                    <a href="cv-ja.html" class="btn btn-secondary"><i class="fas fa-file-pdf"></i> 履歴書をダウンロード</a>
+                </div>
+            </div>
+            <div id="particles-js"></div>
+        </section>
+        
+        <section id="about" class="fade-in">
+            <h2><span class="section-number">01.</span> 自己紹介</h2>
+            <div class="profile">
+                <img src="photo/top_selfi.jpg" alt="内田太一" class="profile-image">
+                <div class="profile-content">
+                    <p>京都大学工学部物理工学科航空宇宙工学コース3回生です。研究分野は<strong>宇宙機軌道力学</strong>、<strong>制御理論</strong>、<strong>宇宙ロボティクス</strong>です。</p>
+                    <p>現在、<strong>JAXA宇宙科学研究所(ISAS)</strong>で外惑星探査ミッション設計の研究、<strong>京都大学</strong>で月面ロボットの強化学習に関する研究に従事しています。また、<strong>ドイツ人工知能研究センター(DFKI)ブレーメン</strong>と<strong>ジョージア工科大学(USA)</strong>でも研究フェローを経験しました。</p>
+                    <div class="quick-stats">
+                        <div class="stat-item">
+                            <div class="stat-icon"><i class="fa-solid fa-flask"></i></div>
+                            <div class="stat-info">
+                                <h3>5年以上</h3>
+                                <span>研究経験</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon"><i class="fa-solid fa-globe"></i></div>
+                            <div class="stat-info">
+                                <h3>4カ国</h3>
+                                <span>国際研究経験</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon"><i class="fa-solid fa-award"></i></div>
+                            <div class="stat-info">
+                                <h3>多数</h3>
+                                <span>学術賞受賞</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hobbies-section">
+                <h3><i class="fas fa-heart"></i> 趣味・関心</h3>
+                <div class="hobbies-grid">
+                    <div class="hobby-item">
+                        <div class="hobby-icon"><i class="fas fa-running"></i></div>
+                        <h4>ランニング</h4>
+                    </div>
+                    <div class="hobby-item">
+                        <div class="hobby-icon"><i class="fas fa-dumbbell"></i></div>
+                        <h4>筋トレ</h4>
+                    </div>
+                    <div class="hobby-item">
+                        <div class="hobby-icon"><i class="fas fa-utensils"></i></div>
+                        <h4>料理</h4>
+                    </div>
+                    <div class="hobby-item">
+                        <div class="hobby-icon"><i class="fas fa-guitar"></i></div>
+                        <h4>ウクレレ</h4>
+                    </div>
+                    <div class="hobby-item">
+                        <div class="hobby-icon"><i class="fas fa-water"></i></div>
+                        <h4>ダイビング</h4>
+                    </div>
+                    <div class="hobby-item">
+                        <div class="hobby-icon"><i class="fas fa-plane-departure"></i></div>
+                        <h4>旅行</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="education" class="fade-in">
+            <h2><span class="section-number">02.</span> 学歴・職歴</h2>
+            <div class="education-work-container">
+                <div class="education-column">
+                    <h3 class="section-subtitle"><i class="fas fa-graduation-cap"></i> 学歴</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">2023年4月 - 現在</div>
+                            <div class="timeline-content">
+                                <h4>京都大学</h4>
+                                <p>工学部物理工学科 航空宇宙工学コース</p>
+                                <p>専門：宇宙機軌道力学、制御理論、宇宙ロボティクス</p>
+                                <span class="timeline-status">学部3回生</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">2020年4月 - 2023年3月</div>
+                            <div class="timeline-content">
+                                <h4>聖光学院高等学校</h4>
+                                <p>神奈川県横浜市</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">2018年 - 2020年</div>
+                            <div class="timeline-content">
+                                <h4>Pathways School Gurgaon</h4>
+                                <p>IB Middle Years Program（交換留学生）、インド</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">2017年4月 - 2018年3月</div>
+                            <div class="timeline-content">
+                                <h4>聖光学院中学校</h4>
+                                <p>神奈川県横浜市</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="section-subtitle"><i class="fas fa-certificate"></i> 資格</h3>
+                    <div class="qualifications-grid">
+                        <div class="qualification-item">
+                            <div class="qualification-icon"><i class="fa-solid fa-language"></i></div>
+                            <div class="qualification-details">
+                                <h4>TOEFL iBT 100点</h4>
+                                <p>2022年5月</p>
+                            </div>
+                        </div>
+                        <div class="qualification-item">
+                            <div class="qualification-icon"><i class="fa-solid fa-certificate"></i></div>
+                            <div class="qualification-details">
+                                <h4>英検1級</h4>
+                                <p>2021年7月</p>
+                            </div>
+                        </div>
+                        <div class="qualification-item">
+                            <div class="qualification-icon"><i class="fa-solid fa-rocket"></i></div>
+                            <div class="qualification-details">
+                                <h4>日本モデルロケットライセンス4級</h4>
+                                <p>2021年7月</p>
+                            </div>
+                        </div>
+                        <div class="qualification-item">
+                            <div class="qualification-icon"><i class="fa-solid fa-water"></i></div>
+                            <div class="qualification-details">
+                                <h4>NAUIオープンウォーターダイバー</h4>
+                                <p>2023年10月</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="work-column">
+                    <h3 class="section-subtitle"><i class="fas fa-briefcase"></i> 職歴</h3>
+                    <div class="timeline work-timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">2025年3月 - 現在</div>
+                            <div class="timeline-content">
+                                <h4>ソフトウェアエンジニア インターン</h4>
+                                <p>Tleez Inc. - ロシア語学習向けNLP開発</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">2023年 - 現在</div>
+                            <div class="timeline-content">
+                                <h4>数学講師</h4>
+                                <p>学習塾鉄緑会 - 高校生向け数学指導</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">2025年11月</div>
+                            <div class="timeline-content">
+                                <h4>Startup Weekend Space Osaka</h4>
+                                <p>チームリーダー - 準優勝</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">2018年</div>
+                            <div class="timeline-content">
+                                <h4>「横浜バナナ」プロジェクト</h4>
+                                <p>創設者 - 1日で3,800本のバナナを販売</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="section-subtitle"><i class="fas fa-code"></i> 技術スキル</h3>
+                    <div class="skills-container">
+                        <div class="skill-category">
+                            <h4><i class="fa-solid fa-code"></i> プログラミング</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">C++</span>
+                                <span class="skill-tag">MATLAB</span>
+                                <span class="skill-tag">R</span>
+                                <span class="skill-tag">Julia</span>
+                                <span class="skill-tag">Go</span>
+                            </div>
+                        </div>
+                        <div class="skill-category">
+                            <h4><i class="fa-solid fa-robot"></i> ロボティクス・シミュレーション</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">ROS</span>
+                                <span class="skill-tag">Drake</span>
+                                <span class="skill-tag">Pinocchio</span>
+                                <span class="skill-tag">Isaac Lab</span>
+                                <span class="skill-tag">STK</span>
+                            </div>
+                        </div>
+                        <div class="skill-category">
+                            <h4><i class="fa-solid fa-flask"></i> 研究ツール</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">PCR</span>
+                                <span class="skill-tag">メタゲノム解析</span>
+                                <span class="skill-tag">Linux</span>
+                                <span class="skill-tag">Arduino</span>
+                            </div>
+                        </div>
+                        <div class="skill-category">
+                            <h4><i class="fa-solid fa-earth-asia"></i> 言語</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">日本語（母語）</span>
+                                <span class="skill-tag">英語（堪能）</span>
+                                <span class="skill-tag">ロシア語（学習中）</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="research" class="fade-in">
+            <h2><span class="section-number">03.</span> 研究経験</h2>
+            <div class="research-container">
+                <div class="research-item">
+                    <div class="research-date">2025年8月 - 現在</div>
+                    <div class="research-content">
+                        <h4>研究インターン（ミッション設計） - JAXA宇宙科学研究所</h4>
+                        <p><strong>外惑星探査</strong>ミッションの軌道設計・最適化を担当。惑星間遷移軌道の解析に宇宙機軌道力学の原理を適用。尾崎直哉准教授の指導のもと研究を遂行。</p>
+                        <button class="details-btn" data-popup="research-jaxa-ja">詳細を見る</button>
+                    </div>
+                </div>
+                <div class="research-item">
+                    <div class="research-date">2025年10月 - 現在</div>
+                    <div class="research-content">
+                        <h4>リサーチアシスタント（宇宙ロボティクス/強化学習） - 京都大学</h4>
+                        <p>月面ロボットの<strong>強化学習</strong>のための<strong>報酬関数</strong>と<strong>カリキュラム学習</strong>の設計。8自由度アーム・8自由度脚を持つハイブリッド三輪脚ロボットの制御アルゴリズム開発。山森聡助教の指導のもと研究。</p>
+                        <button class="details-btn" data-popup="research-kyoto-rl-ja">詳細を見る</button>
+                    </div>
+                </div>
+                <div class="research-item">
+                    <div class="research-date">2025年2月 - 4月</div>
+                    <div class="research-content">
+                        <h4>研究フェロー（宇宙ロボティクス） - DFKIブレーメン</h4>
+                        <p>宇宙デブリ捕獲のための<strong>7自由度ロボットアーム</strong>の制御アルゴリズムを開発。Drakeを用いた物理シミュレーション、インピーダンス/位置制御器を実装。<strong>中谷財団奨学生</strong>（全額支給）として選抜。</p>
+                        <button class="details-btn" data-popup="research6-ja">詳細を見る</button>
+                    </div>
+                </div>
+                <div class="research-item">
+                    <div class="research-date">2024年8月 - 現在</div>
+                    <div class="research-content">
+                        <h4>研究フェロー（バイオインフォマティクス） - ジョージア工科大学</h4>
+                        <p>重金属汚染物質の安定化に向けた<strong>メタゲノム解析</strong>をPython、R、Linuxを用いて実施。DiChristina研究室にてin silicoデータ処理・統計解析を遂行。<strong>中谷財団奨学生</strong>（全額支給）として選抜。</p>
+                        <button class="details-btn" data-popup="research1-ja">詳細を見る</button>
+                    </div>
+                </div>
+                <div class="research-item">
+                    <div class="research-date">2023年9月 - 2024年8月</div>
+                    <div class="research-content">
+                        <h4>研究インターン（微生物学/化学） - 京都大学</h4>
+                        <p>跡見研究室（工学研究科）にて、水素・酸素代謝経路を持つ微生物に関するウェットラボ研究を実施。</p>
+                        <button class="details-btn" data-popup="research2-ja">詳細を見る</button>
+                    </div>
+                </div>
+                <div class="research-item">
+                    <div class="research-date">2020年12月 - 2023年3月</div>
+                    <div class="research-content">
+                        <h4>研究インターン（宇宙生物学） - 東京工業大学</h4>
+                        <p>地球生命研究所(ELSI)にて、岩塩中の<strong>極限環境微生物（好塩菌）</strong>に関する3年間のウェットラボ研究を実施。PCR、電気泳動、シーケンス解析を行い、PhyMLを用いた<strong>系統樹</strong>を構築。藤島皓介准教授の指導のもと、JST助成で研究を遂行。</p>
+                        <button class="details-btn" data-popup="research3-ja">詳細を見る</button>
+                    </div>
+                </div>
+                <div class="research-item">
+                    <div class="research-date">2021年8月 - 2022年2月</div>
+                    <div class="research-content">
+                        <h4>学生研究員（隕石分析） - 聖光学院高等学校</h4>
+                        <p><strong>電子顕微鏡(SEM)</strong>を操作し隕石の組成分析を実施。イギリスの高校・大学教員との国際共同研究に参加。</p>
+                        <button class="details-btn" data-popup="research5-ja">詳細を見る</button>
+                    </div>
+                </div>
+                <div class="research-item">
+                    <div class="research-date">2020年8月 - 2021年8月</div>
+                    <div class="research-content">
+                        <h4>個人研究（航空宇宙工学） - 聖光学院高等学校</h4>
+                        <p>新規<strong>人工重力</strong>発生機構を試作し、その有効性を評価。リアルタイムデータ取得のために<strong>Arduino搭載力センサー</strong>を統合。研究助成金を獲得して実施。</p>
+                        <button class="details-btn" data-popup="research4-ja">詳細を見る</button>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="section-subtitle"><i class="fas fa-microphone"></i> 学会発表</h3>
+            <div class="conference-grid">
+                <div class="conference-item">
+                    <span>2023年11月</span>
+                    <h4>第69回日本宇宙航空環境医学会大会</h4>
+                    <p>口頭・ポスター発表：日本における宇宙医学教育の現状と展望</p>
+                </div>
+                <div class="conference-item">
+                    <span>2022年5月</span>
+                    <h4>NASA x AGI x 高校生交流セッション</h4>
+                    <p>オンライン発表：世界の岩塩からの極限環境微生物の分離同定</p>
+                </div>
+                <div class="conference-item">
+                    <span>2022年5月</span>
+                    <h4>日本地球惑星科学連合（JpGU）2022年大会</h4>
+                    <p>ポスター発表：極限環境微生物研究</p>
+                </div>
+                <div class="conference-item">
+                    <span>2022年3月</span>
+                    <h4>日本水産学会</h4>
+                    <p>オンライン発表：極限環境微生物研究</p>
+                </div>
+                <div class="conference-item">
+                    <span>2022年1月</span>
+                    <h4>International Research for School</h4>
+                    <p>オンライン発表：電子顕微鏡による隕石組成分析</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="projects" class="fade-in">
+            <h2><span class="section-number">04.</span> プロジェクト</h2>
+            <div class="projects-filter">
+                <button class="filter-btn active" data-filter="all">すべて</button>
+                <button class="filter-btn" data-filter="robotics">ロボティクス</button>
+                <button class="filter-btn" data-filter="space">宇宙</button>
+                <button class="filter-btn" data-filter="research">研究</button>
+            </div>
+            <div class="projects-container" id="projects-container">
+                <!-- プロジェクトは動的に読み込まれます -->
+            </div>
+        </section>
+        
+        <section id="achievements" class="fade-in">
+            <h2><span class="section-number">05.</span> 受賞歴</h2>
+            <div class="awards-timeline">
+                <div class="award-item">
+                    <div class="award-year">2024年3月</div>
+                    <div class="award-content">
+                        <i class="award-icon fas fa-trophy"></i>
+                        <div>
+                            <h4>中谷財団奨学生（全額支給）</h4>
+                            <p>国際研究奨学金プログラムに選抜</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="award-item">
+                    <div class="award-year">2025年11月</div>
+                    <div class="award-content">
+                        <i class="award-icon fas fa-medal"></i>
+                        <div>
+                            <h4>Startup Weekend Space Osaka - 準優勝</h4>
+                            <p>チームリーダーとして宇宙ビジネスプランを開発・発表</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="award-item">
+                    <div class="award-year">2022年5月</div>
+                    <div class="award-content">
+                        <i class="award-icon fas fa-medal"></i>
+                        <div>
+                            <h4>JpGU高校生セッション優秀賞</h4>
+                            <p>好塩古細菌研究</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="award-item">
+                    <div class="award-year">2022年3月</div>
+                    <div class="award-content">
+                        <i class="award-icon fas fa-medal"></i>
+                        <div>
+                            <h4>日本水産学会高校生優秀発表賞</h4>
+                            <p>学術的優秀性が評価される</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="award-item">
+                    <div class="award-year">2021年12月</div>
+                    <div class="award-content">
+                        <i class="award-icon fas fa-rocket"></i>
+                        <div>
+                            <h4>知能化水ロケット競技会 ミッション賞</h4>
+                            <p>全ミッション達成</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="award-item">
+                    <div class="award-year">2021年8月</div>
+                    <div class="award-content">
+                        <i class="award-icon fas fa-star"></i>
+                        <div>
+                            <h4>SSH生徒研究発表会 優秀賞</h4>
+                            <p>人工重力研究</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="show-more-btn" id="show-more-awards">
+                さらに表示 <i class="fas fa-chevron-down"></i>
+            </button>
+            
+            <div class="hidden-content" id="more-awards">
+                <div class="awards-timeline">
+                    <div class="award-item">
+                        <div class="award-year">2022年2月</div>
+                        <div class="award-content">
+                            <i class="award-icon fas fa-leaf"></i>
+                            <div>
+                                <h4>SDGs探究アワード（日本旅行賞）</h4>
+                                <p>持続可能な開発に関する研究</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-year">2019年</div>
+                        <div class="award-content">
+                            <i class="award-icon fas fa-running"></i>
+                            <div>
+                                <h4>ISSO全国大会 2019</h4>
+                                <p>1位：800m, 1500m, 3000m / 2位：4×100m, 4×400mリレー</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-year">2020年</div>
+                        <div class="award-content">
+                            <i class="award-icon fas fa-running"></i>
+                            <div>
+                                <h4>体育祭 個人総合優勝</h4>
+                                <p>400m 3位、800m 1位、1500m 1位</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="activities" class="fade-in">
+            <h2><span class="section-number">06.</span> 活動</h2>
+            
+            <div class="activities-grid">
+                <div class="activity-card">
+                    <div class="activity-icon"><i class="fa-solid fa-satellite"></i></div>
+                    <div class="activity-content">
+                        <h4>第71回日本宇宙航空環境医学会 運営スタッフ</h4>
+                        <p>宇宙医学シンポジウムの運営をサポート（2025年11月）</p>
+                    </div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-icon"><i class="fa-solid fa-microscope"></i></div>
+                    <div class="activity-content">
+                        <h4>京都大学宇宙医学スタディツアー</h4>
+                        <p>大学生向けスタディツアーの企画・運営（2023年8月）</p>
+                    </div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-icon"><i class="fa-solid fa-moon"></i></div>
+                    <div class="activity-content">
+                        <h4>第7回グローバルムーンビレッジワークショップ</h4>
+                        <p>国際シンポジウム運営スタッフ（2023年12月）</p>
+                    </div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-icon"><i class="fa-solid fa-rocket"></i></div>
+                    <div class="activity-content">
+                        <h4>日本学生宇宙フォーラム</h4>
+                        <p>創設・企画運営、100名以上が参加（2021年6月）</p>
+                    </div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-icon"><i class="fa-solid fa-seedling"></i></div>
+                    <div class="activity-content">
+                        <h4>伝統的稲作</h4>
+                        <p>12年以上にわたる有機稲作への参加（2012年〜現在）</p>
+                    </div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-icon"><i class="fa-solid fa-fist-raised"></i></div>
+                    <div class="activity-content">
+                        <h4>少林寺拳法</h4>
+                        <p>全国中学生大会出場（2012年〜現在）</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="show-more-btn" id="show-more-activities">
+                さらに表示 <i class="fas fa-chevron-down"></i>
+            </button>
+            
+            <div class="hidden-content" id="more-activities">
+                <div class="activities-grid">
+                    <div class="activity-card">
+                        <div class="activity-icon"><i class="fa-solid fa-globe"></i></div>
+                        <div class="activity-content">
+                            <h4>国際宇宙技術ディスカッション</h4>
+                            <p>日印学生交流会議の企画・運営（2019年）</p>
+                        </div>
+                    </div>
+                    <div class="activity-card">
+                        <div class="activity-icon"><i class="fa-solid fa-utensils"></i></div>
+                        <div class="activity-content">
+                            <h4>聖光SDGs食アンバサダー</h4>
+                            <p>持続可能な食に関するボランティア活動を創設（2021年）</p>
+                        </div>
+                    </div>
+                    <div class="activity-card">
+                        <div class="activity-icon"><i class="fa-solid fa-flask-vial"></i></div>
+                        <div class="activity-content">
+                            <h4>科学部サミット</h4>
+                            <p>創設・企画運営 - 複数校の科学部を連携（2021年2月）</p>
+                        </div>
+                    </div>
+                    <div class="activity-card">
+                        <div class="activity-icon"><i class="fa-solid fa-landmark"></i></div>
+                        <div class="activity-content">
+                            <h4>議員インターン（ICAS）</h4>
+                            <p>東京都議会（2021年8月）</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="section-subtitle"><i class="fas fa-users"></i> 所属団体</h3>
+            <div class="affiliations-grid">
+                <div class="affiliation-item">
+                    <div class="affiliation-icon"><i class="fas fa-rocket"></i></div>
+                    <div class="affiliation-content">
+                        <h4>宇宙医学若手コミュニティ</h4>
+                        <p>2023年3月より所属</p>
+                    </div>
+                </div>
+                <div class="affiliation-item">
+                    <div class="affiliation-icon"><i class="fas fa-moon"></i></div>
+                    <div class="affiliation-content">
+                        <h4>Moon Village Association 勉強会</h4>
+                        <p>2020年7月より所属</p>
+                    </div>
+                </div>
+                <div class="affiliation-item">
+                    <div class="affiliation-icon"><i class="fas fa-running"></i></div>
+                    <div class="affiliation-content">
+                        <h4>京都大学医学部陸上競技部</h4>
+                        <p>中長距離走者</p>
+                    </div>
+                </div>
+                <div class="affiliation-item">
+                    <div class="affiliation-icon"><i class="fas fa-microchip"></i></div>
+                    <div class="affiliation-content">
+                        <h4>京都大学マイコンクラブ</h4>
+                        <p>2023年10月より所属</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="media" class="fade-in">
+            <h2><span class="section-number">07.</span> メディア掲載</h2>
+            <div class="media-grid">
+                <div class="media-card">
+                    <div class="media-content">
+                        <h4>週刊朝日</h4>
+                        <div class="media-date">2023年3月</div>
+                        <p>3月24日号にインタビュー掲載</p>
+                        <span class="media-note">紙面掲載</span>
+                    </div>
+                </div>
+                <div class="media-card">
+                    <div class="media-content">
+                        <h4>TBSラジオ「High School A go go」</h4>
+                        <div class="media-date">2021年11月</div>
+                        <p>11月1日・8日にゲスト出演</p>
+                        <a href="https://www.tbsradio.jp/articles/detail/?id=46518" class="media-link" target="_blank">聴く <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+                <div class="media-card">
+                    <div class="media-content">
+                        <h4>毎日新聞「15歳のニュース」</h4>
+                        <div class="media-date">2021年9月</div>
+                        <p>インタビュー掲載</p>
+                        <a href="https://mainichi.jp/maisho15/articles/20210918/dbg/048/040/004000c" class="media-link" target="_blank">記事を読む <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+                <div class="media-card">
+                    <div class="media-content">
+                        <h4>宇宙フリーマガジンTELSTAR</h4>
+                        <div class="media-date">2022年5月</div>
+                        <p>記事寄稿</p>
+                        <a href="https://spacemgz-telstar.com/article/feature/a332" class="media-link" target="_blank">記事を読む <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+                <div class="media-card">
+                    <div class="media-content">
+                        <h4>高校生新聞</h4>
+                        <div class="media-date">2021年1月</div>
+                        <p>インタビュー掲載</p>
+                        <a href="https://www.koukouseishinbun.jp/articles/-/7255" class="media-link" target="_blank">記事を読む <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+                <div class="media-card">
+                    <div class="media-content">
+                        <h4>神奈川新聞H!P</h4>
+                        <div class="media-date">2019年9月</div>
+                        <p>インタビュー掲載</p>
+                        <a href="http://www.kanagawa-shimbun.jp/hip/" class="media-link" target="_blank">見る <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="fade-in">
+            <h2><span class="section-number">08.</span> 連絡先</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <h4>メール</h4>
+                            <a href="mailto:uchida.taichi.84f@st.kyoto-u.ac.jp">uchida.taichi.84f@st.kyoto-u.ac.jp</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fab fa-github"></i></div>
+                        <div>
+                            <h4>GitHub</h4>
+                            <a href="https://github.com/taichi-u" target="_blank">github.com/taichi-u</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
+                        <div>
+                            <h4>LinkedIn</h4>
+                            <a href="https://www.linkedin.com/in/taichi-uchida" target="_blank">linkedin.com/in/taichi-uchida</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <h4>所在地</h4>
+                            <p>京都府</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="social-links">
+            <a href="https://github.com/taichi-u" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/taichi-uchida" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://x.com/Ukulele_run" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
+        <p>&copy; 2025 内田太一. All rights reserved.</p>
+    </footer>
+
+    <!-- 研究ポップアップ（日本語版） -->
+    <div class="popup-overlay" id="research-jaxa-ja">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <h4>研究インターン（ミッション設計） - JAXA宇宙科学研究所</h4>
+            <div class="popup-info">
+                <p><strong>期間：</strong>2025年8月〜現在</p>
+                <p><strong>所在地：</strong>JAXA宇宙科学研究所（ISAS）、神奈川県</p>
+                <p><strong>指導教員：</strong>尾崎直哉 准教授</p>
+            </div>
+            <p>将来の<strong>外惑星探査</strong>ミッションのための軌道設計・最適化を担当。惑星間遷移軌道、重力アシスト、ミッション設計最適化の解析に宇宙機軌道力学の原理を適用。</p>
+            <p>この研究は、外部太陽系へのミッションに焦点を当てた、日本の長期宇宙探査戦略に貢献しています。</p>
+        </div>
+    </div>
+    
+    <div class="popup-overlay" id="research-kyoto-rl-ja">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <h4>リサーチアシスタント（宇宙ロボティクス/強化学習） - 京都大学</h4>
+            <div class="popup-info">
+                <p><strong>期間：</strong>2025年10月〜現在</p>
+                <p><strong>研究室：</strong>Learning Machines Group、情報学研究科</p>
+                <p><strong>指導教員：</strong>山森聡 助教</p>
+            </div>
+            <p>月面ロボットの<strong>強化学習（RL）</strong>のための<strong>報酬関数</strong>と<strong>カリキュラム学習</strong>戦略の設計。</p>
+            <p>8自由度アームと8自由度脚を持つハイブリッド<strong>三輪脚ロボット</strong>の制御アルゴリズム開発。月面の困難な地形での自律的な移動・操作を可能にすることを目指しています。</p>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="research6-ja">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <h4>研究フェロー（宇宙ロボティクス） - DFKIブレーメン</h4>
+            <div class="popup-info">
+                <p><strong>期間：</strong>2025年2月〜4月</p>
+                <p><strong>研究所：</strong>ドイツ人工知能研究センター（DFKI）ロボティクスイノベーションセンター</p>
+                <p><strong>所在地：</strong>ドイツ・ブレーメン</p>
+                <p><strong>助成：</strong>中谷財団奨学金（全額支給）</p>
+            </div>
+            <p>宇宙デブリ捕獲のための<strong>7自由度ロボットアーム</strong>の制御アルゴリズムを開発。Drakeを用いた物理シミュレーション、インピーダンス/位置制御器を実装。</p>
+            <p>この研究は、軌道上デブリの自律的な捕獲・除去を可能にすることで、持続可能な宇宙利用に貢献しています。</p>
+            <div class="animation-container">
+                <canvas id="robotArmCanvas" width="600" height="400"></canvas>
+                <div class="animation-caption">7自由度ロボットアーム追跡シミュレーション</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="research1-ja">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <h4>研究フェロー（バイオインフォマティクス） - ジョージア工科大学</h4>
+            <div class="popup-info">
+                <p><strong>期間：</strong>2024年8月4日〜9月23日</p>
+                <p><strong>研究室：</strong>DiChristina研究室、生物科学部</p>
+                <p><strong>助成：</strong>中谷財団、米国エネルギー省（全額支給）</p>
+            </div>
+            <p>重金属汚染物質の安定化に向けた<strong>メタゲノム解析</strong>を実施。R、Linux、Pythonを用いたin silico研究を行い、重金属修復に関与する細菌群集を解析する計算手法を適用。</p>
+            <p>大規模シーケンスデータセットを処理し、バイオレメディエーション応用の可能性を持つ微生物群集を同定するための解析パイプラインを開発。</p>
+        </div>
+    </div>
+    
+    <div class="popup-overlay" id="research2-ja">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <h4>研究インターン（微生物学/化学） - 京都大学</h4>
+            <div class="popup-info">
+                <p><strong>期間：</strong>2023年9月〜2024年8月</p>
+                <p><strong>研究室：</strong>跡見研究室、工学研究科</p>
+            </div>
+            <p>水素・酸素代謝経路を持つ微生物に関するウェットラボ研究を実施。水素をエネルギー源として効果的に利用できる微生物群集の研究。</p>
+            <p>この研究は、持続可能なエネルギーシステムや宇宙探査用生命維持システムへの応用の可能性を持っています。</p>
+        </div>
+    </div>
+    
+    <div class="popup-overlay" id="research3-ja">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <h4>研究インターン（宇宙生物学） - 東京工業大学</h4>
+            <div class="popup-info">
+                <p><strong>期間：</strong>2020年12月〜2023年3月</p>
+                <p><strong>研究所：</strong>地球生命研究所（ELSI）</p>
+                <p><strong>指導教員：</strong>藤島皓介 准教授</p>
+                <p><strong>助成：</strong>科学技術振興機構（JST）</p>
+            </div>
+            <p>「特定の炭素源を用いた世界各地の岩塩からの<strong>極限環境好塩菌</strong>の分離同定」に関する3年間のウェットラボ研究を実施。</p>
+            <p>PCR、電気泳動、シーケンス解析を実施し、PhyMLを用いた<strong>系統樹</strong>を構築。この研究は極限環境微生物の理解と宇宙生物学への示唆に貢献しました。</p>
+        </div>
+    </div>
+    
+    <div class="popup-overlay" id="research4-ja">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <h4>個人研究（航空宇宙工学）</h4>
+            <div class="popup-info">
+                <p><strong>期間：</strong>2020年8月〜2021年8月</p>
+                <p><strong>所在地：</strong>聖光学院高等学校</p>
+                <p><strong>助成：</strong>聖光学院SSHプログラム（JST）</p>
+            </div>
+            <p>新規<strong>人工重力</strong>発生機構を試作し、その有効性を評価。精密測定のためにArduinoマイコンを用いた力センサーを設計・実装。</p>
+            <p>この研究は長期宇宙滞在の根本的な課題に取り組み、SSH生徒研究発表会で表彰されました。</p>
+        </div>
+    </div>
+    
+    <div class="popup-overlay" id="research5-ja">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <h4>学生研究員（隕石分析）</h4>
+            <div class="popup-info">
+                <p><strong>期間：</strong>2021年8月〜2022年2月</p>
+                <p><strong>所在地：</strong>聖光学院高等学校</p>
+            </div>
+            <p><strong>電子顕微鏡（SEM）</strong>を操作して隕石サンプルを分析。イギリスの高校・大学教員との国際共同研究に参加。</p>
+            <p>先進的な分析技術と国際科学協力の経験を積みました。</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="script-ja.js"></script>
+    <script src="projects-ja.js"></script>
+    <script src="popups.js"></script>
+    <script src="robot-arm-animation.js"></script>
+</body>
+</html>

@@ -1292,6 +1292,21 @@ footer p {
     transform: translateY(0);
 }
 
+/* Language Switch Button */
+.lang-switch {
+    padding: 0.25rem 0.75rem !important;
+    border: 1px solid var(--accent) !important;
+    border-radius: var(--border-radius) !important;
+    font-size: 0.8125rem !important;
+    color: var(--accent-light) !important;
+    transition: var(--transition);
+}
+
+.lang-switch:hover {
+    background: var(--accent-muted) !important;
+    color: var(--text) !important;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .education-work-container {
