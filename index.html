@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taichi Uchida - Portfolio</title>
+    <title>Taichi Uchida - Aerospace Engineering Researcher</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -23,33 +23,38 @@
                 <li><a href="#education">Education</a></li>
                 <li><a href="#research">Research</a></li>
                 <li><a href="#projects">Projects</a></li>
-                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#achievements">Awards</a></li>
                 <li><a href="#activities">Activities</a></li>
                 <li><a href="#media">Media</a></li>
+                <li><a href="cv.html">CV</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
+
     <main>
         <section id="hero">
             <div class="content">
-                <h1>Hi, I'm Taichi Uchida</h1>
+                <h1>Taichi Uchida</h1>
                 <div class="typed-text-wrapper">
                     <span id="typed-text"></span>
                 </div>
-                <p>Exploring the intersection of aerospace engineering, robotics, and innovation.</p>
-                <a href="#research" class="btn">View My Research</a>
+                <p>Aerospace Engineering Student at Kyoto University specializing in Astrodynamics, Space Robotics, and Mission Design.</p>
+                <div class="hero-buttons">
+                    <a href="#research" class="btn">View Research</a>
+                    <a href="cv.html" class="btn btn-secondary"><i class="fas fa-file-pdf"></i> Download CV</a>
+                </div>
             </div>
             <div id="particles-js"></div>
         </section>
         
         <section id="about" class="fade-in">
-            <h2><span class="highlight">01.</span> About Me</h2>
+            <h2><span class="section-number">01.</span> About Me</h2>
             <div class="profile">
                 <img src="photo/top_selfi.jpg" alt="Taichi Uchida" class="profile-image">
-                <div>
-                    <p>Hello! I'm Taichi Uchida, a student at Kyoto University studying aerospace engineering with a passion for satellite control, mission design, and robotics for space exploration.</p>
-                    <p>With a background in research and a keen interest in innovative technologies, I'm constantly seeking opportunities to apply my knowledge to meaningful projects that contribute to space exploration and scientific advancement.</p>
+                <div class="profile-content">
+                    <p>I am a third-year undergraduate student at Kyoto University, majoring in Aeronautics and Astronautics in the Department of Engineering Science. My research interests span <strong>astrodynamics</strong>, <strong>control theory</strong>, and <strong>space robotics</strong>.</p>
+                    <p>Currently, I am conducting research at <strong>JAXA ISAS</strong> on outer planetary exploration mission design, and at <strong>Kyoto University</strong> on reinforcement learning for lunar robots. I have also completed research fellowships at <strong>DFKI Bremen</strong> (Germany) and <strong>Georgia Institute of Technology</strong> (USA).</p>
                     <div class="quick-stats">
                         <div class="stat-item">
                             <div class="stat-icon"><i class="fa-solid fa-flask"></i></div>
@@ -59,17 +64,17 @@
                             </div>
                         </div>
                         <div class="stat-item">
+                            <div class="stat-icon"><i class="fa-solid fa-globe"></i></div>
+                            <div class="stat-info">
+                                <h3>4 Countries</h3>
+                                <span>International Research</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
                             <div class="stat-icon"><i class="fa-solid fa-award"></i></div>
                             <div class="stat-info">
                                 <h3>Multiple</h3>
                                 <span>Academic Awards</span>
-                            </div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-icon"><i class="fa-solid fa-globe"></i></div>
-                            <div class="stat-info">
-                                <h3>Global</h3>
-                                <span>Research Projects</span>
                             </div>
                         </div>
                     </div>
@@ -77,7 +82,7 @@
             </div>
             
             <div class="hobbies-section">
-                <h3 class="section-subtitle"><i class="fas fa-heart"></i> Personal Interests</h3>
+                <h3><i class="fas fa-heart"></i> Personal Interests</h3>
                 <div class="hobbies-grid">
                     <div class="hobby-item">
                         <div class="hobby-icon"><i class="fas fa-running"></i></div>
@@ -85,7 +90,7 @@
                     </div>
                     <div class="hobby-item">
                         <div class="hobby-icon"><i class="fas fa-dumbbell"></i></div>
-                        <h4>Strength Training</h4>
+                        <h4>Training</h4>
                     </div>
                     <div class="hobby-item">
                         <div class="hobby-icon"><i class="fas fa-utensils"></i></div>
@@ -97,131 +102,82 @@
                     </div>
                     <div class="hobby-item">
                         <div class="hobby-icon"><i class="fas fa-water"></i></div>
-                        <h4>Diving </h4>
+                        <h4>Diving</h4>
                     </div>
                     <div class="hobby-item">
                         <div class="hobby-icon"><i class="fas fa-plane-departure"></i></div>
-                        <h4>Travel Abroad</h4>
+                        <h4>Travel</h4>
                     </div>
                 </div>
             </div>
         </section>
         
         <section id="education" class="fade-in">
-            <h2><span class="highlight">02.</span> Education</h2>
+            <h2><span class="section-number">02.</span> Education & Experience</h2>
             <div class="education-work-container">
                 <div class="education-column">
                     <h3 class="section-subtitle"><i class="fas fa-graduation-cap"></i> Academic History</h3>
                     <div class="timeline">
                         <div class="timeline-item">
-                            <div class="timeline-date">2023 - Present</div>
+                            <div class="timeline-date">Apr 2023 - Present</div>
                             <div class="timeline-content">
                                 <h4>Kyoto University</h4>
-                                <p>Aeronautics and Astronautics Course, Undergraduate School of Engineering Science</p>
-                                <span class="timeline-status">Third year in Undergraduate School</span>
+                                <p>B.Eng. in Engineering Science (Aeronautics & Astronautics)</p>
+                                <p>Focus: Astrodynamics, Control Theory, Space Robotics</p>
+                                <span class="timeline-status">3rd Year Undergraduate</span>
                             </div>
                         </div>
                         <div class="timeline-item">
-                            <div class="timeline-date">2020 - 2023</div>
+                            <div class="timeline-date">Apr 2020 - Mar 2023</div>
                             <div class="timeline-content">
                                 <h4>Seiko Gakuin High School</h4>
-                                <p>Yokohama, Kanagawa, Japan</p>
+                                <p>Kanagawa, Japan</p>
                             </div>
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-date">2018 - 2020</div>
                             <div class="timeline-content">
                                 <h4>Pathways School Gurgaon</h4>
-                                <p>IB Middle School, Haryana, India</p>
+                                <p>IB Middle Years Program (Exchange Student), India</p>
                             </div>
                         </div>
                         <div class="timeline-item">
-                            <div class="timeline-date">2017 - 2018</div>
+                            <div class="timeline-date">Apr 2017 - Mar 2018</div>
                             <div class="timeline-content">
                                 <h4>Seiko Gakuin Junior High School</h4>
-                                <p>Yokohama, Kanagawa, Japan</p>
+                                <p>Kanagawa, Japan</p>
                             </div>
                         </div>
                     </div>
                     
-                    <h3 class="section-subtitle">Qualifications</h3>
+                    <h3 class="section-subtitle"><i class="fas fa-certificate"></i> Qualifications</h3>
                     <div class="qualifications-grid">
                         <div class="qualification-item">
-                            <div class="qualification-icon">
-                                <i class="fa-solid fa-certificate"></i>
+                            <div class="qualification-icon"><i class="fa-solid fa-language"></i></div>
+                            <div class="qualification-details">
+                                <h4>TOEFL iBT 100</h4>
+                                <p>May 2022</p>
                             </div>
+                        </div>
+                        <div class="qualification-item">
+                            <div class="qualification-icon"><i class="fa-solid fa-certificate"></i></div>
                             <div class="qualification-details">
                                 <h4>EIKEN Grade 1</h4>
                                 <p>July 2021</p>
                             </div>
                         </div>
                         <div class="qualification-item">
-                            <div class="qualification-icon">
-                                <i class="fa-solid fa-rocket"></i>
-                            </div>
+                            <div class="qualification-icon"><i class="fa-solid fa-rocket"></i></div>
                             <div class="qualification-details">
-                                <h4>Nihon Model-Rocket License Grade 4</h4>
+                                <h4>Model-Rocket License Grade 4</h4>
                                 <p>July 2021</p>
                             </div>
                         </div>
                         <div class="qualification-item">
-                            <div class="qualification-icon">
-                                <i class="fa-solid fa-language"></i>
-                            </div>
-                            <div class="qualification-details">
-                                <h4>TOEFL iBT</h4>
-                                <p>MyBest-Score: 100 (May 2022)</p>
-                            </div>
-                        </div>
-                        <div class="qualification-item">
-                            <div class="qualification-icon">
-                                <i class="fa-solid fa-water"></i>
-                            </div>
+                            <div class="qualification-icon"><i class="fa-solid fa-water"></i></div>
                             <div class="qualification-details">
                                 <h4>NAUI Open Water Diver</h4>
                                 <p>October 2023</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h3 class="section-subtitle">Special Skills</h3>
-                    <div class="skills-container">
-                        <div class="skill-category">
-                            <h4><i class="fa-solid fa-code"></i> Programming</h4>
-                            <div class="skill-tags">
-                                <span class="skill-tag">R</span>
-                                <span class="skill-tag">Linux</span>
-                                <span class="skill-tag">Python</span>
-                                <span class="skill-tag">MATLAB</span>
-                                <span class="skill-tag">Arduino</span>
-                                <span class="skill-tag">Raspberry Pi</span>
-                                <span class="skill-tag">Github</span>
-                                <span class="skill-tag">Natural Language Process(NLP)</span>
-                            </div>
-                        </div>
-                        <div class="skill-category">
-                            <h4><i class="fa-solid fa-flask"></i> Laboratory</h4>
-                            <div class="skill-tags">
-                                <span class="skill-tag">PCR</span>
-                                <span class="skill-tag">3 years wet lab experience</span>
-                                <span class="skill-tag">PhyML</span>
-                                <span class="skill-tag">Metagenomic Analysis</span>
-                                <span class="skill-tag">Drake(Robotics Simulation)</span>
-                            </div>
-                        </div>
-                        <div class="skill-category">
-                            <h4><i class="fa-solid fa-earth-asia"></i> Languages</h4>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Japanese (Native)</span>
-                                <span class="skill-tag">English (Proficient)</span>
-                                <span class="skill-tag">Russian (Research object)</span>
-                            </div>
-                        </div>
-                        <div class="skill-category">
-                            <h4><i class="fa-solid fa-cubes"></i> Design</h4>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Blender</span>
-                                <span class="skill-tag">React</span>
                             </div>
                         </div>
                     </div>
@@ -231,52 +187,73 @@
                     <h3 class="section-subtitle"><i class="fas fa-briefcase"></i> Work Experience</h3>
                     <div class="timeline work-timeline">
                         <div class="timeline-item">
-                            <div class="timeline-date">2025 - Present</div>
+                            <div class="timeline-date">Mar 2025 - Present</div>
                             <div class="timeline-content">
-                                <h4>NLP enginner intern @"Tleez Inc."</h4>
-                                <p>Working as a NLP Enginner internship for a startup company</p>
+                                <h4>Software Engineer Intern</h4>
+                                <p>Tleez Inc. - NLP for Russian Language Learning</p>
                             </div>
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-date">2023 - Present</div>
                             <div class="timeline-content">
-                                <h4>Private Tutor @"学習塾鉄緑会"</h4>
-                                <p>Mathematics tutor for high school and university level students</p>
+                                <h4>Private Tutor (Mathematics)</h4>
+                                <p>Gakushuju Tetsuryokukai - Teaching advanced math</p>
                             </div>
                         </div>
                         <div class="timeline-item">
-                            <div class="timeline-date">2025 - Present</div>
+                            <div class="timeline-date">Nov 2025</div>
                             <div class="timeline-content">
-                                <h4>Kitchen Staff @Japanese restaurant</h4>
-                                <p>Temporary kitchen staff at a Japanese traditional restaurant</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">2023</div>
-                            <div class="timeline-content">
-                                <h4>Bakery Staff</h4>
-                                <p>Temporary kitchen staff at a local bakery</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">2023</div>
-                            <div class="timeline-content">
-                                <h4>Coffee Shop Clerk @"Dotour Inc."</h4>
-                                <p>Customer service and barista responsibilities</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">2021</div>
-                            <div class="timeline-content">
-                                <h4>Seiko SDGs Food Ambassador</h4>
-                                <p>Founder and Organizer of sustainable food initiatives</p>
+                                <h4>Startup Weekend Space Osaka</h4>
+                                <p>Team Leader - 2nd Place Winner</p>
                             </div>
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-date">2018</div>
                             <div class="timeline-content">
-                                <h4>"Yokohama Banana" Founder and Manager</h4>
-                                <p>Successfully sold 3,800 bananas in a single day</p>
+                                <h4>"Yokohama Banana" Project</h4>
+                                <p>Founder - Sold 3,800 bananas in a single day</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="section-subtitle"><i class="fas fa-code"></i> Technical Skills</h3>
+                    <div class="skills-container">
+                        <div class="skill-category">
+                            <h4><i class="fa-solid fa-code"></i> Programming</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">C++</span>
+                                <span class="skill-tag">MATLAB</span>
+                                <span class="skill-tag">R</span>
+                                <span class="skill-tag">Julia</span>
+                                <span class="skill-tag">Go</span>
+                            </div>
+                        </div>
+                        <div class="skill-category">
+                            <h4><i class="fa-solid fa-robot"></i> Robotics & Simulation</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">ROS</span>
+                                <span class="skill-tag">Drake</span>
+                                <span class="skill-tag">Pinocchio</span>
+                                <span class="skill-tag">Isaac Lab</span>
+                                <span class="skill-tag">STK</span>
+                            </div>
+                        </div>
+                        <div class="skill-category">
+                            <h4><i class="fa-solid fa-flask"></i> Research Tools</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">PCR</span>
+                                <span class="skill-tag">Metagenomics</span>
+                                <span class="skill-tag">Linux</span>
+                                <span class="skill-tag">Arduino</span>
+                            </div>
+                        </div>
+                        <div class="skill-category">
+                            <h4><i class="fa-solid fa-earth-asia"></i> Languages</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Japanese (Native)</span>
+                                <span class="skill-tag">English (Proficient)</span>
+                                <span class="skill-tag">Russian (Learning)</span>
                             </div>
                         </div>
                     </div>
@@ -285,139 +262,178 @@
         </section>
         
         <section id="research" class="fade-in">
-            <h2><span class="highlight">03.</span> Research Experience</h2>
+            <h2><span class="section-number">03.</span> Research Experience</h2>
             <div class="research-container">
                 <div class="research-item">
-                    <div class="research-date">Feb 2025 - Present</div>
+                    <div class="research-date">Aug 2025 - Present</div>
                     <div class="research-content">
-                        <h4>Research Internship, DFKI Bremen's Robotics Innovation Center</h4>
-                        <p>Research on control algorithms for 7-DOF robotic arms, essential for spacecraft capture, debris removal, and on-orbit servicing operations.</p>
-                        <button class="details-btn" data-popup="research6">More Details</button>
+                        <h4>Research Intern (Mission Design) - JAXA ISAS</h4>
+                        <p>Designing and optimizing trajectories for future <strong>Outer Planetary Exploration</strong> missions. Applying astrodynamics principles to analyze interplanetary transfer orbits. Supervised by Assoc. Prof. Naoya Ozaki.</p>
+                        <button class="details-btn" data-popup="research-jaxa">View Details</button>
+                    </div>
+                </div>
+                <div class="research-item">
+                    <div class="research-date">Oct 2025 - Present</div>
+                    <div class="research-content">
+                        <h4>Research Assistant (Space Robotics / RL) - Kyoto University</h4>
+                        <p>Designing <strong>Reward Functions</strong> and <strong>Curriculum Learning</strong> for RL of lunar robots. Developing control algorithms for a hybrid three-wheeled-legged robot (8-DOF arm & 8-DOF legs). Learning Machines Group, supervised by Asst. Prof. Satoshi Yamamori.</p>
+                        <button class="details-btn" data-popup="research-kyoto-rl">View Details</button>
+                    </div>
+                </div>
+                <div class="research-item">
+                    <div class="research-date">Feb 2025 - Apr 2025</div>
+                    <div class="research-content">
+                        <h4>Research Fellow (Space Robotics) - DFKI Bremen</h4>
+                        <p>Developed control algorithms for <strong>7-DOF Robotic Arms</strong> for Space Debris Capture. Utilized Drake for physics simulation; implemented Impedance/Position Controllers. <strong>Nakatani Foundation Scholar</strong> (Fully Funded).</p>
+                        <button class="details-btn" data-popup="research6">View Details</button>
                     </div>
                 </div>
                 <div class="research-item">
                     <div class="research-date">Aug 2024 - Present</div>
                     <div class="research-content">
-                        <h4>Research Fellow/Affiliate, Dr. DiChristina Lab, Georgia Institute of Technology</h4>
-                        <p>Metagenomic analysis towards the stabilization of heavy metal contaminants. Using R, Linux, Python for the research. (In silico). Fully Funded.</p>
-                        <button class="details-btn" data-popup="research1">More Details</button>
+                        <h4>Research Fellow (Bioinformatics) - Georgia Institute of Technology</h4>
+                        <p>Conducting <strong>Metagenomic Analysis</strong> using Python, R, and Linux for heavy metal contaminant stabilization. Performing in-silico data processing and statistical analysis at Dr. DiChristina Lab. <strong>Nakatani Foundation Scholar</strong> (Fully Funded).</p>
+                        <button class="details-btn" data-popup="research1">View Details</button>
                     </div>
                 </div>
                 <div class="research-item">
-                    <div class="research-date">Sep 2023 - Present</div>
+                    <div class="research-date">Sep 2023 - Aug 2024</div>
                     <div class="research-content">
-                        <h4>Research Internship, Dr. Atomi Lab, Kyoto University</h4>
-                        <p>Wet lab experience. Towards finding ecologies of microorganisms with metabolic pathways for hydrogen and oxygen.</p>
-                        <button class="details-btn" data-popup="research2">More Details</button>
+                        <h4>Research Intern (Microbiology/Chemistry) - Kyoto University</h4>
+                        <p>Wet lab research on microbial metabolic pathways for hydrogen and oxygen utilization at Prof. Atomi Lab, Graduate School of Engineering.</p>
+                        <button class="details-btn" data-popup="research2">View Details</button>
                     </div>
                 </div>
                 <div class="research-item">
                     <div class="research-date">Dec 2020 - Mar 2023</div>
                     <div class="research-content">
-                        <h4>Research Internship, Dr. Fujishima Lab, Tokyo Institute of Technology</h4>
-                        <p>Three years of wet lab experience studying "Isolation and identification of Extreme Halophiles in world-wide rock salts with a specific carbon source".</p>
-                        <button class="details-btn" data-popup="research3">More Details</button>
-                    </div>
-                </div>
-                <div class="research-item">
-                    <div class="research-date">Aug 2020 - Aug 2021</div>
-                    <div class="research-content">
-                        <h4>Individual Research, Seiko Gakuin High School</h4>
-                        <p>Development of new method of artificial gravity and its evaluation. Using "Arduino" for censoring forces to evaluate the prototype.</p>
-                        <button class="details-btn" data-popup="research4">More Details</button>
+                        <h4>Research Intern (Astrobiology) - Tokyo Institute of Technology</h4>
+                        <p>3-year wet-lab research on <strong>Extreme Halophiles</strong> in rock salts. Conducted PCR, electrophoresis, sequence analysis, and constructed phylogenetic trees using PhyML. JST funded. Earth-Life Science Institute (ELSI), supervised by Assoc. Prof. Kosuke Fujishima.</p>
+                        <button class="details-btn" data-popup="research3">View Details</button>
                     </div>
                 </div>
                 <div class="research-item">
                     <div class="research-date">Aug 2021 - Feb 2022</div>
                     <div class="research-content">
-                        <h4>Meteorite Research Group, Seiko Gakuin High School</h4>
-                        <p>Experience in using electron microscope. Collaborating with several universities' faculties and a high school in Britain.</p>
-                        <button class="details-btn" data-popup="research5">More Details</button>
+                        <h4>Student Researcher (Meteorite Analysis) - Seiko Gakuin High School</h4>
+                        <p>Operated <strong>Electron Microscopes (SEM)</strong> for meteorite composition analysis. Collaborated with UK high schools and university faculties on international joint research.</p>
+                        <button class="details-btn" data-popup="research5">View Details</button>
+                    </div>
+                </div>
+                <div class="research-item">
+                    <div class="research-date">Aug 2020 - Aug 2021</div>
+                    <div class="research-content">
+                        <h4>Individual Researcher (Aerospace Engineering) - Seiko Gakuin High School</h4>
+                        <p>Prototyped a novel <strong>Artificial Gravity</strong> mechanism and evaluated its effectiveness. Integrated Arduino-based force sensors for real-time data acquisition. Research grant funded.</p>
+                        <button class="details-btn" data-popup="research4">View Details</button>
                     </div>
                 </div>
             </div>
             
-            <h3 class="section-subtitle">Conference Presentations</h3>
+            <h3 class="section-subtitle"><i class="fas fa-microphone"></i> Conference Presentations</h3>
             <div class="conference-grid">
                 <div class="conference-item">
-                    <span>Dec 2023</span>
-                    <h4>7th GLOBAL MOON VILLAGE WORKSHOP & SYMPOSIUM</h4>
-                    <p>Worked as a Staff</p>
-                </div>
-                <div class="conference-item">
-                    <span>2023</span>
-                    <h4>The Japan Society of Aerospace and Environmental Medicine</h4>
-                    <p>Poster Session (General Session) / Oral Presentation (Students Session)</p>
+                    <span>Nov 2023</span>
+                    <h4>69th JSAEM Annual Meeting</h4>
+                    <p>Oral & Poster: Space Medicine Education in Japan</p>
                 </div>
                 <div class="conference-item">
                     <span>May 2022</span>
-                    <h4>NASA x AGI x High School Students Exchange Session</h4>
-                    <p>Online Presentation</p>
+                    <h4>NASA x AGI x High School Students</h4>
+                    <p>Online: Extreme Halophiles from Global Rock Salts</p>
                 </div>
                 <div class="conference-item">
                     <span>May 2022</span>
-                    <h4>Japan Geoscience Union 2022</h4>
-                    <p>Poster Session / Online Presentation</p>
+                    <h4>Japan Geoscience Union (JpGU) 2022</h4>
+                    <p>Poster: Extreme Halophiles Research</p>
                 </div>
                 <div class="conference-item">
                     <span>Mar 2022</span>
-                    <h4>The Japanese Society of Scientific Fisheries</h4>
-                    <p>Online Presentation</p>
+                    <h4>Japanese Society of Scientific Fisheries</h4>
+                    <p>Online: Extreme Halophiles Research</p>
                 </div>
                 <div class="conference-item">
                     <span>Jan 2022</span>
                     <h4>International Research for School</h4>
-                    <p>Online Presentation</p>
+                    <p>Online: Meteorite Composition Analysis</p>
                 </div>
             </div>
         </section>
         
         <section id="projects" class="fade-in">
-            <h2><span class="highlight">04.</span> Projects</h2>
+            <h2><span class="section-number">04.</span> Projects</h2>
             <div class="projects-filter">
                 <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="research">Research</button>
+                <button class="filter-btn" data-filter="robotics">Robotics</button>
                 <button class="filter-btn" data-filter="space">Space</button>
-                <button class="filter-btn" data-filter="social">Social</button>
+                <button class="filter-btn" data-filter="research">Research</button>
             </div>
             <div class="projects-container" id="projects-container">
-                <!-- Projects will be dynamically loaded here -->
+                <!-- Projects loaded dynamically -->
             </div>
         </section>
         
         <section id="achievements" class="fade-in">
-            <h2><span class="highlight">05.</span> Awards & Achievements</h2>
+            <h2><span class="section-number">05.</span> Awards & Achievements</h2>
             <div class="awards-timeline">
+                <div class="award-item">
+                    <div class="award-year">Mar 2024</div>
+                    <div class="award-content">
+                        <i class="award-icon fas fa-trophy"></i>
+                        <div>
+                            <h4>Nakatani Foundation Scholarship (Fully Funded)</h4>
+                            <p>Selected for prestigious international research scholarship</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="award-item">
+                    <div class="award-year">Nov 2025</div>
+                    <div class="award-content">
+                        <i class="award-icon fas fa-medal"></i>
+                        <div>
+                            <h4>Startup Weekend Space Osaka - 2nd Place</h4>
+                            <p>Led team to develop and pitch a space business plan</p>
+                        </div>
+                    </div>
+                </div>
                 <div class="award-item">
                     <div class="award-year">May 2022</div>
                     <div class="award-content">
                         <i class="award-icon fas fa-medal"></i>
-                        <h4>Japan Geoscience Union 2022</h4>
-                        <p>Awards for Academic Excellence for High School Students (Research for Haloarchaea)</p>
+                        <div>
+                            <h4>JpGU Award for Academic Excellence</h4>
+                            <p>High School Session - Research for Haloarchaea</p>
+                        </div>
                     </div>
                 </div>
                 <div class="award-item">
                     <div class="award-year">Mar 2022</div>
                     <div class="award-content">
                         <i class="award-icon fas fa-medal"></i>
-                        <h4>The Japanese Society of Scientific Fisheries</h4>
-                        <p>Awards for Academic Excellence for High School Students (Research for Haloarchaea)</p>
+                        <div>
+                            <h4>Japanese Society of Scientific Fisheries Award</h4>
+                            <p>Academic Excellence for High School Students</p>
+                        </div>
                     </div>
                 </div>
                 <div class="award-item">
                     <div class="award-year">Dec 2021</div>
                     <div class="award-content">
                         <i class="award-icon fas fa-rocket"></i>
-                        <h4>Intelligent Water Rocket Competition 2021</h4>
-                        <p>Awards for the success of all the missions (Structural Controlled Rockets, Computer Controlled Functions, Deploying a Parachute)</p>
+                        <div>
+                            <h4>Intelligent Water Rocket Competition</h4>
+                            <p>Missions Award - All missions completed successfully</p>
+                        </div>
                     </div>
                 </div>
                 <div class="award-item">
                     <div class="award-year">Aug 2021</div>
                     <div class="award-content">
                         <i class="award-icon fas fa-star"></i>
-                        <h4>Super Science High School Research Symposium</h4>
-                        <p>Awards for Academic Excellence (Research for the artificial gravity)</p>
+                        <div>
+                            <h4>SSH Research Symposium Award</h4>
+                            <p>Academic Excellence - Artificial Gravity Research</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -429,51 +445,33 @@
             <div class="hidden-content" id="more-awards">
                 <div class="awards-timeline">
                     <div class="award-item">
-                        <div class="award-year">Feb 2020</div>
+                        <div class="award-year">Feb 2022</div>
                         <div class="award-content">
-                            <i class="award-icon fas fa-running"></i>
-                            <h4>Annual Athletic Meet 2019-2020</h4>
-                            <p>Under-17 Boys: 400m (3rd), 800m (1st), 1500m (1st), Individual Championship</p>
-                        </div>
-                    </div>
-                    <div class="award-item">
-                        <div class="award-year">Feb 2020</div>
-                        <div class="award-content">
-                            <i class="award-icon fas fa-running"></i>
-                            <h4>MYP Cross Country Run</h4>
-                            <p>1st Place with New Record</p>
-                        </div>
-                    </div>
-                    <div class="award-item">
-                        <div class="award-year">Sep 2019</div>
-                        <div class="award-content">
-                            <i class="award-icon fas fa-medal"></i>
-                            <h4>Harvest Global Energy Run</h4>
-                            <p>1st Place in 5km male category (open age group)</p>
+                            <i class="award-icon fas fa-leaf"></i>
+                            <div>
+                                <h4>SDGs Tankyu Award (Nihon Ryoko Prize)</h4>
+                                <p>Sustainable Development Research</p>
+                            </div>
                         </div>
                     </div>
                     <div class="award-item">
                         <div class="award-year">2019</div>
                         <div class="award-content">
-                            <i class="award-icon fas fa-trophy"></i>
-                            <h4>ISSO National Games 2019 Athletic</h4>
-                            <p>800m, 1500m, 3000m (1st), 4×100m relay, 4×400 relay (2nd)</p>
+                            <i class="award-icon fas fa-running"></i>
+                            <div>
+                                <h4>ISSO National Games 2019</h4>
+                                <p>1st Place: 800m, 1500m, 3000m; 2nd: 4×100m, 4×400m relay</p>
+                            </div>
                         </div>
                     </div>
                     <div class="award-item">
-                        <div class="award-year">June 2019</div>
+                        <div class="award-year">2020</div>
                         <div class="award-content">
                             <i class="award-icon fas fa-running"></i>
-                            <h4>Yokohama Weekend Marathon</h4>
-                            <p>3rd Place in 5km male category</p>
-                        </div>
-                    </div>
-                    <div class="award-item">
-                        <div class="award-year">Oct 2018</div>
-                        <div class="award-content">
-                            <i class="award-icon fas fa-award"></i>
-                            <h4>Pathways School Gurgaon Math Inquiry Fair</h4>
-                            <p>1st Place for presentation on Tower of Hanoi</p>
+                            <div>
+                                <h4>Annual Athletic Meet Champion</h4>
+                                <p>Individual Champion - 400m 3rd, 800m 1st, 1500m 1st</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -481,141 +479,111 @@
         </section>
         
         <section id="activities" class="fade-in">
-            <h2><span class="highlight">06.</span> Activities</h2>
+            <h2><span class="section-number">06.</span> Activities</h2>
             
-            <!-- Existing activity cards -->
-            <div class="activities-grid" id="activities-container">
+            <div class="activities-grid">
+                <div class="activity-card">
+                    <div class="activity-icon"><i class="fa-solid fa-satellite"></i></div>
+                    <div class="activity-content">
+                        <h4>71st JSAEM Conference Staff</h4>
+                        <p>Supported the operation of a symposium on space medicine (Nov 2025)</p>
+                    </div>
+                </div>
                 <div class="activity-card">
                     <div class="activity-icon"><i class="fa-solid fa-microscope"></i></div>
                     <div class="activity-content">
                         <h4>Kyoto University Space Medicine Study Tour</h4>
-                        <p>Hosted Study Tour at Kyoto University (Aug 2023)</p>
-                        <button class="activity-details-btn" data-activity-id="activity1">Read More</button>
+                        <p>Organizer - Study tour for university students (Aug 2023)</p>
+                    </div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-icon"><i class="fa-solid fa-moon"></i></div>
+                    <div class="activity-content">
+                        <h4>7th Global Moon Village Workshop</h4>
+                        <p>Conference Staff - International symposium (Dec 2023)</p>
                     </div>
                 </div>
                 <div class="activity-card">
                     <div class="activity-icon"><i class="fa-solid fa-rocket"></i></div>
                     <div class="activity-content">
                         <h4>Japan Students Space Forum</h4>
-                        <p>Founded and hosted forum for space enthusiasts (2021)</p>
-                        <button class="activity-details-btn" data-activity-id="activity2">Read More</button>
-                    </div>
-                </div>
-                <div class="activity-card">
-                    <div class="activity-icon"><i class="fa-solid fa-globe"></i></div>
-                    <div class="activity-content">
-                        <h4>International Space Technology Discussion</h4>
-                        <p>Hosted online meeting between students of India and Japan (2019)</p>
-                        <button class="activity-details-btn" data-activity-id="activity3">Read More</button>
+                        <p>Founded and organized forum with 100+ participants (Jun 2021)</p>
                     </div>
                 </div>
                 <div class="activity-card">
                     <div class="activity-icon"><i class="fa-solid fa-seedling"></i></div>
                     <div class="activity-content">
-                        <h4>Traditional Rice Farming Circle</h4>
-                        <p>12 years participation in traditional organic rice farming</p>
-                        <button class="activity-details-btn" data-activity-id="activity4">Read More</button>
+                        <h4>Traditional Rice Farming</h4>
+                        <p>12+ years engagement in organic rice farming (2012-Present)</p>
+                    </div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-icon"><i class="fa-solid fa-fist-raised"></i></div>
+                    <div class="activity-content">
+                        <h4>Shorinji Kempo</h4>
+                        <p>National Junior High Championship competitor (2012-Present)</p>
                     </div>
                 </div>
             </div>
             
-            <!-- Show more button -->
             <button class="show-more-btn" id="show-more-activities">
                 Show More Activities <i class="fas fa-chevron-down"></i>
             </button>
             
-            <!-- Hidden activities -->
             <div class="hidden-content" id="more-activities">
                 <div class="activities-grid">
                     <div class="activity-card">
-                        <div class="activity-icon"><i class="fa-solid fa-fish"></i></div>
+                        <div class="activity-icon"><i class="fa-solid fa-globe"></i></div>
                         <div class="activity-content">
-                            <h4>Marine Biology Program</h4>
-                            <p>Summer Program at Ryukyu University (Sep 2023)</p>
-                            <button class="activity-details-btn" data-activity-id="activity5">Read More</button>
-                        </div>
-                    </div>
-                    <div class="activity-card">
-                        <div class="activity-icon"><i class="fa-solid fa-user-astronaut"></i></div>
-                        <div class="activity-content">
-                            <h4>Space Medicine Workshop</h4>
-                            <p>At Oita University, hosted by Kyoto University (Sep 2023)</p>
-                            <button class="activity-details-btn" data-activity-id="activity6">Read More</button>
+                            <h4>International Space Tech Discussion</h4>
+                            <p>Organized India-Japan student exchange meeting (2019)</p>
                         </div>
                     </div>
                     <div class="activity-card">
                         <div class="activity-icon"><i class="fa-solid fa-utensils"></i></div>
                         <div class="activity-content">
                             <h4>Seiko SDGs Food Ambassador</h4>
-                            <p>Founded volunteer activity focusing on sustainable food (2021)</p>
-                            <button class="activity-details-btn" data-activity-id="activity7">Read More</button>
+                            <p>Founded volunteer program for sustainable food (2021)</p>
                         </div>
                     </div>
                     <div class="activity-card">
                         <div class="activity-icon"><i class="fa-solid fa-flask-vial"></i></div>
                         <div class="activity-content">
                             <h4>Science Club Summit</h4>
-                            <p>Organized and hosted summit for science clubs (2021)</p>
-                            <button class="activity-details-btn" data-activity-id="activity8">Read More</button>
+                            <p>Founder and organizer - Connected science clubs (Feb 2021)</p>
                         </div>
                     </div>
                     <div class="activity-card">
                         <div class="activity-icon"><i class="fa-solid fa-landmark"></i></div>
                         <div class="activity-content">
-                            <h4>Political Internship</h4>
-                            <p>With Mr. Motohashi (Vice-chairperson of Tokyo Metropolitan Assembly)</p>
-                            <button class="activity-details-btn" data-activity-id="activity9">Read More</button>
-                        </div>
-                    </div>
-                    <div class="activity-card">
-                        <div class="activity-icon"><i class="fa-solid fa-atom"></i></div>
-                        <div class="activity-content">
-                            <h4>KEK Belle Plus Elementary Particles Camp</h4>
-                            <p>Participated in specialized physics camp (Aug 2021)</p>
-                            <button class="activity-details-btn" data-activity-id="activity10">Read More</button>
-                        </div>
-                    </div>
-                    <div class="activity-card">
-                        <div class="activity-icon"><i class="fa-solid fa-satellite"></i></div>
-                        <div class="activity-content">
-                            <h4>Keio Astrobiology Camp</h4>
-                            <p>Participated in astrobiology intensive program (Mar 2021)</p>
-                            <button class="activity-details-btn" data-activity-id="activity11">Read More</button>
-                        </div>
-                    </div>
-                    <div class="activity-card">
-                        <div class="activity-icon"><i class="fa-solid fa-lightbulb"></i></div>
-                        <div class="activity-content">
-                            <h4>Illuminated Safety Slippers</h4>
-                            <p>Designed prototype slippers for emergency situations</p>
-                            <button class="activity-details-btn" data-activity-id="activity12">Read More</button>
+                            <h4>Legislative Intern (ICAS)</h4>
+                            <p>Tokyo Metropolitan Assembly (Aug 2021)</p>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- New affiliations subsection -->
             <h3 class="section-subtitle"><i class="fas fa-users"></i> Organizations & Affiliations</h3>
             <div class="affiliations-grid">
                 <div class="affiliation-item">
                     <div class="affiliation-icon"><i class="fas fa-rocket"></i></div>
                     <div class="affiliation-content">
-                        <h4>Space Medicine Japan Youth Community (SMJYC)</h4>
+                        <h4>Space Medicine Japan Youth Community</h4>
                         <p>Member since March 2023</p>
+                    </div>
+                </div>
+                <div class="affiliation-item">
+                    <div class="affiliation-icon"><i class="fas fa-moon"></i></div>
+                    <div class="affiliation-content">
+                        <h4>Moon Village Association Study Group</h4>
+                        <p>Member since July 2020</p>
                     </div>
                 </div>
                 <div class="affiliation-item">
                     <div class="affiliation-icon"><i class="fas fa-running"></i></div>
                     <div class="affiliation-content">
-                        <h4>Kyoto University Medical School Track & Field</h4>
-                        <p>Middle/Long Distance Runner since May 2023</p>
-                    </div>
-                </div>
-                <div class="affiliation-item">
-                    <div class="affiliation-icon"><i class="fas fa-chess"></i></div>
-                    <div class="affiliation-content">
-                        <h4>Kyoto University Shogi Club</h4>
-                        <p>Member since April 2023</p>
+                        <h4>Kyoto Univ. Medical School Track & Field</h4>
+                        <p>Middle/Long Distance Runner</p>
                     </div>
                 </div>
                 <div class="affiliation-item">
@@ -625,109 +593,90 @@
                         <p>Member since October 2023</p>
                     </div>
                 </div>
-                <div class="affiliation-item">
-                    <div class="affiliation-icon"><i class="fas fa-water"></i></div>
-                    <div class="affiliation-content">
-                        <h4>Dive Dive</h4>
-                        <p>Member since September 2023</p>
-                    </div>
-                </div>
-                <div class="affiliation-item">
-                    <div class="affiliation-icon"><i class="fas fa-school"></i></div>
-                    <div class="affiliation-content">
-                        <h4>Seiko Gakuin Kyoto Association</h4>
-                        <p>Member since April 2023</p>
-                    </div>
-                </div>
             </div>
         </section>
 
-        <!-- New Media Appearances Section -->
         <section id="media" class="fade-in">
-            <h2><span class="highlight">07.</span> Media Appearances</h2>
+            <h2><span class="section-number">07.</span> Media Coverage</h2>
             <div class="media-grid">
                 <div class="media-card">
                     <div class="media-content">
-                        <h4>神奈川新聞 H!P</h4>
-                        <p class="media-date">September 2019</p>
-                        <p>インタビュー掲載</p>
-                        <a href="http://www.kanagawa-shimbun.jp/hip/" class="media-link" target="_blank">View Article <i class="fas fa-external-link-alt"></i></a>
-                    </div>
-                </div>
-                
-                <div class="media-card">
-                    <div class="media-content">
-                        <h4>高校生新聞</h4>
-                        <p class="media-date">January 2021</p>
-                        <p>インタビュー掲載</p>
-                        <a href="https://www.koukouseishinbun.jp/articles/-/7255" class="media-link" target="_blank">View Article <i class="fas fa-external-link-alt"></i></a>
-                    </div>
-                </div>
-                
-                <div class="media-card">
-                    <div class="media-content">
-                        <h4>毎日新聞 15歳のニュース</h4>
-                        <p class="media-date">September 2021</p>
-                        <p>インタビュー掲載</p>
-                        <a href="https://mainichi.jp/maisho15/articles/20210918/dbg/048/040/004000c" class="media-link" target="_blank">View Article <i class="fas fa-external-link-alt"></i></a>
-                    </div>
-                </div>
-                
-                <div class="media-card">
-                    <div class="media-content">
-                        <h4>TBSラジオ High School A go go</h4>
-                        <p class="media-date">November 2021</p>
-                        <p>11/1, 11/8 両日出演</p>
-                        <a href="https://www.tbsradio.jp/articles/detail/?id=46518" class="media-link" target="_blank">View Article <i class="fas fa-external-link-alt"></i></a>
-                    </div>
-                </div>
-                
-                <div class="media-card">
-                    <div class="media-content">
-                        <h4>週刊朝日</h4>
-                        <p class="media-date">March 2023</p>
-                        <p>23年3月24日号 インタビュー掲載</p>
+                        <h4>Weekly Asahi (週刊朝日)</h4>
+                        <div class="media-date">March 2023</div>
+                        <p>Interview feature in the March 24th issue</p>
                         <span class="media-note">Print Publication</span>
                     </div>
                 </div>
-
                 <div class="media-card">
                     <div class="media-content">
-                        <h4>宇宙フリーマガジンTELSTAR</h4>
-                        <p class="media-date">May 2022</p>
-                        <p>インタビュー記事寄稿</p>
-                        <a href="https://spacemgz-telstar.com/article/feature/a332" class="media-link" target="_blank">View Article <i class="fas fa-external-link-alt"></i></a>
+                        <h4>TBS Radio "High School A go go"</h4>
+                        <div class="media-date">November 2021</div>
+                        <p>Guest speaker on Nov 1 & Nov 8</p>
+                        <a href="https://www.tbsradio.jp/articles/detail/?id=46518" class="media-link" target="_blank">Listen <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+                <div class="media-card">
+                    <div class="media-content">
+                        <h4>Mainichi Shimbun (毎日新聞)</h4>
+                        <div class="media-date">September 2021</div>
+                        <p>Interview in "News for 15-year-olds"</p>
+                        <a href="https://mainichi.jp/maisho15/articles/20210918/dbg/048/040/004000c" class="media-link" target="_blank">Read Article <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+                <div class="media-card">
+                    <div class="media-content">
+                        <h4>TELSTAR Space Magazine</h4>
+                        <div class="media-date">May 2022</div>
+                        <p>Article contribution</p>
+                        <a href="https://spacemgz-telstar.com/article/feature/a332" class="media-link" target="_blank">Read Article <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+                <div class="media-card">
+                    <div class="media-content">
+                        <h4>Koukousei Shimbun (高校生新聞)</h4>
+                        <div class="media-date">January 2021</div>
+                        <p>Interview feature</p>
+                        <a href="https://www.koukouseishinbun.jp/articles/-/7255" class="media-link" target="_blank">Read Article <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+                <div class="media-card">
+                    <div class="media-content">
+                        <h4>Kanagawa Shimbun H!P</h4>
+                        <div class="media-date">September 2019</div>
+                        <p>Interview feature</p>
+                        <a href="http://www.kanagawa-shimbun.jp/hip/" class="media-link" target="_blank">View <i class="fas fa-external-link-alt"></i></a>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="contact" class="fade-in">
-            <h2><span class="highlight">08.</span> Contact</h2>
+            <h2><span class="section-number">08.</span> Contact</h2>
             <div class="contact-container">
                 <div class="contact-info">
                     <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                         <div>
                             <h4>Email</h4>
-                            <p><a href="mailto:uchida.taichi.84f@st.kyoto-u.ac.jp">uchida.taichi.84f@st.kyoto-u.ac.jp</a></p>
+                            <a href="mailto:uchida.taichi.84f@st.kyoto-u.ac.jp">uchida.taichi.84f@st.kyoto-u.ac.jp</a>
                         </div>
                     </div>
                     <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fab fa-github"></i>
-                        </div>
+                        <div class="contact-icon"><i class="fab fa-github"></i></div>
                         <div>
                             <h4>GitHub</h4>
-                            <p><a href="https://github.com/taichi-u" target="_blank">github.com/taichi-u</a></p>
+                            <a href="https://github.com/taichi-u" target="_blank">github.com/taichi-u</a>
                         </div>
                     </div>
                     <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
+                        <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
+                        <div>
+                            <h4>LinkedIn</h4>
+                            <a href="https://www.linkedin.com/in/taichi-uchida" target="_blank">linkedin.com/in/taichi-uchida</a>
                         </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
                         <div>
                             <h4>Location</h4>
                             <p>Kyoto, Japan</p>
@@ -741,23 +690,70 @@
     <footer>
         <div class="social-links">
             <a href="https://github.com/taichi-u" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/taichi-uchida-592b70304/" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.linkedin.com/in/taichi-uchida" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
             <a href="https://x.com/Ukulele_run" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
         </div>
         <p>&copy; 2025 Taichi Uchida. All rights reserved.</p>
     </footer>
 
-    <!-- Research Detail Popups -->
+    <!-- Research Popups -->
+    <div class="popup-overlay" id="research-jaxa">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <h4>Research Intern (Mission Design) - JAXA ISAS</h4>
+            <div class="popup-info">
+                <p><strong>Period:</strong> August 2025 – Present</p>
+                <p><strong>Location:</strong> Institute of Space and Astronautical Science (ISAS), JAXA, Kanagawa, Japan</p>
+                <p><strong>Supervisor:</strong> Assoc. Prof. Naoya Ozaki</p>
+            </div>
+            <p>Designing and optimizing trajectories for future <strong>Outer Planetary Exploration</strong> missions. Applying astrodynamics principles to analyze interplanetary transfer orbits, gravity assists, and mission design optimization.</p>
+            <p>This research contributes to Japan's long-term space exploration strategy, focusing on missions to the outer solar system.</p>
+        </div>
+    </div>
+    
+    <div class="popup-overlay" id="research-kyoto-rl">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <h4>Research Assistant (Space Robotics / RL) - Kyoto University</h4>
+            <div class="popup-info">
+                <p><strong>Period:</strong> October 2025 – Present</p>
+                <p><strong>Lab:</strong> Learning Machines Group, Dept. of Informatics, Kyoto University</p>
+                <p><strong>Supervisor:</strong> Asst. Prof. Satoshi Yamamori</p>
+            </div>
+            <p>Designing <strong>Reward Functions</strong> and <strong>Curriculum Learning</strong> strategies for Reinforcement Learning (RL) of lunar robots.</p>
+            <p>Developing control algorithms for a hybrid <strong>three-wheeled-legged robot</strong> featuring an 8-DOF arm and 8-DOF legs. This research aims to enable autonomous locomotion and manipulation in challenging lunar terrain.</p>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="research6">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <h4>Research Fellow (Space Robotics) - DFKI Bremen</h4>
+            <div class="popup-info">
+                <p><strong>Period:</strong> February 2025 – April 2025</p>
+                <p><strong>Lab:</strong> Robotics Innovation Center, German Research Center for Artificial Intelligence (DFKI)</p>
+                <p><strong>Location:</strong> Bremen, Germany</p>
+                <p><strong>Funding:</strong> Nakatani Foundation Scholarship (Fully Funded)</p>
+            </div>
+            <p>Developed control algorithms for <strong>7-DOF Robotic Arms</strong> designed for Space Debris Capture. Utilized Drake for physics simulation and implemented Impedance/Position Controllers.</p>
+            <p>This research contributes to sustainable space utilization by enabling autonomous capture and removal of orbital debris.</p>
+            <div class="animation-container">
+                <canvas id="robotArmCanvas" width="600" height="400"></canvas>
+                <div class="animation-caption">7-DOF robotic arm tracking simulation</div>
+            </div>
+        </div>
+    </div>
+
     <div class="popup-overlay" id="research1">
         <div class="popup-content">
             <span class="close-popup">&times;</span>
-            <h4>Research Fellow/Affiliate, Georgia Institute of Technology</h4>
+            <h4>Research Fellow (Bioinformatics) - Georgia Institute of Technology</h4>
             <div class="popup-info">
-                <p><strong>Period:</strong> 4th Aug – 23rd Sep 2024</p>
-                <p><strong>Lab:</strong> Dr. DiChristina Lab, School of Biological Science</p>
-                <p><strong>Status:</strong> Fully Funded by Nakatani fundation, US Deparatment of Energy</p>
+                <p><strong>Period:</strong> August 4 – September 23, 2024</p>
+                <p><strong>Lab:</strong> Dr. DiChristina Lab, School of Biological Sciences</p>
+                <p><strong>Funding:</strong> Nakatani Foundation, US Department of Energy (Fully Funded)</p>
             </div>
-            <p>Conducted metagenomic analysis towards the stabilization of heavy metal contaminants. Utilized R, Linux, and Python for in silico research, applying computational methods to analyze bacterial communities involved in heavy metal remediation.</p>
+            <p>Conducted <strong>Metagenomic Analysis</strong> towards the stabilization of heavy metal contaminants. Utilized R, Linux, and Python for in silico research, applying computational methods to analyze bacterial communities involved in heavy metal remediation.</p>
             <p>Developed analysis pipelines for processing large sequencing datasets and identifying microbial communities with potential for bioremediation applications.</p>
         </div>
     </div>
@@ -765,113 +761,60 @@
     <div class="popup-overlay" id="research2">
         <div class="popup-content">
             <span class="close-popup">&times;</span>
-            <h4>Research Internship, Kyoto University</h4>
+            <h4>Research Intern (Microbiology/Chemistry) - Kyoto University</h4>
             <div class="popup-info">
-                <p><strong>Period:</strong> September 2023 – Present</p>
-                <p><strong>Lab:</strong> Dr. Atomi Lab, Biochemical Engineering</p>
+                <p><strong>Period:</strong> September 2023 – August 2024</p>
+                <p><strong>Lab:</strong> Prof. Atomi Lab, Graduate School of Engineering</p>
             </div>
-            <p>Conducting wet lab research focused on finding ecologies of microorganisms with metabolic pathways for hydrogen and oxygen. This research investigates microbial communities that can effectively utilize hydrogen as an energy source and manage oxygen levels.</p>
-            <p>The work has potential implications for sustainable energy systems and life support systems for space exploration, connecting microbiology with aerospace applications.</p>
+            <p>Conducted wet lab research focused on microbial metabolic pathways for hydrogen and oxygen utilization. This research investigates microbial communities that can effectively utilize hydrogen as an energy source.</p>
+            <p>The work has potential implications for sustainable energy systems and life support systems for space exploration.</p>
         </div>
     </div>
     
     <div class="popup-overlay" id="research3">
         <div class="popup-content">
             <span class="close-popup">&times;</span>
-            <h4>Research Internship, Tokyo Institute of Technology</h4>
+            <h4>Research Intern (Astrobiology) - Tokyo Institute of Technology</h4>
             <div class="popup-info">
                 <p><strong>Period:</strong> December 2020 – March 2023</p>
-                <p><strong>Lab:</strong> Dr. Fujishima Lab, Earth Life Science Institute</p>
-                <p><strong>Funding:</strong> Japan Science and Technology Agency (JST), The Government of Japan</p>
-                <p><strong>Status:</strong> Fully Funded</p>
+                <p><strong>Lab:</strong> Earth-Life Science Institute (ELSI)</p>
+                <p><strong>Supervisor:</strong> Assoc. Prof. Kosuke Fujishima</p>
+                <p><strong>Funding:</strong> Japan Science and Technology Agency (JST)</p>
             </div>
-            <p>Conducted three years of wet lab research on "Isolation and identification of Extreme Halophiles in world-wide rock salts with a specific carbon source". This extensive project involved collecting and analyzing halophilic archaea from diverse global sources.</p>
-            <p>Utilized PCR, Electrophoresis, Sequence analysis, and constructed phylogenetic trees using PhyML (analysis software). The research contributed to understanding extremophiles and their implications for astrobiology.</p>
+            <p>Conducted 3-year wet-lab research on "Isolation and identification of <strong>Extreme Halophiles</strong> in world-wide rock salts with a specific carbon source".</p>
+            <p>Performed PCR, Electrophoresis, Sequence Analysis, and constructed <strong>Phylogenetic Trees</strong> using PhyML. The research contributed to understanding extremophiles and their implications for astrobiology.</p>
         </div>
     </div>
     
     <div class="popup-overlay" id="research4">
         <div class="popup-content">
             <span class="close-popup">&times;</span>
-            <h4>Individual Research, Seiko Gakuin High School</h4>
+            <h4>Individual Researcher (Aerospace Engineering)</h4>
             <div class="popup-info">
                 <p><strong>Period:</strong> August 2020 – August 2021</p>
-                <p><strong>Funding:</strong> Seiko Gakuin SSH programm supoorted by Japan Science and Technology Agency (JST)</p>
-                <p><strong>Status:</strong> Fully Funded</p>
+                <p><strong>Location:</strong> Seiko Gakuin High School</p>
+                <p><strong>Funding:</strong> Seiko Gakuin SSH Program (JST)</p>
             </div>
-            <p>Developed a new method of artificial gravity generation and conducted empirical evaluations of its effectiveness. Utilized Arduino microcontrollers to design and implement force sensors for precise measurement and evaluation of the prototype system.</p>
-            <p>This research addressed one of the fundamental challenges of long-term space habitation and received recognition at the Super Science High School Research Symposium.</p>
+            <p>Prototyped a novel <strong>Artificial Gravity</strong> mechanism and evaluated its effectiveness. Utilized Arduino microcontrollers to design and implement force sensors for precise measurement.</p>
+            <p>This research addressed fundamental challenges of long-term space habitation and received recognition at the Super Science High School Research Symposium.</p>
         </div>
     </div>
     
     <div class="popup-overlay" id="research5">
         <div class="popup-content">
             <span class="close-popup">&times;</span>
-            <h4>Meteorite Research Group, Seiko Gakuin High School</h4>
+            <h4>Student Researcher (Meteorite Analysis)</h4>
             <div class="popup-info">
                 <p><strong>Period:</strong> August 2021 – February 2022</p>
-                <p><strong>Status:</strong> Fully Funded</p>
+                <p><strong>Location:</strong> Seiko Gakuin High School</p>
             </div>
-            <p>Participated in research utilizing electron microscopy to analyze meteorite samples. This collaborative project involved working with faculty from several universities in Japan and a partner high school in Britain.</p>
-            <p>Gained experience in advanced analytical techniques and international scientific collaboration, contributing to our understanding of extraterrestrial materials and their composition.</p>
+            <p>Operated <strong>Electron Microscopes (SEM)</strong> to analyze meteorite samples. Participated in international collaborative research with UK high schools and university faculties.</p>
+            <p>Gained experience in advanced analytical techniques and international scientific collaboration.</p>
         </div>
     </div>
-    
-    <div class="popup-overlay" id="research6">
-        <div class="popup-content">
-            <span class="close-popup">&times;</span>
-            <h4>Research Internship, DFKI Bremen's Robotics Innovation Center</h4>
-            <div class="popup-info">
-                <p><strong>Period:</strong> February 2025 – Present</p>
-                <p><strong>Lab:</strong> Robotics Innovation Center, German Research Center for Artificial Intelligence</p>
-                <p><strong>Status:</strong> Fully Funded</p>
-            </div>
-            <p>Conducting research on advanced control algorithms for 7-DOF robotic arms designed for space applications. This work focuses on developing precise control systems essential for critical space operations including spacecraft capture, space debris removal, and on-orbit servicing.</p>
-            <p>The research contributes to enhancing the autonomy and reliability of robotic systems in low Earth orbit and beyond, addressing key challenges in space robotics and supporting sustainable space utilization.</p>
-            
-            <h4>Research Visualization</h4>
-            <div class="animation-container">
-                <canvas id="robotArmCanvas" width="600" height="400"></canvas>
-                <div class="animation-caption">
-                    <p>7-DOF industrial robotic arm tracking a satellite moving in a circular orbit (90° tracking demonstration)</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Activity Details Popups -->
-    <div class="activity-details-popup" id="activity1-details">
-        <div class="popup-content">
-            <span class="close-popup">&times;</span>
-            <h4>Kyoto University Space Medicine Study Tour</h4>
-            <p>Organized and hosted a comprehensive study tour focused on space medicine at Kyoto University in August 2023. The event brought together students interested in the interdisciplinary field of space medicine and aerospace health.</p>
-            <p>Coordinated guest lectures from leading researchers in the field and organized hands-on workshops to explore the physiological effects of spaceflight and potential countermeasures.</p>
-        </div>
-    </div>
-
-    <div class="activity-details-popup" id="activity2-details">
-        <div class="popup-content">
-            <span class="close-popup">&times;</span>
-            <h4>Japan Students Space Forum</h4>
-            <p>Founded and hosted the Japan Students Space Forum in 2021, creating a platform for students across Japan to engage in discussions about space exploration, technology, and policy.</p>
-            <p>Organized speaker sessions, workshops, and networking opportunities to foster interest in space-related careers and research among Japanese students.</p>
-        </div>
-    </div>
-    
-    <div class="activity-details-popup" id="activity3-details">
-        <div class="popup-content">
-            <span class="close-popup">&times;</span>
-            <h4>International Space Technology Discussion</h4>
-            <p>In 2019, organized and hosted an international online meeting on next-generation outer-space technology, connecting students from India and Japan. Gathered talented high school students from both countries to discuss the future of space development.</p>
-            <p>The initiative fostered cross-cultural collaboration and exchange of innovative ideas in space technology, establishing international connections among future scientists and engineers.</p>
-        </div>
-    </div>
-    
-    <!-- Additional popups would follow the same pattern -->
 
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="space-animation.js"></script>
     <script src="script.js"></script>
     <script src="projects.js"></script>
     <script src="popups.js"></script>

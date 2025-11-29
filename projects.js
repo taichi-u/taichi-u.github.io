@@ -2,103 +2,90 @@
 const projects = [
     {
         id: 1,
-        title: "Metagenomic Analysis of Heavy Metal Contamination",
-        description: "Research on heavy metal contaminant stabilization through metagenomic analysis at Georgia Tech, using computational approaches with R, Linux, and Python.",
-        image: "photo/metagenomic.jpg",
-        categories: ["research", "space"],
-        tags: ["Genomics", "Bioinformatics", "Environmental Science"],
+        title: "Outer Planetary Mission Design - JAXA ISAS",
+        description: "Designing and optimizing trajectories for future outer planetary exploration missions. Applying astrodynamics principles to analyze interplanetary transfer orbits and gravity assists.",
+        image: "photo/jaxa_mission.jpg",
+        categories: ["space", "research"],
+        tags: ["Astrodynamics", "Mission Design", "JAXA"],
         links: [
-            { name: "Details", url: "#" }
+            { name: "Details", url: "#research" }
         ]
     },
     {
         id: 2,
-        title: "Hydrogen Metabolism in Microorganisms",
-        description: "Research on microorganisms with unique metabolic pathways for hydrogen and oxygen, with potential applications for sustainable energy and space life support systems.",
-        image: "photo/hydrogen-metabolism.jpeg",
-        categories: ["research"],
-        tags: ["Microbiology", "Biochemistry", "Sustainability"],
+        title: "Lunar Robot RL Control - Kyoto University",
+        description: "Designing reward functions and curriculum learning strategies for reinforcement learning of a hybrid three-wheeled-legged lunar robot with 8-DOF arm and 8-DOF legs.",
+        image: "photo/lunar_robot.jpg",
+        categories: ["robotics", "research"],
+        tags: ["Reinforcement Learning", "Isaac Lab", "Space Robotics"],
         links: [
-            { name: "Details", url: "#" }
+            { name: "Details", url: "#research" }
         ]
     },
     {
         id: 3,
-        title: "Extreme Halophiles in Rock Salt",
-        description: "Three-year research project identifying halophilic archaea from worldwide rock salt samples, contributing to our understanding of extremophiles and astrobiology.",
-        image: "photo/halophiles-research.jpg",
-        categories: ["research", "space"],
-        tags: ["Extremophiles", "Astrobiology", "Molecular Biology"],
+        title: "7-DOF Robot Arm Control - DFKI Bremen",
+        description: "Developed control algorithms for 7-DOF robotic arms for space debris capture. Implemented impedance and position controllers using Drake physics simulation.",
+        image: "photo/robot_arm.jpg",
+        categories: ["robotics", "space", "research"],
+        tags: ["Drake", "Control Systems", "Space Robotics"],
         links: [
-            { name: "Publication", url: "#" },
-            { name: "Details", url: "#" }
+            { name: "Details", url: "#research" }
         ]
     },
     {
         id: 4,
-        title: "Artificial Gravity Method Development",
-        description: "Developed and evaluated a new method for artificial gravity generation, using Arduino to sense forces and evaluate the prototype.",
-        image: "photo/artificial-gravity-prototype.jpeg",
-        categories: ["space"],
-        tags: ["Space Technology", "Engineering", "Arduino"],
+        title: "Metagenomic Analysis - Georgia Tech",
+        description: "Computational analysis of microbial communities for heavy metal contaminant stabilization using Python, R, and Linux-based bioinformatics pipelines.",
+        image: "photo/metagenomic.jpg",
+        categories: ["research"],
+        tags: ["Bioinformatics", "Python", "Metagenomics"],
         links: [
-            { name: "Details", url: "#" }
+            { name: "Details", url: "#research" }
         ]
     },
     {
         id: 5,
-        title: "Intelligent Water Rocket System",
-        description: "Award-winning rocket design with structural controls, computer-controlled functions, and automated parachute deployment systems.",
-        image: "photo/water-rocket-system.jpeg",
-        categories: ["space"],
-        tags: ["Rocketry", "Control Systems", "Engineering"],
+        title: "Extreme Halophiles Research - Tokyo Tech",
+        description: "Three-year research project identifying halophilic archaea from worldwide rock salt samples using PCR, sequencing, and phylogenetic analysis.",
+        image: "photo/halophiles.jpg",
+        categories: ["research"],
+        tags: ["Astrobiology", "Molecular Biology", "ELSI"],
         links: [
-            { name: "Details", url: "#" },
-            { name: "Gallery", url: "#" }
+            { name: "Details", url: "#research" }
         ]
     },
     {
         id: 6,
-        title: "Seiko SDGs Food Initiative",
-        description: "Founded a volunteer program focused on sustainable food practices and reducing food waste in alignment with UN Sustainable Development Goals.",
-        image: "photo/sdgs-food-initiative.jpg",
-        categories: ["social"],
-        tags: ["SDGs", "Sustainability", "Food Security"],
+        title: "Artificial Gravity Mechanism",
+        description: "Developed and evaluated a novel artificial gravity generation method with Arduino-based force sensors for real-time data acquisition.",
+        image: "photo/artificial_gravity.jpg",
+        categories: ["space"],
+        tags: ["Arduino", "Space Technology", "Prototyping"],
         links: [
-            { name: "Details", url: "#" }
+            { name: "Details", url: "#research" }
         ]
     },
     {
         id: 7,
-        title: "Light-Up Safety Slippers",
-        description: "Designed illuminated slippers for safety during nighttime emergencies and power outages, with functional prototype development.",
-        image: "photo/safety-slippers-prototype.jpg",
-        categories: ["social"],
-        tags: ["Product Design", "Safety", "Innovation"],
+        title: "Intelligent Water Rocket System",
+        description: "Award-winning rocket design with structural controls, computer-controlled functions, and automated parachute deployment systems.",
+        image: "photo/water_rocket.jpg",
+        categories: ["space"],
+        tags: ["Rocketry", "Control Systems", "Competition"],
         links: [
-            { name: "Details", url: "#" }
+            { name: "Details", url: "#achievements" }
         ]
     },
     {
         id: 8,
-        title: "International Space Technology Discussion",
-        description: "Organized an online forum connecting students from India and Japan to discuss next-generation space technologies and collaborative opportunities.",
-        image: "photo/space-tech-forum.jpg",
-        categories: ["space", "social"],
-        tags: ["International Collaboration", "Space Education", "Innovation"],
+        title: "NLP for Russian Language Learning",
+        description: "Developing AI-based Grammatical Error Correction systems for Russian language learning using NLP libraries at Tleez Inc.",
+        image: "photo/nlp_project.jpg",
+        categories: ["research"],
+        tags: ["NLP", "Python", "Machine Learning"],
         links: [
-            { name: "Details", url: "#" }
-        ]
-    },
-    {
-        id: 9,
-        title: "7-DOF Robot Arm Control for Space Applications",
-        description: "Research on control algorithms for 7-DOF robotic arms at DFKI Bremen's Robotics Innovation Center, essential for spacecraft capture, debris removal, and on-orbit servicing operations.",
-        image: "photo/robot-arm-control.jpg",
-        categories: ["research", "space"],
-        tags: ["Robotics", "Control Systems", "Space Technology"],
-        links: [
-            { name: "Details", url: "#" }
+            { name: "Details", url: "#education" }
         ]
     }
 ];

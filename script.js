@@ -30,9 +30,10 @@ function initTypedText() {
         new Typed('#typed-text', {
             strings: [
                 'Aerospace Engineering Student',
-                'Researcher in Microbiology',
-                'Space Technology Enthusiast',
-                'Innovator'
+                'Mission Design Researcher @ JAXA',
+                'Space Robotics Researcher',
+                'Reinforcement Learning for Lunar Robots',
+                'Nakatani Foundation Scholar'
             ],
             typeSpeed: 50,
             backSpeed: 30,
