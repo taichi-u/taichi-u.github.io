@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://taichi-u.github.io/sitemap.xml

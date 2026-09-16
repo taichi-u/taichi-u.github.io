@@ -1,279 +1,261 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize typing animation
-    initTypedText();
-    
-    // Initialize scroll animations
-    initScrollAnimations();
-    
-    // Initialize tab system
-    initTabs();
-    
-    // Initialize mobile menu
-    initMobileMenu();
-    
-    // Initialize show more/less buttons
-    initShowMoreButtons();
-    
-    // Initialize activity popup details
-    initActivityPopups();
-    
-    // Initialize particles.js
-    initParticles();
-    
-    // Initialize header scroll effect
-    initHeaderScroll();
+// Small progressive enhancements. All content and links work without JavaScript.
+const root = document.documentElement;
+const header = document.querySelector(".site-header");
+const menu = document.querySelector(".menu-toggle");
+const nav = document.querySelector("#primary-nav");
+const narrowScreen = matchMedia("(max-width: 820px)");
+if (header && menu && nav) {
+  header.classList.add("js-nav");
+  const closeMenu = (returnFocus = false) => {
+    menu.setAttribute("aria-expanded", "false");
+    nav.classList.remove("is-open");
+    if (returnFocus) menu.focus();
+  };
+  const syncMenu = () => {
+    menu.hidden = !narrowScreen.matches;
+    if (!narrowScreen.matches) closeMenu();
+  };
+  syncMenu();
+  narrowScreen.addEventListener("change", syncMenu);
+  menu.addEventListener("click", () => {
+    const open = menu.getAttribute("aria-expanded") !== "true";
+    menu.setAttribute("aria-expanded", String(open));
+    nav.classList.toggle("is-open", open);
+  });
+  nav.addEventListener("click", (e) => {
+    if (e.target.closest("a")) closeMenu();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && nav.classList.contains("is-open"))
+      closeMenu(true);
+  });
+  document.addEventListener("click", (e) => {
+    if (!header.contains(e.target)) closeMenu();
+  });
+  header.addEventListener("focusout", () => {
+    requestAnimationFrame(() => {
+      if (!header.contains(document.activeElement)) closeMenu();
+    });
+  });
+}
+
+// Keep the same section when changing language on the homepage.
+for (const link of document.querySelectorAll("[data-language]")) {
+  link.addEventListener("click", () => {
+    const destination = new URL(link.href);
+    destination.hash = location.hash;
+    link.href = destination.href;
+  });
+}
+
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+const motionButton = document.querySelector(".motion-toggle");
+let explicitMotion;
+try {
+  explicitMotion = localStorage.getItem("portfolio-motion");
+} catch {
+  /* Storage may be unavailable. */
+}
+const syncMotion = () => {
+  const off = reduceMotion.matches || explicitMotion === "off";
+  root.dataset.motion = off ? "off" : "on";
+  if (motionButton) {
+    motionButton.hidden = false;
+    motionButton.setAttribute("aria-pressed", String(off));
+    motionButton.textContent = `${motionButton.dataset.label}: ${off ? motionButton.dataset.off : motionButton.dataset.on}`;
+    motionButton.disabled = reduceMotion.matches;
+  }
+};
+reduceMotion.addEventListener("change", syncMotion);
+syncMotion();
+motionButton?.addEventListener("click", () => {
+  explicitMotion = root.dataset.motion === "off" ? "on" : "off";
+  try {
+    localStorage.setItem("portfolio-motion", explicitMotion);
+  } catch {
+    /* Optional preference. */
+  }
+  syncMotion();
 });
 
-// Typing animation for hero section
-function initTypedText() {
-    if (document.getElementById('typed-text')) {
-        new Typed('#typed-text', {
-            strings: [
-                'Aerospace Engineering Student',
-                'Mission Design Researcher @ JAXA',
-                'Space Robotics Researcher',
-                'Reinforcement Learning for Lunar Robots',
-                'Nakatani Foundation Scholar'
-            ],
-            typeSpeed: 50,
-            backSpeed: 30,
-            backDelay: 2000,
-            loop: true,
-            smartBackspace: true
-        });
+const filters = document.querySelector(".filters");
+const cards = [...document.querySelectorAll(".project-card")];
+if (filters && cards.length) {
+  filters.hidden = false;
+  const count = document.querySelector(".project-count");
+  filters.addEventListener("click", (e) => {
+    const button = e.target.closest("[data-filter]");
+    if (!button) return;
+    for (const filter of filters.querySelectorAll("button"))
+      filter.setAttribute("aria-pressed", String(filter === button));
+    for (const card of cards)
+      card.hidden =
+        button.dataset.filter !== "all" &&
+        !card.dataset.category.split(" ").includes(button.dataset.filter);
+    count.textContent = `${String(cards.filter((card) => !card.hidden).length).padStart(2, "0")} ${count.dataset.unit}`;
+  });
+}
+
+// Native dialogs provide focus trapping and Escape support; real URLs remain as a fallback.
+if (
+  typeof HTMLDialogElement !== "undefined" &&
+  HTMLDialogElement.prototype.showModal
+) {
+  let trigger;
+  document.addEventListener("click", (e) => {
+    const link = e.target.closest("a[data-project]");
+    if (
+      !link ||
+      e.ctrlKey ||
+      e.metaKey ||
+      e.shiftKey ||
+      e.altKey ||
+      e.button !== 0
+    )
+      return;
+    const dialog = document.getElementById(`project-${link.dataset.project}`);
+    if (!dialog) return;
+    e.preventDefault();
+    trigger = link;
+    const template = dialog.querySelector("template");
+    if (template) {
+      dialog.append(template.content.cloneNode(true));
+      template.remove();
     }
+    dialog.showModal();
+    dialog.scrollTop = 0;
+    document.body.classList.add("modal-open");
+    dialog.querySelector(".dialog-close")?.focus({ preventScroll: true });
+  });
+  for (const dialog of document.querySelectorAll(".project-dialog")) {
+    let backdropDown = false;
+    dialog.addEventListener("pointerdown", (e) => {
+      backdropDown = e.target === dialog && outsideDialog(e, dialog);
+    });
+    dialog.addEventListener("click", (e) => {
+      if (backdropDown && e.target === dialog && outsideDialog(e, dialog))
+        dialog.close();
+      backdropDown = false;
+    });
+    dialog.addEventListener("close", () => {
+      document.body.classList.remove("modal-open");
+      trigger?.focus({ preventScroll: true });
+    });
+  }
+}
+function outsideDialog(e, dialog) {
+  const r = dialog.getBoundingClientRect();
+  return (
+    e.clientX < r.left ||
+    e.clientX > r.right ||
+    e.clientY < r.top ||
+    e.clientY > r.bottom
+  );
 }
 
-// Initialize scroll animations
-function initScrollAnimations() {
-    // Create the Intersection Observer
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            // If the element is in the viewport
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, {
-        root: null, // Use the viewport as the root
-        threshold: 0.1, // Trigger when 10% of the element is visible
-        rootMargin: "-50px" // Trigger a bit before the element enters the viewport
-    });
-    
-    // Observe all elements with the fade-in class
-    document.querySelectorAll('.fade-in').forEach(element => {
-        observer.observe(element);
-    });
-}
-
-// Initialize tabs
-function initTabs() {
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    
-    tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Remove active class from all buttons and tab panes
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
-            
-            // Add active class to clicked button
-            button.classList.add('active');
-            
-            // Show corresponding tab pane
-            const tabId = button.getAttribute('data-tab');
-            document.getElementById(tabId).classList.add('active');
-        });
-    });
-}
-
-// Initialize mobile menu
-function initMobileMenu() {
-    const hamburger = document.querySelector('.hamburger');
-    const nav = document.querySelector('nav');
-    
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        nav.classList.toggle('active');
-    });
-    
-    // Close menu when clicking a link
-    document.querySelectorAll('nav ul li a').forEach(link => {
-        link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            nav.classList.remove('active');
-        });
-    });
-}
-
-// Initialize show more/less buttons
-function initShowMoreButtons() {
-    // Show more activities
-    const showMoreActivitiesBtn = document.getElementById('show-more-activities');
-    const moreActivities = document.getElementById('more-activities');
-    
-    if (showMoreActivitiesBtn && moreActivities) {
-        showMoreActivitiesBtn.addEventListener('click', () => {
-            moreActivities.classList.toggle('visible');
-            
-            if (moreActivities.classList.contains('visible')) {
-                showMoreActivitiesBtn.innerHTML = 'Show Less Activities <i class="fas fa-chevron-up"></i>';
-            } else {
-                showMoreActivitiesBtn.innerHTML = 'Show More Activities <i class="fas fa-chevron-down"></i>';
-            }
-        });
+const copy = document.querySelector(".copy-email");
+if (copy && navigator.clipboard && window.isSecureContext) {
+  copy.hidden = false;
+  const original = copy.innerHTML;
+  let copyTimer;
+  copy.addEventListener("click", async () => {
+    const status = document.querySelector(".copy-status");
+    try {
+      await navigator.clipboard.writeText(copy.dataset.email);
+      copy.textContent = copy.dataset.copied + " ✓";
+      status.textContent = copy.dataset.copied;
+      clearTimeout(copyTimer);
+      copyTimer = setTimeout(() => {
+        copy.innerHTML = original;
+        status.textContent = "";
+      }, 2500);
+    } catch {
+      status.textContent = copy.dataset.error;
     }
-    
-    // Show more awards
-    const showMoreAwardsBtn = document.getElementById('show-more-awards');
-    const moreAwards = document.getElementById('more-awards');
-    
-    if (showMoreAwardsBtn && moreAwards) {
-        showMoreAwardsBtn.addEventListener('click', () => {
-            moreAwards.classList.toggle('visible');
-            
-            if (moreAwards.classList.contains('visible')) {
-                showMoreAwardsBtn.innerHTML = 'Show Less Awards <i class="fas fa-chevron-up"></i>';
-            } else {
-                showMoreAwardsBtn.innerHTML = 'Show More Awards <i class="fas fa-chevron-down"></i>';
-            }
-        });
-    }
+  });
+}
+const printButton = document.querySelector(".print-button");
+if (printButton) {
+  printButton.hidden = false;
+  printButton.addEventListener("click", () => window.print());
 }
 
-// Initialize activity popup details
-function initActivityPopups() {
-    // Setup click listeners for all activity details buttons
-    document.querySelectorAll('.activity-details-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            const activityId = button.getAttribute('data-activity-id');
-            const popup = document.getElementById(`${activityId}-details`);
-            
-            if (popup) {
-                popup.style.display = 'flex';
-            }
-        });
-    });
-    
-    // Setup close buttons for all popups
-    document.querySelectorAll('.close-popup').forEach(closeBtn => {
-        closeBtn.addEventListener('click', () => {
-            closeBtn.closest('.activity-details-popup').style.display = 'none';
-        });
-    });
-    
-    // Close popup when clicking outside content
-    document.querySelectorAll('.activity-details-popup').forEach(popup => {
-        popup.addEventListener('click', (e) => {
-            if (e.target === popup) {
-                popup.style.display = 'none';
-            }
-        });
-    });
-}
-
-// Initialize particles.js
-function initParticles() {
-    if (typeof particlesJS !== 'undefined' && document.getElementById('particles-js')) {
-        particlesJS('particles-js', {
-            particles: {
-                number: {
-                    value: 100,
-                    density: {
-                        enable: true,
-                        value_area: 800
-                    }
-                },
-                color: {
-                    value: ["#3b82f6", "#10b981", "#8b5cf6"]
-                },
-                shape: {
-                    type: "circle",
-                    stroke: {
-                        width: 0,
-                        color: "#000000"
-                    }
-                },
-                opacity: {
-                    value: 0.5,
-                    random: true,
-                    anim: {
-                        enable: true,
-                        speed: 1,
-                        opacity_min: 0.1,
-                        sync: false
-                    }
-                },
-                size: {
-                    value: 3,
-                    random: true,
-                    anim: {
-                        enable: true,
-                        speed: 2,
-                        size_min: 0.1,
-                        sync: false
-                    }
-                },
-                line_linked: {
-                    enable: true,
-                    distance: 150,
-                    color: "#60a5fa",
-                    opacity: 0.4,
-                    width: 1
-                },
-                move: {
-                    enable: true,
-                    speed: 1,
-                    direction: "none",
-                    random: true,
-                    straight: false,
-                    out_mode: "out",
-                    bounce: false,
-                    attract: {
-                        enable: false,
-                        rotateX: 600,
-                        rotateY: 1200
-                    }
-                }
-            },
-            interactivity: {
-                detect_on: "canvas",
-                events: {
-                    onhover: {
-                        enable: true,
-                        mode: "grab"
-                    },
-                    onclick: {
-                        enable: true,
-                        mode: "push"
-                    },
-                    resize: true
-                },
-                modes: {
-                    grab: {
-                        distance: 140,
-                        line_linked: {
-                            opacity: 1
-                        }
-                    },
-                    push: {
-                        particles_nb: 4
-                    }
-                }
-            },
-            retina_detect: true
-        });
-    }
-}
-
-// Initialize header scroll effect
-function initHeaderScroll() {
-    const header = document.querySelector('header');
-    
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
+// One observer updates location cues; scrolling itself remains entirely native.
+if ("IntersectionObserver" in window) {
+  const links = [...document.querySelectorAll("nav a[data-section]")];
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        for (const link of links) {
+          if (link.dataset.section === entry.target.id)
+            link.setAttribute("aria-current", "location");
+          else link.removeAttribute("aria-current");
         }
+      }
+    },
+    { rootMargin: "-15% 0px -60% 0px", threshold: 0 },
+  );
+  for (const section of document.querySelectorAll("main > section[id]"))
+    observer.observe(section);
+  const hero = document.querySelector(".hero");
+  if (hero)
+    new IntersectionObserver((entries) => {
+      const satellite = document.querySelector(".orbit-satellite");
+      if (satellite)
+        satellite.style.animationPlayState = entries[0].isIntersecting
+          ? "running"
+          : "paused";
+      if (entries[0].isIntersecting)
+        links.forEach((link) => link.removeAttribute("aria-current"));
+    }).observe(hero);
+}
+
+// Search and category filters for the full activity archive.
+const archiveControls = document.querySelector(".archive-controls");
+if (archiveControls) {
+  archiveControls.hidden = false;
+  let category = "all";
+  const input = document.querySelector("#archive-search");
+  const entries = [...document.querySelectorAll(".archive-entry")];
+  const status = document.querySelector("#archive-count");
+  const applyFilters = () => {
+    const term = input.value.trim().toLocaleLowerCase().normalize("NFKC");
+    for (const entry of entries) {
+      entry.hidden =
+        (category !== "all" && entry.dataset.category !== category) ||
+        !entry.textContent.toLocaleLowerCase().normalize("NFKC").includes(term);
+    }
+    document.querySelectorAll(".archive-group").forEach((group) => {
+      group.hidden = !group.querySelector(".archive-entry:not([hidden])");
     });
+    const n = entries.filter((entry) => !entry.hidden).length;
+    status.textContent = `${n} ${status.dataset.unit}`;
+    document.querySelector("#archive-empty").hidden = n > 0;
+  };
+  input.addEventListener("input", applyFilters);
+  archiveControls.addEventListener("click", (e) => {
+    const filter = e.target.closest("[data-archive-filter]");
+    if (filter) {
+      category = filter.dataset.archiveFilter;
+      archiveControls
+        .querySelectorAll("[data-archive-filter]")
+        .forEach((b) => b.setAttribute("aria-pressed", String(b === filter)));
+      applyFilters();
+    }
+    if (e.target.closest("[data-reset-search]")) {
+      input.value = "";
+      category = "all";
+      archiveControls
+        .querySelectorAll("[data-archive-filter]")
+        .forEach((b) =>
+          b.setAttribute(
+            "aria-pressed",
+            String(b.dataset.archiveFilter === "all"),
+          ),
+        );
+      applyFilters();
+      input.focus();
+    }
+  });
 }
