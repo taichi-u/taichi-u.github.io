@@ -49,8 +49,13 @@ for (const [file, html] of pages) {
         anchor[0].includes("noopener"),
         `${file}: external tab protection`,
       );
-  for (const match of html.matchAll(/\b(?:href|src)="([^"]+)"/g)) {
-    const href = match[1];
+  const assetUrls = [
+    ...[...html.matchAll(/\b(?:href|src)="([^"]+)"/g)].map((match) => match[1]),
+    ...[...html.matchAll(/\bsrcset="([^"]+)"/g)].flatMap((match) =>
+      match[1].split(",").map((candidate) => candidate.trim().split(/\s+/)[0]),
+    ),
+  ];
+  for (const href of assetUrls) {
     if (/^(?:https?:|mailto:|data:)/.test(href)) continue;
     const [path, hash] = href.split("#");
     const target = path

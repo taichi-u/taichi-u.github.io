@@ -46,7 +46,7 @@ Application-specific CV source files, postal addresses, phone numbers, and appli
 
 ## Design and verification
 
-See `docs/design-review.md` for reference analysis, content decisions, and verification notes. Browser screenshots and temporary QA output are stored in ignored `artifacts/`. The repository check verifies local links, anchors, images, page metadata, localization, and key content requirements.
+See `docs/design-review.md` for reference analysis, content decisions, and verification notes, and `docs/cdp-review.md` for the CDP findings and optimization measurements. Browser screenshots and temporary QA output are stored in ignored `artifacts/`. The repository check verifies local links, anchors, images, page metadata, localization, and key content requirements.
 
 The optional browser suite requires Playwright and Chromium. With the preview server running:
 
@@ -54,9 +54,14 @@ The optional browser suite requires Playwright and Chromium. With the preview se
 npm install --no-save --package-lock=false playwright
 npx playwright install chromium
 npm run check:browser
+npm run check:cdp
 ```
 
 The suite covers 50 browser checks in both languages, including widths from 320 to 1440 pixels, keyboard controls, reduced motion, and no-JavaScript access. `CHROME_PATH` can select an existing Chrome executable; `PLAYWRIGHT_MODULE` can select an existing Playwright module, and `PORTFOLIO_BASE_URL` can override the local preview URL.
+
+`check:cdp` uses Chrome DevTools Protocol Runtime, Log, Network, Audits, and Performance domains to inspect every published page at a mobile viewport. It checks lazy images, responsive image transfer budgets, and layout stability when the main script is delayed. Reports and screenshots go to `artifacts/cdp-checks/` (override with `CDP_OUTPUT`). Performance values are local lab observations, not real-user measurements.
+
+Hackathon photographs have 640px and 960px WebP variants alongside the 1500px originals. `srcset` with automatic sizing selects the appropriate file; retain all three variants when replacing a photo. They were encoded at quality 82. Image dimensions in `scripts/build.mjs` must match the actual files so layout space is correct before loading. The static check also validates every `srcset` URL.
 
 ## Publication
 

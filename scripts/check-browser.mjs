@@ -132,7 +132,11 @@ try {
     for (const photo of await page.locator(".event-feature img").all()) {
       await photo.scrollIntoViewIfNeeded();
       await photo.evaluate((image) => image.decode());
-      assert(await photo.evaluate((image) => image.naturalWidth === 1500));
+      assert(
+        await photo.evaluate((image) =>
+          image.naturalWidth > 0 && image.currentSrc.includes("codex-fest-"),
+        ),
+      );
     }
     checks.push(lang + " / hackathon participation and two photographs");
     await page.goto(

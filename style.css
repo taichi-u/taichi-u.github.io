@@ -96,6 +96,18 @@ button:disabled {
 [hidden] {
   display: none !important;
 }
+/* Reserve enhancement controls before deferred JS runs, without exposing inert UI.
+   With scripting disabled they remain display:none and content stays accessible. */
+@media screen and (scripting: enabled) {
+  .archive-controls[hidden] {
+    display: flex !important;
+    visibility: hidden;
+  }
+  .filter-bar > .filters[hidden] {
+    display: flex !important;
+    visibility: hidden;
+  }
+}
 .sr-only {
   position: absolute;
   width: 1px;
@@ -958,6 +970,7 @@ nav > a[aria-current="location"]:after {
   display: block;
   width: 100%;
   height: auto;
+  aspect-ratio: 1500 / 1001;
 }
 .event-photos figcaption {
   margin-top: 10px;

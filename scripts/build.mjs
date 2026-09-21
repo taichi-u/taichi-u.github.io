@@ -140,10 +140,25 @@ function icon() {
   return '<svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="9" stroke="currentColor" stroke-width="1.5"/><ellipse cx="20" cy="20" rx="19" ry="6" transform="rotate(-35 20 20)" stroke="currentColor" stroke-width="1.5"/><circle cx="33" cy="10" r="3" fill="currentColor"/></svg>';
 }
 
-function visual(p, root, T) {
+// Intrinsic dimensions reserve the correct space before a lazy image is decoded.
+const imageDimensions = {
+  "robot-arm": [1000, 900],
+  presentation: [1000, 563],
+  isas: [750, 1000],
+  dfki: [750, 1000],
+  running: [1000, 624],
+  travel: [750, 1000],
+  diving: [602, 616],
+};
+function imageSize(name) {
+  const [width, height] = imageDimensions[name];
+  return `width="${width}" height="${height}" style="aspect-ratio: ${width} / ${height}"`;
+}
+
+function visual(p, root, T, priority = false) {
   const artStart = `<div class="project-art art-${p.visual}" aria-hidden="true"><span class="art-corner">${esc(p.org)}</span>`;
   if (p.visual === "photo")
-    return `${artStart}<img src="${root}assets/images/${p.image}.webp" width="1000" height="650" alt="" loading="lazy" decoding="async"><span class="art-bottom">${p.id === "space-robot-arm" ? "07 DOF / ROBOTICS" : "METAGENOMIC ANALYSIS"}</span></div>`;
+    return `${artStart}<img src="${root}assets/images/${p.image}.webp" ${imageSize(p.image)} alt="" loading="${priority ? "eager" : "lazy"}"${priority ? ' fetchpriority="high"' : ""} decoding="async"><span class="art-bottom">${p.id === "space-robot-arm" ? "07 DOF / ROBOTICS" : "METAGENOMIC ANALYSIS"}</span></div>`;
   const common =
     '<svg viewBox="0 0 640 390" fill="none" xmlns="http://www.w3.org/2000/svg">';
   let svg = "";
@@ -219,7 +234,7 @@ for (const lang of ["en", "ja"]) {
     return `<ol class="publication-list">${publications.map(([date, type, name, venue, url]) => `<li><div class="publication-meta"><span class="mono">${date}</span><span class="status-tag">${esc(T(type))}</span></div><div><h4>${url ? ext(url, T(name)) : esc(T(name))}</h4><p>${esc(venue)}</p></div></li>`).join("")}</ol>`;
   }
   function projectBody(p, root = "", modal = false) {
-    return `<div class="case-intro"><p class="eyebrow">${esc(p.org)} <span> / ${esc(p.date)}</span></p><${modal ? "h2" : "h1"} ${modal ? 'id="detail-' + p.id + '"' : ""}>${esc(T(p.title))}</${modal ? "h2" : "h1"}><p class="case-subtitle">${esc(T(p.subtitle))}</p>${tags(p)}</div>${visual(p, root, T)}${p.visual !== "photo" ? `<p class="visual-caption">${L.diagram}</p>` : ""}<dl class="case-facts"><div><dt>${L.role}</dt><dd>${esc(T(p.role))}</dd></div><div><dt>${L.period}</dt><dd>${esc(p.date)}</dd></div></dl><div class="case-copy"><section><h3>${L.purpose}</h3><p>${esc(T(p.question))}</p></section><section><h3>${L.contribution}</h3><ul>${p.work.map((w) => `<li>${esc(T(w))}</li>`).join("")}</ul></section><section><h3>${L.outcome}</h3><p>${esc(T(p.outcome))}</p></section></div>${p.photo ? `<figure class="case-photo"><img src="${root}assets/images/${p.photo}.webp" alt="${esc(T(p.photoAlt))}" width="1000" height="750" loading="lazy" decoding="async"><figcaption>${esc(T(p.photoAlt))}</figcaption></figure>` : ""}`;
+    return `<div class="case-intro"><p class="eyebrow">${esc(p.org)} <span> / ${esc(p.date)}</span></p><${modal ? "h2" : "h1"} ${modal ? 'id="detail-' + p.id + '"' : ""}>${esc(T(p.title))}</${modal ? "h2" : "h1"}><p class="case-subtitle">${esc(T(p.subtitle))}</p>${tags(p)}</div>${visual(p, root, T, !modal)}${p.visual !== "photo" ? `<p class="visual-caption">${L.diagram}</p>` : ""}<dl class="case-facts"><div><dt>${L.role}</dt><dd>${esc(T(p.role))}</dd></div><div><dt>${L.period}</dt><dd>${esc(p.date)}</dd></div></dl><div class="case-copy"><section><h3>${L.purpose}</h3><p>${esc(T(p.question))}</p></section><section><h3>${L.contribution}</h3><ul>${p.work.map((w) => `<li>${esc(T(w))}</li>`).join("")}</ul></section><section><h3>${L.outcome}</h3><p>${esc(T(p.outcome))}</p></section></div>${p.photo ? `<figure class="case-photo"><img src="${root}assets/images/${p.photo}.webp" alt="${esc(T(p.photoAlt))}" ${imageSize(p.photo)} loading="lazy" decoding="async"><figcaption>${esc(T(p.photoAlt))}</figcaption></figure>` : ""}`;
   }
   function skillsBlock() {
     return `<dl class="skills-list">${skills.map(([name, items]) => `<div><dt>${esc(T(name))}</dt><dd>${esc(T(items))}</dd></div>`).join("")}</dl>`;
@@ -231,7 +246,7 @@ for (const lang of ["en", "ja"]) {
   const research = `<section id="research" class="section wrap">${sectionHead("02", "RESEARCH & PROJECTS", lang === "ja" ? "研究・開発" : "Research & projects", lang === "ja" ? "研究とソフトウェア開発の内容を、分野別に掲載しています。" : "Research and software development projects, organized by field.")}<span id="projects" class="anchor-alias"></span><div class="filter-bar"><div class="filters" role="group" aria-label="${lang === "ja" ? "プロジェクトの分野" : "Filter projects"}" hidden>${["all", "space", "robotics", "software", "life"].map((key, i) => `<button class="filter-button" type="button" data-filter="${key}" aria-pressed="${i === 0}">${L[key]}${key === "all" ? "<span>08</span>" : ""}</button>`).join("")}</div><p class="project-count mono" role="status" aria-live="polite" aria-atomic="true" data-unit="${L.count}">08 ${L.count}</p></div><div class="project-grid">${projects.map((p, i) => `<article class="project-card" data-category="${p.category.join(" ")}"><div class="project-cover">${visual(p, "", T)}<span class="project-open" aria-hidden="true">↗</span></div><div class="project-meta mono"><span>${String(i + 1).padStart(2, "0")} / ${esc(p.org)}</span><span>${esc(p.date)}</span></div><h3><a href="research/${projectFile(p)}" data-project="${p.id}">${esc(T(p.title))}</a></h3><p>${esc(T(p.summary))}</p>${tags(p)}</article>`).join("")}</div><details class="archive earlier-research"><summary>${L.researchHistory}<span class="mono">2020 — 2024</span><span class="plus" aria-hidden="true">＋</span></summary>${rows(earlierResearch)}</details></section>`;
   const journey = `<section id="journey" class="section journey-section"><div class="wrap">${sectionHead("03", "EXPERIENCE", lang === "ja" ? "経歴" : "Experience")}<div class="journey-columns"><div id="education"><h3 class="subheading">${L.education}</h3>${rows(education)}<div id="achievements"><h3 class="subheading spaced">${L.awards}</h3>${rows(awards, 3)}</div></div><div><h3 class="subheading">${L.publications}</h3>${publicationList()}</div></div><div class="toolkit"><h3>${L.skills}</h3>${skillsBlock()}</div></div></section>`;
   function eventPhotos(event) {
-    return `<div class="event-photos">${event.photos.map((photo) => `<figure><img src="assets/images/${photo.file}.webp" width="1500" height="1001" loading="lazy" decoding="async" alt="${esc(T(photo.caption))}"><figcaption>${esc(T(photo.caption))}</figcaption></figure>`).join("")}</div>`;
+    return `<div class="event-photos">${event.photos.map((photo) => `<figure><img src="assets/images/${photo.file}.webp" srcset="assets/images/${photo.file}-640.webp 640w, assets/images/${photo.file}-960.webp 960w, assets/images/${photo.file}.webp 1500w" sizes="auto, (max-width: 560px) calc(100vw - 40px), 612px" width="1500" height="1001" loading="lazy" decoding="async" alt="${esc(T(photo.caption))}"><figcaption>${esc(T(photo.caption))}</figcaption></figure>`).join("")}</div>`;
   }
   const eventFeature = `<article class="event-feature" aria-labelledby="recent-event-title"><div class="event-heading"><p class="mono">${codexHackathon.date}</p><h3 id="recent-event-title">${esc(T(codexHackathon.title))}</h3></div><p>${esc(T(codexHackathon.summary))}</p>${eventPhotos(codexHackathon)}<p class="event-source">${ext(codexHackathon.url, lang === "ja" ? "イベント公式サイト" : "Official event page")}</p></article>`;
   const beyond = `<section id="beyond" class="section wrap">${sectionHead("04", "INTERESTS & ACTIVITIES", lang === "ja" ? "趣味・活動" : "Interests & activities")}${eventFeature}<div class="life-gallery">${[
@@ -241,7 +256,7 @@ for (const lang of ["en", "ja"]) {
   ]
     .map(
       ([im, caption, name]) =>
-        `<figure><img src="assets/images/${im}.webp" width="700" height="800" loading="lazy" decoding="async" alt="${esc(name)}"><figcaption><span class="mono">${caption}</span><span>${name}</span></figcaption></figure>`,
+        `<figure><img src="assets/images/${im}.webp" ${imageSize(im)} loading="lazy" decoding="async" alt="${esc(name)}"><figcaption><span class="mono">${caption}</span><span>${name}</span></figcaption></figure>`,
     )
     .join(
       "",
