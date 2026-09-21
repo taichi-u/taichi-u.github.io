@@ -174,11 +174,6 @@ if (copy && navigator.clipboard && window.isSecureContext) {
     }
   });
 }
-const printButton = document.querySelector(".print-button");
-if (printButton) {
-  printButton.hidden = false;
-  printButton.addEventListener("click", () => window.print());
-}
 
 // One observer updates location cues; scrolling itself remains entirely native.
 if ("IntersectionObserver" in window) {

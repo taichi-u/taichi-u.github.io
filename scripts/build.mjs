@@ -11,6 +11,8 @@ import {
   skills,
 } from "../content/portfolio.mjs";
 import { archiveGroups } from "../content/archive.mjs";
+import { codexHackathon } from "../content/events.mjs";
+const archiveCount = archiveGroups.reduce((n, g) => n + g.entries.length, 0);
 
 const esc = (value) =>
   String(value).replace(
@@ -61,7 +63,7 @@ const labels = {
     lang: "Language",
     count: "projects",
     cvDownload: "Download CV (PDF)",
-    print: "Print / Save as PDF",
+    print: "Open PDF for printing",
     home: "Home",
     diagram: "Concept illustration · not experimental data",
     updated: "Updated September 2026",
@@ -116,7 +118,7 @@ const labels = {
     lang: "言語",
     count: "件のプロジェクト",
     cvDownload: "CVをダウンロード（PDF）",
-    print: "印刷・PDFで保存",
+    print: "印刷用PDFを開く",
     home: "ホーム",
     diagram: "コンセプト図・実験データではありません",
     updated: "2026年9月更新",
@@ -228,7 +230,11 @@ for (const lang of ["en", "ja"]) {
   const about = `<section id="about" class="section wrap"><div class="about-grid"><div>${sectionHead("01", "ABOUT", aboutTitle)}<a class="text-link" href="${cv}">${lang === "ja" ? "プロフィールと経歴" : "Profile and CV"} ${arrow}</a></div><div class="about-copy"><p class="lead">${esc(T(profile.about))}</p><p>${esc(T(profile.about2))}</p><aside class="next-chapter"><span class="mono">${L.upcoming}</span><h3>${lang === "ja" ? "総合研究大学院大学" : "SOKENDAI"}</h3><p>${esc(T(profile.next))}</p></aside></div></div><div class="focus-strip"><span>MISSION DESIGN</span><span aria-hidden="true">✳</span><span>INTELLIGENT CONTROL</span><span aria-hidden="true">✳</span><span>SPACE ROBOTICS</span></div></section>`;
   const research = `<section id="research" class="section wrap">${sectionHead("02", "RESEARCH & PROJECTS", lang === "ja" ? "研究・開発" : "Research & projects", lang === "ja" ? "研究とソフトウェア開発の内容を、分野別に掲載しています。" : "Research and software development projects, organized by field.")}<span id="projects" class="anchor-alias"></span><div class="filter-bar"><div class="filters" role="group" aria-label="${lang === "ja" ? "プロジェクトの分野" : "Filter projects"}" hidden>${["all", "space", "robotics", "software", "life"].map((key, i) => `<button class="filter-button" type="button" data-filter="${key}" aria-pressed="${i === 0}">${L[key]}${key === "all" ? "<span>08</span>" : ""}</button>`).join("")}</div><p class="project-count mono" role="status" aria-live="polite" aria-atomic="true" data-unit="${L.count}">08 ${L.count}</p></div><div class="project-grid">${projects.map((p, i) => `<article class="project-card" data-category="${p.category.join(" ")}"><div class="project-cover">${visual(p, "", T)}<span class="project-open" aria-hidden="true">↗</span></div><div class="project-meta mono"><span>${String(i + 1).padStart(2, "0")} / ${esc(p.org)}</span><span>${esc(p.date)}</span></div><h3><a href="research/${projectFile(p)}" data-project="${p.id}">${esc(T(p.title))}</a></h3><p>${esc(T(p.summary))}</p>${tags(p)}</article>`).join("")}</div><details class="archive earlier-research"><summary>${L.researchHistory}<span class="mono">2020 — 2024</span><span class="plus" aria-hidden="true">＋</span></summary>${rows(earlierResearch)}</details></section>`;
   const journey = `<section id="journey" class="section journey-section"><div class="wrap">${sectionHead("03", "EXPERIENCE", lang === "ja" ? "経歴" : "Experience")}<div class="journey-columns"><div id="education"><h3 class="subheading">${L.education}</h3>${rows(education)}<div id="achievements"><h3 class="subheading spaced">${L.awards}</h3>${rows(awards, 3)}</div></div><div><h3 class="subheading">${L.publications}</h3>${publicationList()}</div></div><div class="toolkit"><h3>${L.skills}</h3>${skillsBlock()}</div></div></section>`;
-  const beyond = `<section id="beyond" class="section wrap">${sectionHead("04", "INTERESTS & ACTIVITIES", lang === "ja" ? "趣味・活動" : "Interests & activities")}<div class="life-gallery">${[
+  function eventPhotos(event) {
+    return `<div class="event-photos">${event.photos.map((photo) => `<figure><img src="assets/images/${photo.file}.webp" width="1500" height="1001" loading="lazy" decoding="async" alt="${esc(T(photo.caption))}"><figcaption>${esc(T(photo.caption))}</figcaption></figure>`).join("")}</div>`;
+  }
+  const eventFeature = `<article class="event-feature" aria-labelledby="recent-event-title"><div class="event-heading"><p class="mono">${codexHackathon.date}</p><h3 id="recent-event-title">${esc(T(codexHackathon.title))}</h3></div><p>${esc(T(codexHackathon.summary))}</p>${eventPhotos(codexHackathon)}<p class="event-source">${ext(codexHackathon.url, lang === "ja" ? "イベント公式サイト" : "Official event page")}</p></article>`;
+  const beyond = `<section id="beyond" class="section wrap">${sectionHead("04", "INTERESTS & ACTIVITIES", lang === "ja" ? "趣味・活動" : "Interests & activities")}${eventFeature}<div class="life-gallery">${[
     ["running", "RUNNING", lang === "ja" ? "陸上競技" : "Track & field"],
     ["travel", "TRAVEL", lang === "ja" ? "旅行" : "Travel"],
     ["diving", "DIVING", lang === "ja" ? "ダイビング" : "Diving"],
@@ -269,7 +275,7 @@ for (const lang of ["en", "ja"]) {
   const archiveFile = lang === "ja" ? "archive-ja.html" : "archive.html";
   const archiveOther = lang === "ja" ? "archive.html" : "archive-ja.html";
   const archiveName = lang === "ja" ? "活動アーカイブ" : "Activity archive";
-  const archiveCallout = `<div class="wrap"><div class="archive-callout"><div><p class="eyebrow">ACTIVITY ARCHIVE</p><p>${lang === "ja" ? "研究、企画運営、国際交流、スポーツなど、80件の活動記録を掲載しています。" : "80 activity records across research, event organization, international exchange, sport, and other fields."}</p></div><a href="${archiveFile}">${archiveName} ${arrow}</a></div></div>`;
+  const archiveCallout = `<div class="wrap"><div class="archive-callout"><div><p class="eyebrow">ACTIVITY ARCHIVE</p><p>${lang === "ja" ? `研究、企画運営、国際交流、スポーツなど、${archiveCount}件の活動記録を掲載しています。` : `${archiveCount} activity records across research, event organization, international exchange, sport, and other fields.`}</p></div><a href="${archiveFile}">${archiveName} ${arrow}</a></div></div>`;
   await writeFile(
     home,
     head(title, T(profile.intro), "", home, other) +
@@ -299,7 +305,7 @@ for (const lang of ["en", "ja"]) {
     );
   }
   const cvOther = lang === "en" ? "cv-ja.html" : "cv.html";
-  const cvPage = `<main id="main" class="cv-page wrap"><a class="back-link" href="${home}">← ${L.home}</a><div class="cv-heading"><div><p class="eyebrow">CURRICULUM VITAE / 2026</p><h1>${esc(T(profile.name))}<span class="blue">.</span></h1><p>${esc(T(profile.intro))}</p><a href="mailto:${profile.email}">${profile.email}</a></div><div class="cv-actions"><a class="button" href="cv_taichiuchida${lang === "ja" ? "-ja" : ""}.pdf" download>${L.cvDownload} ↓</a><button class="button button-outline print-button" hidden>${L.print}</button><span class="mono">${L.updated}</span></div></div><section><h2>${L.education}</h2>${rows(education)}</section><section><h2>${L.research}</h2>${rows(projects.map((p) => [p.date, [p.org + " · " + p.title[0], p.org + " · " + p.title[1]], p.summary]))}${rows(earlierResearch)}</section><section><h2>${L.publications}</h2>${publicationList()}</section><section><h2>${L.awards}</h2>${rows(awards)}</section><section><h2>${L.activities}</h2>${rows(activities)}</section><section><h2>${L.skills}</h2>${skillsBlock()}</section><p class="cv-print-note">taichi-u.github.io · ${L.updated}</p></main>`;
+  const cvPage = `<main id="main" class="cv-page wrap"><a class="back-link" href="${home}">← ${L.home}</a><div class="cv-heading"><div><p class="eyebrow">CURRICULUM VITAE / 2026</p><h1>${esc(T(profile.name))}<span class="blue">.</span></h1><p>${esc(T(profile.intro))}</p><a href="mailto:${profile.email}">${profile.email}</a></div><div class="cv-actions"><a class="button" href="cv_taichiuchida${lang === "ja" ? "-ja" : ""}.pdf" download>${L.cvDownload} ↓</a><a class="button button-outline print-button" href="cv_taichiuchida${lang === "ja" ? "-ja" : ""}.pdf" target="_blank" rel="noopener noreferrer">${L.print}<span class="sr-only"> (${lang === "ja" ? "新しいタブ" : "new tab"})</span></a><span class="mono">${L.updated}</span></div></div><section><h2>${L.education}</h2>${rows(education)}</section><section><h2>${L.research}</h2>${rows(projects.map((p) => [p.date, [p.org + " · " + p.title[0], p.org + " · " + p.title[1]], p.summary]))}${rows(earlierResearch)}</section><section><h2>${L.publications}</h2>${publicationList()}</section><section><h2>${L.awards}</h2>${rows(awards)}</section><section><h2>${L.activities}</h2>${rows(activities)}</section><section><h2>${L.skills}</h2>${skillsBlock()}</section><p class="cv-print-note">taichi-u.github.io · ${L.updated}</p></main>`;
   await writeFile(
     cv,
     head("CV — " + T(profile.name), T(profile.intro), "", cv, cvOther) +
@@ -308,12 +314,11 @@ for (const lang of ["en", "ja"]) {
       footer() +
       "</body></html>\n",
   );
-  const archiveCount = archiveGroups.reduce((n, g) => n + g.entries.length, 0);
   const archiveIntro =
     lang === "ja"
       ? "研究、企画運営、国際交流、スポーツなどの活動記録です。分野とキーワードで検索できます。"
       : "Records of research, event organization, international exchange, sport, and other activities. Filter by category or search by keyword.";
-  const archivePage = `<main id="main" class="archive-page wrap"><a class="back-link" href="${home}#beyond">← ${L.home}</a><div class="archive-hero"><p class="eyebrow">ACTIVITY ARCHIVE / ${archiveCount} ENTRIES</p><h1>${archiveName}<span class="blue">.</span></h1><p>${archiveIntro}</p></div><div class="archive-controls" hidden><div class="archive-search"><label for="archive-search">${lang === "ja" ? "検索" : "Search"}</label><input type="search" id="archive-search" placeholder="${lang === "ja" ? "例：宇宙、インド、2021" : "Try space, India, 2021"}" autocomplete="off"><button type="button" class="filter-button" data-reset-search>${lang === "ja" ? "リセット" : "Reset"}</button></div><div class="filters" role="group" aria-label="${lang === "ja" ? "活動の分野" : "Activity categories"}"><button class="filter-button" data-archive-filter="all" aria-pressed="true">${lang === "ja" ? "すべて" : "All"}</button>${archiveGroups.map((g) => `<button class="filter-button" data-archive-filter="${g.id}" aria-pressed="false">${esc(T(g.title))}</button>`).join("")}</div></div><p id="archive-count" class="mono" role="status" aria-live="polite" aria-atomic="true" data-unit="${lang === "ja" ? "件の記録" : "entries"}">${archiveCount} ${lang === "ja" ? "件の記録" : "entries"}</p><p id="archive-empty" hidden>${lang === "ja" ? "該当する記録はありません。キーワードを変えるか、リセットしてください。" : "No matching entries. Try a different term or reset the filters."}</p>${archiveGroups.map((g) => `<section class="archive-group" id="${g.id}"><h2>${esc(T(g.title))}</h2>${g.entries.map(([date, en, ja, enText, jaText], i) => `<details class="archive-entry" id="${g.id}-${i + 1}" data-category="${g.id}"><summary><span class="mono">${date === "School years" && lang === "ja" ? "中学時代" : esc(date)}</span><span>${esc(lang === "ja" ? ja : en)}</span><span class="plus" aria-hidden="true">＋</span></summary><p>${esc(lang === "ja" ? jaText : enText)}</p></details>`).join("")}</section>`).join("")}<div class="archive-callout"><p>${lang === "ja" ? "現在の研究と開発の詳細はこちら。" : "Details of current research and software projects."}</p><a href="${home}#research">${L.allWork} ${arrow}</a></div></main>`;
+  const archivePage = `<main id="main" class="archive-page wrap"><a class="back-link" href="${home}#beyond">← ${L.home}</a><div class="archive-hero"><p class="eyebrow">ACTIVITY ARCHIVE / ${archiveCount} ENTRIES</p><h1>${archiveName}<span class="blue">.</span></h1><p>${archiveIntro}</p></div><div class="archive-controls" hidden><div class="archive-search"><label for="archive-search">${lang === "ja" ? "検索" : "Search"}</label><input type="search" id="archive-search" placeholder="${lang === "ja" ? "例：宇宙、インド、2021" : "Try space, India, 2021"}" autocomplete="off"><button type="button" class="filter-button" data-reset-search>${lang === "ja" ? "リセット" : "Reset"}</button></div><div class="filters" role="group" aria-label="${lang === "ja" ? "活動の分野" : "Activity categories"}"><button class="filter-button" data-archive-filter="all" aria-pressed="true">${lang === "ja" ? "すべて" : "All"}</button>${archiveGroups.map((g) => `<button class="filter-button" data-archive-filter="${g.id}" aria-pressed="false">${esc(T(g.title))}</button>`).join("")}</div></div><p id="archive-count" class="mono" role="status" aria-live="polite" aria-atomic="true" data-unit="${lang === "ja" ? "件の記録" : "entries"}">${archiveCount} ${lang === "ja" ? "件の記録" : "entries"}</p><p id="archive-empty" hidden>${lang === "ja" ? "該当する記録はありません。キーワードを変えるか、リセットしてください。" : "No matching entries. Try a different term or reset the filters."}</p>${archiveGroups.map((g) => `<section class="archive-group" id="${g.id}"><h2>${esc(T(g.title))}</h2>${g.entries.map(([date, en, ja, enText, jaText, event], i) => `<details class="archive-entry" id="${g.id}-${i + 1}" data-category="${g.id}"><summary><span class="mono">${date === "School years" && lang === "ja" ? "中学時代" : esc(date)}</span><span>${esc(lang === "ja" ? ja : en)}</span><span class="plus" aria-hidden="true">＋</span></summary><p>${esc(lang === "ja" ? jaText : enText)}</p>${event ? eventPhotos(event) + `<p class="event-source">${ext(event.url, lang === "ja" ? "イベント公式サイト" : "Official event page")}</p>` : ""}</details>`).join("")}</section>`).join("")}<div class="archive-callout"><p>${lang === "ja" ? "現在の研究と開発の詳細はこちら。" : "Details of current research and software projects."}</p><a href="${home}#research">${L.allWork} ${arrow}</a></div></main>`;
   await writeFile(
     archiveFile,
     head(

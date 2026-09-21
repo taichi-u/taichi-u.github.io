@@ -61,3 +61,11 @@ Detailed measurements and test results are appended after final browser checks. 
 - Public CV PDFs: four A4 pages per language, visually reviewed. Original application CVs and private contact details were not published.
 - Fixed problems found during review: stale/missing images, the old undefined popup initializer, inaccessible menu controls, overly small supporting text, a contrast issue, duplicate project links, and contact decoration overflowing a 320-pixel screen. Project dialogs are now created lazily from templates.
 - Browser evidence and Lighthouse JSON are under ignored `artifacts/`. Reference screenshots are under `artifacts/references/`.
+
+## 2026-09-21: Typeset CVs and Codex hackathon
+
+- The on-screen CV layout is preserved. Download and print links now use PDFs compiled with LuaLaTeX from the existing public content, with Libertinus for Latin text and Harano Aji for Japanese. Both CVs have three A4 pages, consistent date columns, section rules, embedded fonts, and page numbers.
+- The print link opens the compiled PDF in a new tab. The links work without JavaScript; the browser's direct HTML printing also receives a serif fallback style.
+- The event date and official title were checked against https://codex-student-hack-fes.openai.chatgpt.site/ (15 September 2026). Participation, WalkIsFun, the shaded-route service, the three-person team, and the PM role were supplied by Taichi. No award or ranking is inferred.
+- Both supplied photos appear in the activities section and the archive; they are resized WebP files with intrinsic dimensions and lazy loading. The archive now contains 81 records. Existing archive anchors remain stable.
+- Verification: 22 pages and 434 local links/assets pass static checks; 50 browser checks pass with no page errors or HTTP failures. Both print links were clicked to verify they open the corresponding PDF. All six PDF pages were rendered and reviewed; the compiler reported no overfull boxes, missing characters, or undefined commands. PDF text checks confirm WalkIsFun, the PM role, planned enrollment, and use of public contact details.

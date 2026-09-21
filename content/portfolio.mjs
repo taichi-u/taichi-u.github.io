@@ -1,9 +1,11 @@
 // Public portfolio content. Keep application-specific CVs and private contact details outside this repository.
 // Localized values are [English, Japanese]. Use factual descriptions and descriptive headings; see docs/writing-guidelines.md.
+import { codexHackathon } from "./events.mjs";
+
 export const profile = {
   name: ["Taichi Uchida", "内田 大智"],
   email: "uchida.taichi.84f@st.kyoto-u.ac.jp",
-  updated: "2026-09-16",
+  updated: "2026-09-21",
   intro: [
     "Fourth-year aerospace engineering student at Kyoto University, researching mission design, trajectory optimization, and robotics.",
     "京都大学 工学部物理工学科 宇宙基礎工学コースの学部4年生。ミッション設計、軌道最適化、ロボティクスを研究しています。",
@@ -565,6 +567,7 @@ export const awards = [
 ];
 
 export const activities = [
+  [codexHackathon.date, codexHackathon.title, codexHackathon.summary],
   [
     "2026.03",
     ["JENESYS2025 · Japan–Korea exchange", "JENESYS2025・日韓青少年交流訪韓団"],

@@ -926,6 +926,60 @@ nav > a[aria-current="location"]:after {
   margin: 0;
   line-height: 1.9;
 }
+.event-feature {
+  margin-bottom: 56px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--line);
+}
+.event-heading .mono {
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.event-heading h3 {
+  font-size: clamp(20px, 2.4vw, 30px);
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+.event-feature > p,
+.event-source {
+  font-size: 14px;
+  line-height: 1.8;
+}
+.event-photos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-block: 24px;
+}
+.event-photos figure {
+  margin: 0;
+}
+.event-photos img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.event-photos figcaption {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.event-source a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.archive-entry .event-photos {
+  margin-inline: 20px;
+}
+@media (max-width: 560px) {
+  .event-photos {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .event-feature {
+    margin-bottom: 36px;
+  }
+}
 .life-gallery {
   display: grid;
   grid-template-columns: 1.18fr 1fr 0.88fr;
@@ -2296,6 +2350,20 @@ html[data-motion="off"] {
     width: 100%;
     max-width: none;
     padding: 0;
+    font-family: "Times New Roman", "Hiragino Mincho ProN", "Yu Mincho", serif;
+    color: #000;
+  }
+  .cv-page .mono,
+  .cv-page .eyebrow,
+  .cv-page .status-tag {
+    font-family: inherit;
+    letter-spacing: normal;
+  }
+  .cv-page .blue {
+    display: none;
+  }
+  .cv-page .cv-heading .eyebrow {
+    display: none;
   }
   .cv-heading {
     display: block;
@@ -2320,6 +2388,8 @@ html[data-motion="off"] {
     font-size: 17px;
     margin-bottom: 10px;
     break-after: avoid;
+    border-bottom: 1px solid #000;
+    padding-bottom: 4px;
   }
   .timeline-row,
   .cv-page .timeline-row {

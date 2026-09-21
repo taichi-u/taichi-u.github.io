@@ -1,5 +1,7 @@
 // Each entry is [date, English title, Japanese title, English detail, Japanese detail].
 // Dates without a reliable year remain explicitly unspecified.
+import { codexHackathon } from "./events.mjs";
+
 export const archiveGroups = [
   {
     id: "research",
@@ -592,3 +594,13 @@ export const archiveGroups = [
     ],
   },
 ];
+
+// Append to keep the existing archive entry URLs stable.
+archiveGroups
+  .find((group) => group.id === "research")
+  .entries.push([
+    codexHackathon.date,
+    ...codexHackathon.title,
+    ...codexHackathon.summary,
+    codexHackathon,
+  ]);

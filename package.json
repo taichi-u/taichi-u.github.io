@@ -6,6 +6,7 @@
     "build": "node scripts/build.mjs",
     "dev": "node scripts/serve.mjs",
     "check": "node scripts/check.mjs",
-    "check:browser": "node scripts/check-browser.mjs"
+    "check:browser": "node scripts/check-browser.mjs",
+    "build:cv": "node scripts/build-cv.mjs"
   }
 }

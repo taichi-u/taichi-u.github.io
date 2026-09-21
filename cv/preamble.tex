@@ -1,0 +1,45 @@
+% Shared typesetting for the public CVs. Compile with LuaLaTeX.
+\usepackage[a4paper,top=17mm,bottom=17mm,left=18mm,right=18mm,footskip=9mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{LibertinusSerif-Regular.otf}[
+  BoldFont=LibertinusSerif-Bold.otf,
+  ItalicFont=LibertinusSerif-Italic.otf,
+  BoldItalicFont=LibertinusSerif-BoldItalic.otf]
+\usepackage{microtype}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{hyperref}
+\hypersetup{hidelinks,unicode=true,pdfauthor={Taichi Uchida},pdfsubject={Public curriculum vitae}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{2em}
+\linespread{1.05}
+\raggedbottom
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[L]{\footnotesize Taichi Uchida\quad\textbar\quad Curriculum Vitae}
+\fancyfoot[R]{\footnotesize\thepage\,/\,\pageref*{LastPage}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.3pt}
+\titleformat{\section}{\large\bfseries}{}{0pt}{}[\vspace{1pt}\titlerule]
+\titlespacing*{\section}{0pt}{10pt}{6pt}
+\setlist[itemize]{leftmargin=1.2em,itemsep=1pt,topsep=2pt,parsep=0pt}
+\newcommand{\cvsection}[1]{\Needspace{5\baselineskip}\section*{#1}}
+% A fixed date column and an unbroken entry keep periods and descriptions aligned.
+\newcommand{\cventry}[3]{%
+  \par\addvspace{5pt}\noindent
+  \begin{minipage}[t]{28mm}\small\raggedright #1\end{minipage}\hfill
+  \begin{minipage}[t]{\dimexpr\textwidth-33mm\relax}
+    \textbf{#2}\par\vspace{1.5pt}#3
+  \end{minipage}\par
+}
+\newcommand{\cvcompact}[3]{%
+  \par\addvspace{4pt}\noindent
+  \begin{minipage}[t]{28mm}\small\raggedright #1\end{minipage}\hfill
+  \begin{minipage}[t]{\dimexpr\textwidth-33mm\relax}
+    \textbf{#2}\if\relax\detokenize{#3}\relax\else\enspace #3\fi
+  \end{minipage}\par
+}

@@ -69,7 +69,7 @@ for (const [file, html] of pages) {
 assert.equal(projects.length, 8);
 assert.equal(
   archiveGroups.reduce((n, g) => n + g.entries.length, 0),
-  80,
+  81,
 );
 for (const lang of ["en", "ja"]) {
   const html = pages.get(
@@ -88,5 +88,5 @@ for (const lang of ["en", "ja"]) {
     );
 }
 console.log(
-  `PASS: ${pages.size} pages, ${links} local links/assets, 8 bilingual project details, 80 archive entries, identity and metadata checks.`,
+  `PASS: ${pages.size} pages, ${links} local links/assets, 8 bilingual project details, 81 archive entries, identity and metadata checks.`,
 );

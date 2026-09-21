@@ -107,10 +107,38 @@ try {
     await page.waitForURL("**#research");
     assert(page.url().includes(lang === "ja" ? "index.html" : "index-ja.html"));
     checks.push(lang + " / language switch keeps section");
+    await page.goto(base + "/" + (lang === "ja" ? "cv-ja.html" : "cv.html"));
+    const pdfName = "cv_taichiuchida" + (lang === "ja" ? "-ja" : "") + ".pdf";
+    assert.equal(
+      await page.locator(".print-button").getAttribute("href"),
+      pdfName,
+    );
+    assert.equal(
+      await page.locator(".print-button").getAttribute("target"),
+      "_blank",
+    );
+    const downloadEvent = page.waitForEvent("download");
+    await page.locator(".cv-actions a[download]").click();
+    const download = await downloadEvent;
+    assert.equal(download.suggestedFilename(), pdfName);
+    assert.equal(await download.failure(), null);
+    const pdfResponse = await context.request.get(base + "/" + pdfName);
+    assert.equal(pdfResponse.status(), 200);
+    assert(pdfResponse.headers()["content-type"].includes("application/pdf"));
+    assert((await pdfResponse.body()).subarray(0, 5).toString() === "%PDF-");
+    checks.push(lang + " / CV download and print use the typeset PDF");
+    await page.goto(base + "/" + home + "#beyond");
+    await page.locator(".event-feature").scrollIntoViewIfNeeded();
+    for (const photo of await page.locator(".event-feature img").all()) {
+      await photo.scrollIntoViewIfNeeded();
+      await photo.evaluate((image) => image.decode());
+      assert(await photo.evaluate((image) => image.naturalWidth === 1500));
+    }
+    checks.push(lang + " / hackathon participation and two photographs");
     await page.goto(
       base + "/" + (lang === "ja" ? "archive-ja.html" : "archive.html"),
     );
-    assert.equal(await page.locator(".archive-entry").count(), 80);
+    assert.equal(await page.locator(".archive-entry").count(), 81);
     await page.locator('[data-archive-filter="sport"]').click();
     assert.equal(await page.locator(".archive-entry:visible").count(), 14);
     await page.locator("#archive-search").fill("ISSO");
@@ -118,7 +146,7 @@ try {
     await page.locator("#archive-search").fill("zzzzzz");
     assert(await page.locator("#archive-empty").isVisible());
     await page.locator("[data-reset-search]").click();
-    assert.equal(await page.locator(".archive-entry:visible").count(), 80);
+    assert.equal(await page.locator(".archive-entry:visible").count(), 81);
     await page.locator(".archive-entry summary").first().click();
     assert(
       await page
