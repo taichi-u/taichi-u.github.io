@@ -13,7 +13,15 @@ import {
 import { archiveGroups } from "../content/archive.mjs";
 import { codexHackathon } from "../content/events.mjs";
 import { galleryCategories, galleryPhotos } from "../content/gallery.mjs";
+import { galleryImages } from "../content/gallery-images.mjs";
 const archiveCount = archiveGroups.reduce((n, g) => n + g.entries.length, 0);
+// Match .wrap, .photo-gallery columns, and their 28px gaps in style.css.
+const gallerySizes = "(max-width: 560px) calc(100vw - 40px), (max-width: 1000px) calc((100vw - 100px) / 2), (max-width: 1100px) calc((100vw - 128px) / 3), (max-width: 1360px) calc((100vw - 168px) / 3), 398px";
+const galleryImage = (photo, index, alt) => {
+  const candidates = galleryImages[photo.id];
+  const fallback = candidates.find(image => image.width >= 800) || candidates.at(-1);
+  return `<img src="${fallback.src}" srcset="${candidates.map(image => `${image.src} ${image.width}w`).join(", ")}" sizes="${index === 0 ? "" : "auto, "}${gallerySizes}" width="${fallback.width}" height="${fallback.height}" style="aspect-ratio: ${photo.width} / ${photo.height}" alt="${esc(alt)}" loading="${index === 0 ? "eager" : "lazy"}"${index === 0 ? ' fetchpriority="high"' : ""} decoding="async">`;
+};
 
 const esc = (value) =>
   String(value).replace(
@@ -308,7 +316,7 @@ for (const lang of ["en", "ja"]) {
     </div><p class="mono" id="gallery-count" role="status" aria-live="polite" aria-atomic="true" data-unit="${photoUnit}">${galleryPhotos.length} ${photoUnit}</p></div>
     <div class="photo-gallery">${galleryPhotos.map((photo, i) => `<figure class="gallery-card" id="${photo.id}" data-category="${photo.categories.join(" ")}">
       <a class="gallery-photo" href="assets/images/${photo.file}.webp" data-gallery-photo aria-label="${esc(T(photo.title))} — ${lang === "ja" ? "写真を拡大" : "Enlarge photo"}">
-        <img src="assets/images/${photo.file}${photo.file.startsWith("gallery/") ? "-thumb" : ""}.webp" width="${photo.width}" height="${photo.height}" style="aspect-ratio: ${photo.width} / ${photo.height}" alt="${esc(T(photo.title))}" loading="${i === 0 ? "eager" : "lazy"}" decoding="async">
+        ${galleryImage(photo, i, T(photo.title))}
         <span class="gallery-zoom" aria-hidden="true">↗</span>
       </a><figcaption><h2>${esc(T(photo.title))}</h2><p>${esc(T(photo.caption))}</p></figcaption>
     </figure>`).join("")}</div>

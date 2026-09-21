@@ -30,6 +30,8 @@ The homepage offers eight selected projects. Each has a real standalone URL and 
 
 The bilingual gallery (`gallery.html` / `gallery-ja.html`) contains 15 distinct photographs from research stays, travels, interests, and events. Category filters and a keyboard-accessible photo viewer are optional enhancements; every photo also has a direct image link. Photographs retain their aspect ratios. New gallery images and lightweight thumbnails live in `assets/images/gallery/`; existing photographs are reused without duplicating gallery entries.
 
+Gallery images use responsive WebP candidates and native lazy loading. The first photo loads eagerly at high priority; the viewer requests the original image when opened. After adding or replacing a gallery photo, run `npm run build:gallery-images` (Python 3 with Pillow and Node.js), then `npm run build`. Commit the generated `content/gallery-images.mjs` manifest and `assets/images/gallery/responsive/` files. Regular HTML builds only require Node.js. Candidate widths stop at the source image's width; existing matching thumbnails are reused.
+
 Follow `docs/writing-guidelines.md` when editing either language. Use descriptive headings and factual content; do not add slogans, poetic metaphors, or promotional copy. Apply wording changes to page metadata, CV PDFs, and the social preview image as well.
 
 ## CV PDFs
@@ -63,6 +65,8 @@ npm run check:cdp
 The browser suite covers both languages at widths from 320 to 1440 pixels, gallery filters and image navigation, keyboard controls, reduced motion, and no-JavaScript access. `CHROME_PATH` can select an existing Chrome executable; `PLAYWRIGHT_MODULE` can select an existing Playwright module, and `PORTFOLIO_BASE_URL` can override the local preview URL.
 
 `check:cdp` uses Chrome DevTools Protocol Runtime, Log, Network, Audits, and Performance domains to inspect every published page at a mobile viewport. It checks lazy images, responsive image transfer budgets, and layout stability when the main script is delayed. Reports and screenshots go to `artifacts/cdp-checks/` (override with `CDP_OUTPUT`). Performance values are local lab observations, not real-user measurements.
+
+`MEASURE_LABEL=after npm run measure:gallery` collects three cold-cache gallery samples per viewport using CDP network and CPU throttling. It reports initial LCP, layout shifts, image bytes, and full-gallery image bytes after scrolling. Set `MEASURE_SAMPLES` or `MEASURE_OUTPUT` to override the sample count or the `artifacts/gallery-performance/` output directory. Keep the same browser, server, and workload when comparing runs.
 
 Hackathon photographs have 640px and 960px WebP variants alongside the 1500px originals. `srcset` with automatic sizing selects the appropriate file; retain all three variants when replacing a photo. They were encoded at quality 82. Image dimensions in `scripts/build.mjs` must match the actual files so layout space is correct before loading. The static check also validates every `srcset` URL.
 

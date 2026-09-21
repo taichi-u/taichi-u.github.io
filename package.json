@@ -8,6 +8,8 @@
     "check": "node scripts/check.mjs",
     "check:browser": "node scripts/check-browser.mjs",
     "build:cv": "node scripts/build-cv.mjs",
-    "check:cdp": "node scripts/check-cdp.mjs"
+    "check:cdp": "node scripts/check-cdp.mjs",
+    "build:gallery-images": "python3 scripts/build-gallery-images.py",
+    "measure:gallery": "node scripts/measure-gallery.mjs"
   }
 }

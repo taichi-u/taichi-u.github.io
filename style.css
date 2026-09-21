@@ -103,7 +103,8 @@ button:disabled {
     display: flex !important;
     visibility: hidden;
   }
-  .filter-bar > .filters[hidden] {
+  .filter-bar > .filters[hidden],
+  .gallery-filters[hidden] {
     display: flex !important;
     visibility: hidden;
   }
