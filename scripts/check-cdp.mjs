@@ -5,6 +5,12 @@ import { galleryImages } from "../content/gallery-images.mjs";
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || "playwright");
 const base = process.env.PORTFOLIO_BASE_URL || "http://127.0.0.1:4173";
 const output = process.env.CDP_OUTPUT || "artifacts/cdp-checks";
+async function waitForStyles(page) {
+  // A visible DOM node and fonts.ready can precede the stylesheet response.
+  // Measure deferred-JS layout only after the render-blocking CSS is applied.
+  await page.waitForFunction(() => [...document.querySelectorAll('link[rel="stylesheet"]')].every(link => link.sheet));
+  await page.evaluate(() => document.fonts.ready);
+}
 await mkdir(output, { recursive: true });
 const browser = await chromium.launch({
   headless: true,
@@ -105,7 +111,7 @@ try {
     try {
       await page.goto(`${base}/archive-ja.html`, { waitUntil: "commit" });
       await page.locator("#archive-count").waitFor({ state: "visible" });
-      await page.evaluate(() => document.fonts.ready);
+      await waitForStyles(page);
       const before = await page.locator("#archive-count").boundingBox();
       assert(await page.locator(".archive-controls").isHidden());
       releaseScript();
@@ -127,7 +133,7 @@ try {
     try {
       await page.goto(`${base}/gallery-ja.html`, { waitUntil: "commit" });
       await page.locator("#gallery-count").waitFor({ state: "visible" });
-      await page.evaluate(() => document.fonts.ready);
+      await waitForStyles(page);
       const before = await page.locator(".photo-gallery").boundingBox();
       const countBefore = await page.locator("#gallery-count").boundingBox();
       assert(await page.locator(".gallery-filters").isHidden());
