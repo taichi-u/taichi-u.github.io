@@ -153,6 +153,86 @@ function outsideDialog(e, dialog) {
   );
 }
 
+// Gallery links open the image directly when JavaScript or dialogs are unavailable.
+const galleryCards = [...document.querySelectorAll(".gallery-card")];
+const galleryFilters = document.querySelector(".gallery-filters");
+if (galleryFilters && galleryCards.length) {
+  galleryFilters.hidden = false;
+  const status = document.querySelector("#gallery-count");
+  galleryFilters.addEventListener("click", (event) => {
+    const filter = event.target.closest("[data-gallery-filter]");
+    if (!filter) return;
+    for (const button of galleryFilters.querySelectorAll("button"))
+      button.setAttribute("aria-pressed", String(button === filter));
+    for (const card of galleryCards)
+      card.hidden = filter.dataset.galleryFilter !== "all" &&
+        !card.dataset.category.split(" ").includes(filter.dataset.galleryFilter);
+    status.textContent = `${galleryCards.filter(card => !card.hidden).length} ${status.dataset.unit}`;
+  });
+}
+
+const galleryDialog = document.querySelector("#gallery-dialog");
+if (galleryDialog && typeof galleryDialog.showModal === "function") {
+  let galleryTrigger;
+  let visiblePhotos = [];
+  let photoIndex = 0;
+  const showPhoto = (index) => {
+    photoIndex = (index + visiblePhotos.length) % visiblePhotos.length;
+    const card = visiblePhotos[photoIndex];
+    const image = document.createElement("img");
+    image.src = card.querySelector("[data-gallery-photo]").href;
+    image.alt = card.querySelector("img").alt;
+    image.width = Number(card.querySelector("img").getAttribute("width"));
+    image.height = Number(card.querySelector("img").getAttribute("height"));
+    galleryDialog.querySelector(".gallery-dialog-image").replaceChildren(image);
+    galleryDialog.querySelector("#gallery-dialog-title").textContent = card.querySelector("h2").textContent;
+    galleryDialog.querySelector("#gallery-dialog-caption").textContent = card.querySelector("figcaption p").textContent;
+    galleryDialog.querySelector("#gallery-position").textContent = `${photoIndex + 1} / ${visiblePhotos.length}`;
+  };
+  document.querySelector(".photo-gallery").addEventListener("click", (event) => {
+    const link = event.target.closest("[data-gallery-photo]");
+    if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
+    event.preventDefault();
+    galleryTrigger = link;
+    visiblePhotos = galleryCards.filter(card => !card.hidden);
+    showPhoto(visiblePhotos.indexOf(link.closest(".gallery-card")));
+    galleryDialog.showModal();
+    document.body.classList.add("modal-open");
+    galleryDialog.querySelector(".dialog-close").focus({ preventScroll: true });
+  });
+  galleryDialog.querySelector("[data-gallery-previous]").addEventListener("click", () => showPhoto(photoIndex - 1));
+  galleryDialog.querySelector("[data-gallery-next]").addEventListener("click", () => showPhoto(photoIndex + 1));
+  galleryDialog.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      event.preventDefault();
+      showPhoto(photoIndex + (event.key === "ArrowRight" ? 1 : -1));
+    }
+    if (event.key === "Tab") {
+      const buttons = [...galleryDialog.querySelectorAll("button")];
+      const first = buttons[0], last = buttons.at(-1);
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+  });
+  let backdropDown = false;
+  galleryDialog.addEventListener("pointerdown", (event) => {
+    backdropDown = event.target === galleryDialog && outsideDialog(event, galleryDialog);
+  });
+  galleryDialog.addEventListener("click", (event) => {
+    if (backdropDown && event.target === galleryDialog && outsideDialog(event, galleryDialog)) galleryDialog.close();
+    backdropDown = false;
+  });
+  galleryDialog.addEventListener("close", () => {
+    document.body.classList.remove("modal-open");
+    galleryTrigger?.focus({ preventScroll: true });
+  });
+}
+
 const copy = document.querySelector(".copy-email");
 if (copy && navigator.clipboard && window.isSecureContext) {
   copy.hidden = false;

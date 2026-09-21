@@ -12,6 +12,7 @@ import {
 } from "../content/portfolio.mjs";
 import { archiveGroups } from "../content/archive.mjs";
 import { codexHackathon } from "../content/events.mjs";
+import { galleryCategories, galleryPhotos } from "../content/gallery.mjs";
 const archiveCount = archiveGroups.reduce((n, g) => n + g.entries.length, 0);
 
 const esc = (value) =>
@@ -29,6 +30,7 @@ const labels = {
     research: "Research",
     journey: "Experience",
     beyond: "Interests",
+    gallery: "Gallery",
     contact: "Contact",
     cv: "CV",
     skip: "Skip to content",
@@ -84,6 +86,7 @@ const labels = {
     research: "研究・開発",
     journey: "経歴",
     beyond: "趣味・活動",
+    gallery: "ギャラリー",
     contact: "連絡先",
     cv: "CV",
     skip: "本文へスキップ",
@@ -202,8 +205,10 @@ for (const lang of ["en", "ja"]) {
     `<ul class="tags" aria-label="${L.tools}">${p.tags.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>`;
   const ext = (url, text) =>
     `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(text)} ${arrow}<span class="sr-only"> (${lang === "ja" ? "新しいタブ" : "new tab"})</span></a>`;
-  function header(root = "", isHome = false, other = "") {
-    return `<a class="skip-link" href="#main">${L.skip}</a><header class="site-header"><a class="brand" href="${isHome ? "#top" : root + home}" aria-label="Taichi Uchida — ${L.home}">${icon()}<span>TAICHI UCHIDA</span></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" hidden>${L.menu}<span aria-hidden="true">＋</span></button><nav id="primary-nav" aria-label="${lang === "ja" ? "メインメニュー" : "Main navigation"}">${["about", "research", "journey", "beyond"].map((id) => `<a href="${isHome ? "" : root + home}#${id}" data-section="${id}">${L[id]}</a>`).join("")}<a class="nav-contact" href="${isHome ? "" : root + home}#contact" data-section="contact">${L.contact} ${arrow}</a></nav><div class="language-switch" aria-label="${L.lang}"><a href="${lang === "en" ? "#" : other}" ${lang === "en" ? 'aria-current="page"' : 'lang="en" hreflang="en" data-language'}>EN</a><span>/</span><a href="${lang === "ja" ? "#" : other}" ${lang === "ja" ? 'aria-current="page"' : 'lang="ja" hreflang="ja" data-language'}>JP</a></div></header>`;
+  const galleryFile = lang === "ja" ? "gallery-ja.html" : "gallery.html";
+  const galleryOther = lang === "ja" ? "gallery.html" : "gallery-ja.html";
+  function header(root = "", isHome = false, other = "", isGallery = false) {
+    return `<a class="skip-link" href="#main">${L.skip}</a><header class="site-header"><a class="brand" href="${isHome ? "#top" : root + home}" aria-label="Taichi Uchida — ${L.home}">${icon()}<span>TAICHI UCHIDA</span></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" hidden>${L.menu}<span aria-hidden="true">＋</span></button><nav id="primary-nav" aria-label="${lang === "ja" ? "メインメニュー" : "Main navigation"}">${["about", "research", "journey", "beyond"].map((id) => `<a href="${isHome ? "" : root + home}#${id}" data-section="${id}">${L[id]}</a>`).join("")}<a href="${root + galleryFile}"${isGallery ? ' aria-current="page"' : ""}>${L.gallery}</a><a class="nav-contact" href="${isHome ? "" : root + home}#contact" data-section="contact">${L.contact} ${arrow}</a></nav><div class="language-switch" aria-label="${L.lang}"><a href="${lang === "en" ? "#" : other}" ${lang === "en" ? 'aria-current="page"' : 'lang="en" hreflang="en" data-language'}>EN</a><span>/</span><a href="${lang === "ja" ? "#" : other}" ${lang === "ja" ? 'aria-current="page"' : 'lang="ja" hreflang="ja" data-language'}>JP</a></div></header>`;
   }
   function footer(root = "", isHome = false) {
     return `<footer class="site-footer"><a class="footer-brand" href="${isHome ? "#top" : root + home}">${icon()}<span>Taichi Uchida</span></a><p>© 2026 Taichi Uchida</p><div class="footer-options"><button type="button" class="motion-toggle" hidden aria-pressed="false" data-label="${L.motion}" data-on="${L.on}" data-off="${L.off}">${L.motion}: ${L.on}</button><a href="${isHome ? "#top" : root + home}">${lang === "ja" ? "トップへ" : "Back to top"} ↑</a></div></footer>`;
@@ -260,7 +265,7 @@ for (const lang of ["en", "ja"]) {
     )
     .join(
       "",
-    )}</div><p class="interests-line">${lang === "ja" ? "その他の趣味：ウクレレ、料理、将棋、盆栽、短歌、コーヒー。" : "Other interests: ukulele, cooking, shogi, bonsai, tanka poetry, and coffee."}</p><div class="beyond-columns"><div id="activities"><h3 class="subheading">${L.activities}</h3>${rows(activities, 3)}<p class="affiliations">${lang === "ja" ? "所属・活動：京都大学医学部陸上部／将棋部／京大マイコンクラブ／宇宙医学若手コミュニティ／Moon Village Association勉強会" : "Communities: Kyoto University Medical School Track & Field Team · Shogi Club · Microcomputer Club · Space Medicine Japan Youth Community · Moon Village Association Study Group"}</p></div><div id="media"><h3 class="subheading">${L.media}</h3><ul class="media-list">${media.map(([date, name, description, url]) => `<li><span class="mono">${date}</span><div><h4>${url ? ext(url, T(name)) : esc(T(name))}</h4><p>${esc(T(description))}</p></div>${url ? "" : `<span class="print-label">${lang === "ja" ? "紙面" : "PRINT"}</span>`}</li>`).join("")}</ul></div></div></section>`;
+    )}</div><p class="interests-line">${lang === "ja" ? "その他の趣味：少林寺拳法、筋トレ、ウクレレ、料理、歴史、将棋、盆栽、現代短歌、コーヒー、ビール（好きなビールはバイツェン）。" : "Other interests: Shorinji Kempo, weight training, ukulele, cooking, history, shogi, bonsai, contemporary tanka poetry, coffee, and beer (especially Weizen)."}</p><p class="gallery-link"><a class="text-link" href="${galleryFile}">${lang === "ja" ? "ギャラリーを見る" : "View the photo gallery"} ${arrow}</a></p><div class="beyond-columns"><div id="activities"><h3 class="subheading">${L.activities}</h3>${rows(activities, 3)}<p class="affiliations">${lang === "ja" ? "所属・活動：京都大学医学部陸上部／将棋部／京大マイコンクラブ／宇宙医学若手コミュニティ／Moon Village Association勉強会" : "Communities: Kyoto University Medical School Track & Field Team · Shogi Club · Microcomputer Club · Space Medicine Japan Youth Community · Moon Village Association Study Group"}</p></div><div id="media"><h3 class="subheading">${L.media}</h3><ul class="media-list">${media.map(([date, name, description, url]) => `<li><span class="mono">${date}</span><div><h4>${url ? ext(url, T(name)) : esc(T(name))}</h4><p>${esc(T(description))}</p></div>${url ? "" : `<span class="print-label">${lang === "ja" ? "紙面" : "PRINT"}</span>`}</li>`).join("")}</ul></div></div></section>`;
   const contact = `<section id="contact" class="contact-section"><div class="wrap"><p class="eyebrow"><span>05</span> CONTACT</p><div class="contact-top"><h2>${L.contact}</h2><p>${lang === "ja" ? "メールまたはLinkedInからご連絡ください。" : "Contact me by email or LinkedIn."}</p></div><div class="contact-bottom"><div class="email-group"><a class="email-link" href="mailto:${profile.email}">${profile.email}</a><button class="copy-email" type="button" data-email="${profile.email}" data-copied="${L.copied}" data-error="${L.copyFail}" hidden>${L.copy} <span aria-hidden="true">⧉</span></button><span class="copy-status sr-only" role="status"></span></div><div class="social-links">${ext("https://github.com/taichi-u", "GitHub")}${ext("https://www.linkedin.com/in/taichi-uchida", "LinkedIn")}${ext("https://x.com/Ukulele_run", "X")}<a href="${cv}">${L.cv} ${arrow}</a></div></div></div></section>`;
   const dialogs = projects
     .map(
@@ -290,6 +295,34 @@ for (const lang of ["en", "ja"]) {
   const archiveFile = lang === "ja" ? "archive-ja.html" : "archive.html";
   const archiveOther = lang === "ja" ? "archive.html" : "archive-ja.html";
   const archiveName = lang === "ja" ? "活動アーカイブ" : "Activity archive";
+  const photoUnit = lang === "ja" ? "枚の写真" : "photos";
+  const galleryIntro = lang === "ja"
+    ? "留学中の研究や旅先の風景、趣味の写真をまとめました。"
+    : "Photographs from research stays abroad, travels, and everyday interests.";
+  const galleryPage = `<main id="main" class="gallery-page wrap">
+    <a class="back-link" href="${home}#beyond">← ${L.beyond}</a>
+    <div class="gallery-heading"><p class="eyebrow">PHOTO GALLERY</p><h1>${L.gallery}<span class="blue">.</span></h1><p>${galleryIntro}</p></div>
+    <div class="gallery-toolbar"><div class="filters gallery-filters" role="group" aria-label="${lang === "ja" ? "写真のカテゴリ" : "Photo categories"}" hidden>
+      <button class="filter-button" type="button" data-gallery-filter="all" aria-pressed="true">${lang === "ja" ? "すべて" : "All"}</button>
+      ${galleryCategories.map(category => `<button class="filter-button" type="button" data-gallery-filter="${category.id}" aria-pressed="false">${esc(T(category.title))}</button>`).join("")}
+    </div><p class="mono" id="gallery-count" role="status" aria-live="polite" aria-atomic="true" data-unit="${photoUnit}">${galleryPhotos.length} ${photoUnit}</p></div>
+    <div class="photo-gallery">${galleryPhotos.map((photo, i) => `<figure class="gallery-card" id="${photo.id}" data-category="${photo.categories.join(" ")}">
+      <a class="gallery-photo" href="assets/images/${photo.file}.webp" data-gallery-photo aria-label="${esc(T(photo.title))} — ${lang === "ja" ? "写真を拡大" : "Enlarge photo"}">
+        <img src="assets/images/${photo.file}${photo.file.startsWith("gallery/") ? "-thumb" : ""}.webp" width="${photo.width}" height="${photo.height}" style="aspect-ratio: ${photo.width} / ${photo.height}" alt="${esc(T(photo.title))}" loading="${i === 0 ? "eager" : "lazy"}" decoding="async">
+        <span class="gallery-zoom" aria-hidden="true">↗</span>
+      </a><figcaption><h2>${esc(T(photo.title))}</h2><p>${esc(T(photo.caption))}</p></figcaption>
+    </figure>`).join("")}</div>
+  </main>`;
+  const galleryDialog = `<dialog class="gallery-dialog" id="gallery-dialog" aria-labelledby="gallery-dialog-title" aria-describedby="gallery-dialog-caption">
+    <div class="gallery-dialog-toolbar"><p class="mono" id="gallery-position" aria-live="polite" aria-atomic="true"></p><form method="dialog"><button class="dialog-close" aria-label="${lang === "ja" ? "写真を閉じる" : "Close photo"}">${L.close}<span aria-hidden="true">×</span></button></form></div>
+    <div class="gallery-dialog-image"></div>
+    <div class="gallery-dialog-bottom"><div><h2 id="gallery-dialog-title"></h2><p id="gallery-dialog-caption"></p></div><div class="gallery-pagination"><button type="button" data-gallery-previous aria-label="${lang === "ja" ? "前の写真" : "Previous photo"}">←</button><button type="button" data-gallery-next aria-label="${lang === "ja" ? "次の写真" : "Next photo"}">→</button></div></div>
+  </dialog>`;
+  await writeFile(
+    galleryFile,
+    head(L.gallery + " — " + T(profile.name), galleryIntro, "", galleryFile, galleryOther) +
+      header("", false, galleryOther, true) + galleryPage + footer() + galleryDialog + "</body></html>\n",
+  );
   const archiveCallout = `<div class="wrap"><div class="archive-callout"><div><p class="eyebrow">ACTIVITY ARCHIVE</p><p>${lang === "ja" ? `研究、企画運営、国際交流、スポーツなど、${archiveCount}件の活動記録を掲載しています。` : `${archiveCount} activity records across research, event organization, international exchange, sport, and other fields.`}</p></div><a href="${archiveFile}">${archiveName} ${arrow}</a></div></div>`;
   await writeFile(
     home,
@@ -361,6 +394,8 @@ const paths = [
   "cv-ja.html",
   "archive.html",
   "archive-ja.html",
+  "gallery.html",
+  "gallery-ja.html",
   ...projects.flatMap((p) => [
     `research/${p.id}.html`,
     `research/${p.id}-ja.html`,

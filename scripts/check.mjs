@@ -12,6 +12,8 @@ const files = [
   "cv-ja.html",
   "archive.html",
   "archive-ja.html",
+  "gallery.html",
+  "gallery-ja.html",
   ...(await readdir("research"))
     .filter((f) => f.endsWith(".html"))
     .map((f) => "research/" + f),

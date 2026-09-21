@@ -20,12 +20,15 @@ Commit regenerated HTML whenever changing content. GitHub Pages can serve the ro
 - `content/portfolio.mjs`: profile, selected research and software projects, education, publications, awards, community work, skills, and media. Localized text uses `[English, Japanese]`.
 - `content/archive.mjs`: the full activity archive, grouped into research, leadership, exchange, sport, and learning. Entries contain date, English title, Japanese title, English detail, Japanese detail.
 - `content/events.mjs`: event participation and photographs shared across the homepage, archive, and CV.
-- `scripts/build.mjs`: shared templates that generate all 22 HTML pages, sitemap, and favicon.
+- `content/gallery.mjs`: bilingual photo captions and categories, including photographs shared with `content/events.mjs`.
+- `scripts/build.mjs`: shared templates that generate all 24 HTML pages, sitemap, and favicon.
 - `style.css`: shared responsive design and CV print layout.
 - `script.js`: optional navigation, filters, native dialogs, clipboard, archive search, and motion preference.
 - `assets/images/`: compressed WebP derivatives. Original photos remain in `photo/`.
 
 The homepage offers eight selected projects. Each has a real standalone URL and an optional native dialog. The 81-entry archive provides text search, category filters, and native disclosure controls. All substantive content remains available without JavaScript.
+
+The bilingual gallery (`gallery.html` / `gallery-ja.html`) contains 15 distinct photographs from research stays, travels, interests, and events. Category filters and a keyboard-accessible photo viewer are optional enhancements; every photo also has a direct image link. Photographs retain their aspect ratios. New gallery images and lightweight thumbnails live in `assets/images/gallery/`; existing photographs are reused without duplicating gallery entries.
 
 Follow `docs/writing-guidelines.md` when editing either language. Use descriptive headings and factual content; do not add slogans, poetic metaphors, or promotional copy. Apply wording changes to page metadata, CV PDFs, and the social preview image as well.
 
@@ -57,7 +60,7 @@ npm run check:browser
 npm run check:cdp
 ```
 
-The suite covers 50 browser checks in both languages, including widths from 320 to 1440 pixels, keyboard controls, reduced motion, and no-JavaScript access. `CHROME_PATH` can select an existing Chrome executable; `PLAYWRIGHT_MODULE` can select an existing Playwright module, and `PORTFOLIO_BASE_URL` can override the local preview URL.
+The browser suite covers both languages at widths from 320 to 1440 pixels, gallery filters and image navigation, keyboard controls, reduced motion, and no-JavaScript access. `CHROME_PATH` can select an existing Chrome executable; `PLAYWRIGHT_MODULE` can select an existing Playwright module, and `PORTFOLIO_BASE_URL` can override the local preview URL.
 
 `check:cdp` uses Chrome DevTools Protocol Runtime, Log, Network, Audits, and Performance domains to inspect every published page at a mobile viewport. It checks lazy images, responsive image transfer budgets, and layout stability when the main script is delayed. Reports and screenshots go to `artifacts/cdp-checks/` (override with `CDP_OUTPUT`). Performance values are local lab observations, not real-user measurements.
 

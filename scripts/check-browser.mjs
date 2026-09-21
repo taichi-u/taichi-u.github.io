@@ -139,6 +139,51 @@ try {
       );
     }
     checks.push(lang + " / hackathon participation and two photographs");
+    const galleryFile = lang === "ja" ? "gallery-ja.html" : "gallery.html";
+    await page.locator(`.gallery-link a[href="${galleryFile}"]`).click();
+    await page.waitForURL("**/" + galleryFile);
+    assert.equal(await page.locator('nav a[aria-current="page"]').getAttribute("href"), galleryFile);
+    assert.equal(await page.locator(".gallery-card").count(), 15);
+    for (const photo of await page.locator(".gallery-card img").all()) {
+      await photo.scrollIntoViewIfNeeded();
+      await photo.evaluate(image => image.decode());
+      assert(await photo.evaluate(image => image.naturalWidth > 0));
+    }
+    for (const [category, count] of [["research", 4], ["travel", 7], ["interests", 8], ["events", 2], ["all", 15]]) {
+      await page.locator(`[data-gallery-filter="${category}"]`).click();
+      assert.equal(await page.locator(".gallery-card:visible").count(), count);
+      assert((await page.locator("#gallery-count").textContent()).startsWith(String(count)));
+    }
+    checks.push(lang + " / gallery navigation, all photographs load and category counts");
+    await page.locator('[data-gallery-filter="travel"]').click();
+    const selectedPhotos = page.locator(".gallery-card:visible");
+    const firstPhotoTitle = await selectedPhotos.first().locator("h2").textContent();
+    const lastPhotoTitle = await selectedPhotos.last().locator("h2").textContent();
+    await selectedPhotos.first().locator("a").click();
+    assert(await page.locator("#gallery-dialog").evaluate(dialog => dialog.open));
+    await page.locator(".gallery-dialog-image img").evaluate(image => image.decode());
+    assert.equal(await page.locator("#gallery-dialog-title").textContent(), firstPhotoTitle);
+    await page.locator("[data-gallery-next]").click();
+    assert.equal(await page.locator("#gallery-dialog-title").textContent(), await selectedPhotos.nth(1).locator("h2").textContent());
+    await page.keyboard.press("ArrowLeft");
+    assert.equal(await page.locator("#gallery-dialog-title").textContent(), firstPhotoTitle);
+    await page.locator("[data-gallery-previous]").click();
+    assert.equal(await page.locator("#gallery-dialog-title").textContent(), lastPhotoTitle);
+    assert.equal(await page.locator("#gallery-position").textContent(), "7 / 7");
+    await page.locator("#gallery-dialog .dialog-close").focus();
+    await page.keyboard.press("Shift+Tab");
+    assert(await page.evaluate(() => document.querySelector("#gallery-dialog").contains(document.activeElement)));
+    await page.keyboard.press("Escape");
+    await page.waitForFunction(() => !document.body.classList.contains("modal-open"));
+    assert.equal(await page.locator("dialog[open]").count(), 0);
+    assert(await page.evaluate(() => document.activeElement.hasAttribute("data-gallery-photo")));
+    checks.push(lang + " / photo viewer, filtered next and previous, wraparound, keyboard and focus restoration");
+    await page.locator('[data-gallery-filter="all"]').click();
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+    await page.screenshot({ path: output + "/gallery-desktop-" + lang + ".png", fullPage: true });
+    await page.locator("[data-language]").click();
+    assert(page.url().endsWith(lang === "ja" ? "gallery.html" : "gallery-ja.html"));
+    checks.push(lang + " / gallery language switch");
     await page.goto(
       base + "/" + (lang === "ja" ? "archive-ja.html" : "archive.html"),
     );
@@ -162,7 +207,7 @@ try {
       lang + " / archive search, categories, empty state, reset and disclosure",
     );
     await page.screenshot({ path: output + "/archive-" + lang + ".png" });
-    for (const width of [320, 390, 768, 1440]) {
+    for (const width of [320, 390, 768, 860, 1024, 1440]) {
       await page.setViewportSize({ width, height: 900 });
       await page.goto(base + "/" + home);
       await page.waitForLoadState("networkidle");
@@ -199,12 +244,21 @@ try {
       for (const route of [
         lang === "ja" ? "archive-ja.html" : "archive.html",
         lang === "ja" ? "cv-ja.html" : "cv.html",
+        galleryFile,
         lang === "ja"
           ? "research/mission-design-ja.html"
           : "research/mission-design.html",
       ]) {
         await page.goto(base + "/" + route);
         await overflow(lang + " " + route + " " + width);
+        if (route === galleryFile && width === 390) {
+          await page.screenshot({ path: output + "/gallery-mobile-" + lang + ".png" });
+          await page.locator(".gallery-card a").first().click();
+          await page.locator(".gallery-dialog-image img").evaluate(image => image.decode());
+          await overflow(lang + " gallery viewer " + width);
+          await page.screenshot({ path: output + "/gallery-mobile-viewer-" + lang + ".png" });
+          await page.locator("#gallery-dialog .dialog-close").click();
+        }
       }
     }
     await page.setViewportSize({ width: 1440, height: 1000 });
@@ -230,6 +284,13 @@ try {
   checks.push(
     "No JavaScript / complete content, project URLs, native disclosures",
   );
+  await fallback.goto(base + "/gallery-ja.html");
+  assert.equal(await fallback.locator(".gallery-card").count(), 15);
+  assert.equal(await fallback.locator(".gallery-filters:visible").count(), 0);
+  const imageURL = await fallback.locator(".gallery-card a").first().getAttribute("href");
+  await fallback.locator(".gallery-card a").first().click();
+  assert(fallback.url().endsWith(imageURL));
+  checks.push("No JavaScript / gallery captions and direct photo links");
   const reduced = await browser.newContext({
     reducedMotion: "reduce",
     viewport: { width: 390, height: 844 },
