@@ -49,7 +49,7 @@ for (const link of document.querySelectorAll("[data-language]")) {
 }
 
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
-const motionButton = document.querySelector(".motion-toggle");
+const motionButtons = document.querySelectorAll(".motion-toggle, [data-motion-control]");
 let explicitMotion;
 try {
   explicitMotion = localStorage.getItem("portfolio-motion");
@@ -59,7 +59,7 @@ try {
 const syncMotion = () => {
   const off = reduceMotion.matches || explicitMotion === "off";
   root.dataset.motion = off ? "off" : "on";
-  if (motionButton) {
+  for (const motionButton of motionButtons) {
     motionButton.hidden = false;
     motionButton.setAttribute("aria-pressed", String(off));
     motionButton.textContent = `${motionButton.dataset.label}: ${off ? motionButton.dataset.off : motionButton.dataset.on}`;
@@ -68,7 +68,7 @@ const syncMotion = () => {
 };
 reduceMotion.addEventListener("change", syncMotion);
 syncMotion();
-motionButton?.addEventListener("click", () => {
+for (const motionButton of motionButtons) motionButton.addEventListener("click", () => {
   explicitMotion = root.dataset.motion === "off" ? "on" : "off";
   try {
     localStorage.setItem("portfolio-motion", explicitMotion);
@@ -77,6 +77,40 @@ motionButton?.addEventListener("click", () => {
   }
   syncMotion();
 });
+
+// Load 3D after critical content, when a visible page approaches the hero.
+const sceneStage = document.querySelector("[data-scene]");
+if (sceneStage) {
+  const sceneURL = new URL("scene.min.js", document.currentScript.src);
+  let pageLoaded = document.readyState === "complete";
+  let started = false;
+  let sceneObserver;
+  const loadScene = () => {
+    if (started || !pageLoaded || document.hidden) return;
+    // Recheck current bounds: a deep-link jump can follow an observer callback.
+    const bounds = sceneStage.getBoundingClientRect();
+    if (bounds.bottom < -200 || bounds.top > innerHeight + 200 || !bounds.width || !bounds.height) return;
+    started = true;
+    sceneObserver?.disconnect();
+    document.removeEventListener("visibilitychange", loadScene);
+    window.removeEventListener("scroll", loadScene);
+    window.removeEventListener("resize", loadScene);
+    import(sceneURL.href).catch(error => console.warn("3D background unavailable:", error));
+  };
+  if ("IntersectionObserver" in window) {
+    sceneObserver = new IntersectionObserver(loadScene, { rootMargin: "200px" });
+    sceneObserver.observe(sceneStage);
+  } else {
+    window.addEventListener("scroll", loadScene, { passive: true });
+    window.addEventListener("resize", loadScene);
+  }
+  document.addEventListener("visibilitychange", loadScene);
+  if (pageLoaded) requestAnimationFrame(loadScene);
+  else window.addEventListener("load", () => {
+    pageLoaded = true;
+    requestAnimationFrame(loadScene);
+  }, { once: true });
+}
 
 const filters = document.querySelector(".filters");
 const cards = [...document.querySelectorAll(".project-card")];

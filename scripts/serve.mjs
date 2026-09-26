@@ -6,6 +6,7 @@ const types = {
   ".html": "text/html; charset=utf-8",
   ".css": "text/css; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
+  ".glb": "model/gltf-binary",
   ".webp": "image/webp",
   ".png": "image/png",
   ".svg": "image/svg+xml",

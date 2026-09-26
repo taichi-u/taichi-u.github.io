@@ -7,9 +7,16 @@
     "dev": "node scripts/serve.mjs",
     "check": "node scripts/check.mjs",
     "check:browser": "node scripts/check-browser.mjs",
+    "check:scene": "node scripts/check-scene.mjs",
+    "build:scene": "node scripts/build-scene.mjs",
+    "pack:models": "node scripts/pack-models.mjs",
+    "measure:scene": "node scripts/measure-scene.mjs",
     "build:cv": "node scripts/build-cv.mjs",
     "check:cdp": "node scripts/check-cdp.mjs",
     "build:gallery-images": "python3 scripts/build-gallery-images.py",
     "measure:gallery": "node scripts/measure-gallery.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.10"
   }
 }

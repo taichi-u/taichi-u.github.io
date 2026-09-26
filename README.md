@@ -1,10 +1,10 @@
 # Taichi Uchida — Portfolio
 
-A bilingual, static portfolio for 内田 大智 / Taichi Uchida. Published files live at the repository root for GitHub Pages. There are no frontend framework, CDN, font, or build-service dependencies at runtime.
+A bilingual, static portfolio for 内田 大智 / Taichi Uchida. Published files live at the repository root for GitHub Pages. There are no frontend framework, CDN, font, or build-service dependencies at runtime. The optional homepage 3D background uses a locally vendored copy of Three.js.
 
 ## Preview and build
 
-Requires Node.js 20 or newer. No package installation is needed.
+Requires Node.js 20 or newer. No package installation is needed for the regular HTML build or preview; the optimized 3D assets are checked in.
 
 ```sh
 npm run build
@@ -24,7 +24,19 @@ Commit regenerated HTML whenever changing content. GitHub Pages can serve the ro
 - `scripts/build.mjs`: shared templates that generate all 24 HTML pages, sitemap, and favicon.
 - `style.css`: shared responsive design and CV print layout.
 - `script.js`: optional navigation, filters, native dialogs, clipboard, archive search, and motion preference.
+- `scene.js`: editable source for the rotating 3D homepage background. The browser loads its generated `scene.min.js` bundle after the initial content, when the hero approaches the viewport.
+- `models/`: original editable Blender models and editing/provenance notes. Web exports live in `assets/models/`; regenerate with `scripts/build-models.py` using Blender.
 - `assets/images/`: compressed WebP derivatives. Original photos remain in `photo/`.
+
+### Building 3D assets
+
+After editing `scene.js` or its vendored Three.js modules, install the pinned build tool with `pnpm install --frozen-lockfile`, then run `pnpm run build:scene`. This bundles/minifies the code, preserves the Three.js license notice, records source hashes in `assets/scene-build.json`, and packs the models. Only this optional asset build needs esbuild; the browser has no package-manager or CDN dependency. Commit the regenerated bundle and manifest together with the source.
+
+After editing or exporting a model in Blender, run `node scripts/pack-models.mjs`. The original `.glb` and `.blend` files remain available. The site fetches byte-identical gzip-packed models and decompresses them with the browser's native `DecompressionStream`; browsers without that API load the conventional GLB. Packing verifies exact round-trip equality and preserves unchanged outputs.
+
+`npm run check:scene` checks bundle freshness, packed-model integrity, both languages, rendering/pause, mobile layout, context restoration, legacy decompression fallback, and deferred requests via CDP. Like the other browser checks, it accepts `PLAYWRIGHT_MODULE`, `CHROME_PATH`, and `PORTFOLIO_BASE_URL`.
+
+`MEASURE_LABEL=before npm run measure:scene` and `MEASURE_LABEL=after npm run measure:scene` collect three cold-cache samples at each of two viewports, with 150ms latency, 200KB/s download, and 4× CPU slowdown. They record resource bytes, LCP, scene-ready time, long tasks, steady-state main-thread time, WebGL submissions, paused/offscreen work, and a Chrome trace. Reports go to ignored `artifacts/scene-performance/`; set `MEASURE_OUTPUT` or `MEASURE_SAMPLES` to override. Run comparisons sequentially on the same machine/server without other browser workloads. These are lab observations, not field Core Web Vitals or physical-phone GPU measurements. See `docs/3d-performance.md` for the recorded comparison.
 
 The homepage offers eight selected projects. Each has a real standalone URL and an optional native dialog. The 81-entry archive provides text search, category filters, and native disclosure controls. All substantive content remains available without JavaScript.
 
