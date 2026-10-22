@@ -105,7 +105,7 @@ try {
     await page.goto(base + "/" + home + "#research");
     await page.locator("[data-language]").click();
     await page.waitForURL("**#research");
-    assert(page.url().includes(lang === "ja" ? "index.html" : "index-ja.html"));
+    assert.equal(new URL(page.url()).pathname, lang === "ja" ? "/" : "/index-ja.html");
     checks.push(lang + " / language switch keeps section");
     await page.goto(base + "/" + (lang === "ja" ? "cv-ja.html" : "cv.html"));
     const pdfName = "cv_taichiuchida" + (lang === "ja" ? "-ja" : "") + ".pdf";

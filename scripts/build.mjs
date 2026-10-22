@@ -14,6 +14,7 @@ import { archiveGroups } from "../content/archive.mjs";
 import { codexHackathon } from "../content/events.mjs";
 import { galleryCategories, galleryPhotos } from "../content/gallery.mjs";
 import { galleryImages } from "../content/gallery-images.mjs";
+import { canonicalUrl, languageAlternates, structuredData, googleSiteVerification } from "./seo.mjs";
 const archiveCount = archiveGroups.reduce((n, g) => n + g.entries.length, 0);
 // Match .wrap, .photo-gallery columns, and their 28px gaps in style.css.
 const gallerySizes = "(max-width: 560px) calc(100vw - 40px), (max-width: 1000px) calc((100vw - 100px) / 2), (max-width: 1100px) calc((100vw - 128px) / 3), (max-width: 1360px) calc((100vw - 168px) / 3), 398px";
@@ -202,13 +203,14 @@ for (const lang of ["en", "ja"]) {
     T = (v) => (Array.isArray(v) ? v[lang === "ja" ? 1 : 0] : v);
   const home = lang === "ja" ? "index-ja.html" : "index.html",
     cv = lang === "ja" ? "cv-ja.html" : "cv.html";
+  const homeHref = lang === "ja" ? home : "./";
   const projectFile = (p) => `${p.id}${lang === "ja" ? "-ja" : ""}.html`;
   const title =
     T(profile.name) +
-    " — " +
+    " | " +
     (lang === "ja"
-      ? "宇宙・ロボティクス・知的制御"
-      : "Space, robotics & intelligent control");
+      ? "京都大学・宇宙工学・ロボティクス"
+      : "Kyoto University · Aerospace & Robotics");
   const tags = (p) =>
     `<ul class="tags" aria-label="${L.tools}">${p.tags.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>`;
   const ext = (url, text) =>
@@ -216,10 +218,10 @@ for (const lang of ["en", "ja"]) {
   const galleryFile = lang === "ja" ? "gallery-ja.html" : "gallery.html";
   const galleryOther = lang === "ja" ? "gallery.html" : "gallery-ja.html";
   function header(root = "", isHome = false, other = "", isGallery = false) {
-    return `<a class="skip-link" href="#main">${L.skip}</a><header class="site-header"><a class="brand" href="${isHome ? "#top" : root + home}" aria-label="Taichi Uchida — ${L.home}">${icon()}<span>TAICHI UCHIDA</span></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" hidden>${L.menu}<span aria-hidden="true">＋</span></button><nav id="primary-nav" aria-label="${lang === "ja" ? "メインメニュー" : "Main navigation"}">${["about", "research", "journey", "beyond"].map((id) => `<a href="${isHome ? "" : root + home}#${id}" data-section="${id}">${L[id]}</a>`).join("")}<a href="${root + galleryFile}"${isGallery ? ' aria-current="page"' : ""}>${L.gallery}</a><a class="nav-contact" href="${isHome ? "" : root + home}#contact" data-section="contact">${L.contact} ${arrow}</a></nav><div class="language-switch" aria-label="${L.lang}"><a href="${lang === "en" ? "#" : other}" ${lang === "en" ? 'aria-current="page"' : 'lang="en" hreflang="en" data-language'}>EN</a><span>/</span><a href="${lang === "ja" ? "#" : other}" ${lang === "ja" ? 'aria-current="page"' : 'lang="ja" hreflang="ja" data-language'}>JP</a></div></header>`;
+    return `<a class="skip-link" href="#main">${L.skip}</a><header class="site-header"><a class="brand" href="${isHome ? "#top" : root + homeHref}" aria-label="Taichi Uchida — ${L.home}">${icon()}<span>TAICHI UCHIDA</span></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" hidden>${L.menu}<span aria-hidden="true">＋</span></button><nav id="primary-nav" aria-label="${lang === "ja" ? "メインメニュー" : "Main navigation"}">${["about", "research", "journey", "beyond"].map((id) => `<a href="${isHome ? "" : root + homeHref}#${id}" data-section="${id}">${L[id]}</a>`).join("")}<a href="${root + galleryFile}"${isGallery ? ' aria-current="page"' : ""}>${L.gallery}</a><a class="nav-contact" href="${isHome ? "" : root + homeHref}#contact" data-section="contact">${L.contact} ${arrow}</a></nav><div class="language-switch" aria-label="${L.lang}"><a href="${lang === "en" ? "#" : other}" ${lang === "en" ? 'aria-current="page"' : 'lang="en" hreflang="en" data-language'}>EN</a><span>/</span><a href="${lang === "ja" ? "#" : other}" ${lang === "ja" ? 'aria-current="page"' : 'lang="ja" hreflang="ja" data-language'}>JP</a></div></header>`;
   }
   function footer(root = "", isHome = false) {
-    return `<footer class="site-footer"><a class="footer-brand" href="${isHome ? "#top" : root + home}">${icon()}<span>Taichi Uchida</span></a><p>© 2026 Taichi Uchida</p><div class="footer-options"><button type="button" class="motion-toggle" hidden aria-pressed="false" data-label="${L.motion}" data-on="${L.on}" data-off="${L.off}">${L.motion}: ${L.on}</button><a href="${isHome ? "#top" : root + home}">${lang === "ja" ? "トップへ" : "Back to top"} ↑</a></div></footer>`;
+    return `<footer class="site-footer"><a class="footer-brand" href="${isHome ? "#top" : root + homeHref}">${icon()}<span>Taichi Uchida</span></a><p>© 2026 Taichi Uchida</p><div class="footer-options"><button type="button" class="motion-toggle" hidden aria-pressed="false" data-label="${L.motion}" data-on="${L.on}" data-off="${L.off}">${L.motion}: ${L.on}</button><a href="${isHome ? "#top" : root + homeHref}">${lang === "ja" ? "トップへ" : "Back to top"} ↑</a></div></footer>`;
   }
   function head(
     pageTitle,
@@ -228,7 +230,11 @@ for (const lang of ["en", "ja"]) {
     path = home,
     other = "index-ja.html",
   ) {
-    return `<!doctype html>\n<html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><title>${esc(pageTitle)}</title><meta name="description" content="${esc(description)}"><meta name="theme-color" content="#f5f4ee"><link rel="canonical" href="https://taichi-u.github.io/${path === "index.html" ? "" : path}"><link rel="alternate" hreflang="${lang === "en" ? "ja" : "en"}" href="https://taichi-u.github.io/${other}"><meta property="og:title" content="${esc(pageTitle)}"><meta property="og:description" content="${esc(description)}"><meta property="og:type" content="website"><meta property="og:url" content="https://taichi-u.github.io/${path}"><meta property="og:image" content="https://taichi-u.github.io/assets/social-card.png"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="${root}assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="${root}style.css"><script src="${root}script.js" defer></script></head><body id="top">`;
+    const alternates = Object.entries(languageAlternates(lang, path, other))
+      .map(([language, url]) => `<link rel="alternate" hreflang="${language}" href="${esc(url)}">`).join("");
+    const schema = JSON.stringify(structuredData({ lang, path, title: pageTitle, description })).replace(/</g, "\\u003c");
+    const verification = path === home ? `<meta name="google-site-verification" content="${googleSiteVerification}">` : "";
+    return `<!doctype html>\n<html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><title>${esc(pageTitle)}</title><meta name="description" content="${esc(description)}"><meta name="theme-color" content="#f5f4ee"><link rel="canonical" href="${canonicalUrl(path)}">${alternates}${verification}<meta property="og:title" content="${esc(pageTitle)}"><meta property="og:description" content="${esc(description)}"><meta property="og:type" content="website"><meta property="og:url" content="${canonicalUrl(path)}"><meta property="og:site_name" content="Taichi Uchida"><meta property="og:locale" content="${lang === "ja" ? "ja_JP" : "en_US"}"><meta property="og:locale:alternate" content="${lang === "ja" ? "en_US" : "ja_JP"}"><meta property="og:image" content="https://taichi-u.github.io/assets/social-card.png"><meta property="og:image:alt" content="${esc(T(profile.name))}"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="${root}assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="${root}style.css"><script src="${root}script.js" defer></script><script type="application/ld+json">${schema}</script></head><body id="top">`;
   }
   function sectionHead(n, kicker, heading, description = "") {
     return `<div class="section-heading"><div><p class="eyebrow"><span>${n}</span> ${kicker}</p><h2>${heading}</h2></div>${description ? `<p class="section-description">${description}</p>` : ""}</div>`;
@@ -253,7 +259,7 @@ for (const lang of ["en", "ja"]) {
     return `<dl class="skills-list">${skills.map(([name, items]) => `<div><dt>${esc(T(name))}</dt><dd>${esc(T(items))}</dd></div>`).join("")}</dl>`;
   }
   const aboutTitle = lang === "ja" ? "自己紹介" : "About";
-  const other = lang === "en" ? "index-ja.html" : "index.html";
+  const other = lang === "en" ? "index-ja.html" : "./";
   const hero = `<section class="hero wrap" aria-labelledby="hero-name"><div class="hero-copy"><p class="eyebrow"><span class="status-dot"></span> AEROSPACE · ROBOTICS · CONTROL</p><h1 id="hero-name">Taichi<br>Uchida<span class="blue">.</span></h1><p class="hero-name">内田 大智 <span> / </span> KYOTO, JAPAN</p><p class="hero-description">${esc(T(profile.intro))}</p><div class="hero-actions"><a class="button" href="#research">${L.researchCta}<span aria-hidden="true">↘</span></a><a class="text-link" href="${cv}">${L.cvCta} ${arrow}</a></div></div><div class="hero-art"><div class="orbital-stage" data-scene aria-hidden="true"><canvas class="scene-canvas"></canvas><svg viewBox="0 0 600 620" class="orbit-lines" fill="none"><g stroke="currentColor"><ellipse cx="300" cy="301" rx="281" ry="92" transform="rotate(-38 300 301)"/><ellipse cx="300" cy="301" rx="248" ry="145" transform="rotate(38 300 301)" opacity=".45"/><circle cx="300" cy="301" r="224" opacity=".2" stroke-dasharray="2 8"/><path d="M300 50V82M300 520V552M40 301h32m456 0h32" opacity=".5"/></g><g class="orbit-satellite"><circle cx="79" cy="325" r="7" fill="#2854d8"/><circle cx="79" cy="325" r="15" stroke="#2854d8" opacity=".3"/></g></svg><div class="planet"><div class="planet-longitude"></div><div class="planet-latitude"></div><span class="planet-shine"></span></div><span class="orbit-label label-left">35.01° N<br>135.77° E</span><span class="orbit-cross">+</span></div><div class="scene-controls" hidden><div class="scene-choices" role="group" aria-label="${lang === "ja" ? "背景モデル" : "Background model"}"><button type="button" data-model="satellite" aria-pressed="true">${lang === "ja" ? "探査機" : "Spacecraft"}</button><button type="button" data-model="planet" aria-pressed="false">${lang === "ja" ? "惑星" : "Planet"}</button><button type="button" data-model="robot" aria-pressed="false">${lang === "ja" ? "ロボット" : "Robot"}</button></div><button type="button" class="scene-motion-button" data-motion-control hidden aria-pressed="false" data-label="${L.motion}" data-on="${L.on}" data-off="${L.off}">${L.motion}: ${L.on}</button></div><p class="scene-status sr-only" role="status" aria-live="polite"></p><figure class="hero-portrait"><img src="assets/images/portrait-small.webp" alt="${esc(T(profile.name))}" width="400" height="400" fetchpriority="high"></figure></div><div class="hero-bottom"><p><span class="status-dot"></span>${lang === "ja" ? "京都大学・学部4年生" : "Fourth-year student · Kyoto University"}</p><a href="#about">${L.scroll}<span aria-hidden="true">↓</span></a><span class="mono">PORTFOLIO / 2026</span></div></section>`;
   const about = `<section id="about" class="section wrap"><div class="about-grid"><div>${sectionHead("01", "ABOUT", aboutTitle)}<a class="text-link" href="${cv}">${lang === "ja" ? "プロフィールと経歴" : "Profile and CV"} ${arrow}</a></div><div class="about-copy"><p class="lead">${esc(T(profile.about))}</p><p>${esc(T(profile.about2))}</p><aside class="next-chapter"><span class="mono">${L.upcoming}</span><h3>${lang === "ja" ? "総合研究大学院大学" : "SOKENDAI"}</h3><p>${esc(T(profile.next))}</p></aside></div></div><div class="focus-strip"><span>MISSION DESIGN</span><span aria-hidden="true">✳</span><span>INTELLIGENT CONTROL</span><span aria-hidden="true">✳</span><span>SPACE ROBOTICS</span></div></section>`;
   const research = `<section id="research" class="section wrap">${sectionHead("02", "RESEARCH & PROJECTS", lang === "ja" ? "研究・開発" : "Research & projects", lang === "ja" ? "研究とソフトウェア開発の内容を、分野別に掲載しています。" : "Research and software development projects, organized by field.")}<span id="projects" class="anchor-alias"></span><div class="filter-bar"><div class="filters" role="group" aria-label="${lang === "ja" ? "プロジェクトの分野" : "Filter projects"}" hidden>${["all", "space", "robotics", "software", "life"].map((key, i) => `<button class="filter-button" type="button" data-filter="${key}" aria-pressed="${i === 0}">${L[key]}${key === "all" ? "<span>08</span>" : ""}</button>`).join("")}</div><p class="project-count mono" role="status" aria-live="polite" aria-atomic="true" data-unit="${L.count}">08 ${L.count}</p></div><div class="project-grid">${projects.map((p, i) => `<article class="project-card" data-category="${p.category.join(" ")}"><div class="project-cover">${visual(p, "", T)}<span class="project-open" aria-hidden="true">↗</span></div><div class="project-meta mono"><span>${String(i + 1).padStart(2, "0")} / ${esc(p.org)}</span><span>${esc(p.date)}</span></div><h3><a href="research/${projectFile(p)}" data-project="${p.id}">${esc(T(p.title))}</a></h3><p>${esc(T(p.summary))}</p>${tags(p)}</article>`).join("")}</div><details class="archive earlier-research"><summary>${L.researchHistory}<span class="mono">2020 — 2024</span><span class="plus" aria-hidden="true">＋</span></summary>${rows(earlierResearch)}</details></section>`;
@@ -281,25 +287,6 @@ for (const lang of ["en", "ja"]) {
         `<dialog class="project-dialog" id="project-${p.id}" aria-labelledby="detail-${p.id}"><template><div class="dialog-toolbar"><span class="mono">PROJECT DETAILS / ${esc(p.org)}</span><form method="dialog"><button class="dialog-close" aria-label="${L.closeDetail}">${L.close}<span aria-hidden="true">×</span></button></form></div><div class="dialog-inner">${projectBody(p, "", true)}<a class="button button-outline" href="research/${projectFile(p)}">${lang === "ja" ? "詳細ページを開く" : "Open project page"} ${arrow}</a></div></template></dialog>`,
     )
     .join("");
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: T(profile.name),
-    alternateName: "Taichi Uchida",
-    url: "https://taichi-u.github.io/",
-    image: "https://taichi-u.github.io/assets/images/portrait.webp",
-    description: T(profile.intro),
-    sameAs: [
-      "https://github.com/taichi-u",
-      "https://www.linkedin.com/in/taichi-uchida",
-    ],
-    knowsAbout: [
-      "Astrodynamics",
-      "Space robotics",
-      "Optimal control",
-      "Machine learning",
-    ],
-  };
   const archiveFile = lang === "ja" ? "archive-ja.html" : "archive.html";
   const archiveOther = lang === "ja" ? "archive.html" : "archive-ja.html";
   const archiveName = lang === "ja" ? "活動アーカイブ" : "Activity archive";
@@ -308,7 +295,7 @@ for (const lang of ["en", "ja"]) {
     ? "留学中の研究や旅先の風景、趣味の写真をまとめました。"
     : "Photographs from research stays abroad, travels, and everyday interests.";
   const galleryPage = `<main id="main" class="gallery-page wrap">
-    <a class="back-link" href="${home}#beyond">← ${L.beyond}</a>
+    <a class="back-link" href="${homeHref}#beyond">← ${L.beyond}</a>
     <div class="gallery-heading"><p class="eyebrow">PHOTO GALLERY</p><h1>${L.gallery}<span class="blue">.</span></h1><p>${galleryIntro}</p></div>
     <div class="gallery-toolbar"><div class="filters gallery-filters" role="group" aria-label="${lang === "ja" ? "写真のカテゴリ" : "Photo categories"}" hidden>
       <button class="filter-button" type="button" data-gallery-filter="all" aria-pressed="true">${lang === "ja" ? "すべて" : "All"}</button>
@@ -328,7 +315,7 @@ for (const lang of ["en", "ja"]) {
   </dialog>`;
   await writeFile(
     galleryFile,
-    head(L.gallery + " — " + T(profile.name), galleryIntro, "", galleryFile, galleryOther) +
+    head(L.gallery + " — " + T(profile.name), T(profile.name) + " — " + galleryIntro, "", galleryFile, galleryOther) +
       header("", false, galleryOther, true) + galleryPage + footer() + galleryDialog + "</body></html>\n",
   );
   const archiveCallout = `<div class="wrap"><div class="archive-callout"><div><p class="eyebrow">ACTIVITY ARCHIVE</p><p>${lang === "ja" ? `研究、企画運営、国際交流、スポーツなど、${archiveCount}件の活動記録を掲載しています。` : `${archiveCount} activity records across research, event organization, international exchange, sport, and other fields.`}</p></div><a href="${archiveFile}">${archiveName} ${arrow}</a></div></div>`;
@@ -339,7 +326,7 @@ for (const lang of ["en", "ja"]) {
       `<main id="main">${hero}${about}${research}${journey}${beyond}${archiveCallout}${contact}</main>` +
       footer("", true) +
       dialogs +
-      `<script type="application/ld+json">${JSON.stringify(schema).replace(/</g, "\\u003c")}</script></body></html>\n`,
+      "</body></html>\n",
   );
   await mkdir("research", { recursive: true });
   for (const [i, p] of projects.entries()) {
@@ -348,23 +335,26 @@ for (const lang of ["en", "ja"]) {
     await writeFile(
       "research/" + projectFile(p),
       head(
-        T(p.title) + " — Taichi Uchida",
+        T(p.title) + " — " + T(profile.name),
         T(p.summary),
         "../",
         "research/" + projectFile(p),
         otherPath,
       ) +
         header("../", false, otherPath.split("/")[1]) +
-        `<main id="main" class="case-page wrap"><a class="back-link" href="../${home}#research">← ${L.back}</a>${projectBody(p, "../")}<div class="case-next"><span class="eyebrow">NEXT PROJECT</span><a href="${projectFile(next)}">${esc(T(next.title))} ${arrow}</a></div></main>` +
+        `<main id="main" class="case-page wrap"><a class="back-link" href="../${homeHref}#research">← ${L.back}</a>${projectBody(p, "../")}<div class="case-next"><span class="eyebrow">NEXT PROJECT</span><a href="${projectFile(next)}">${esc(T(next.title))} ${arrow}</a></div></main>` +
         footer("../") +
         "</body></html>\n",
     );
   }
   const cvOther = lang === "en" ? "cv-ja.html" : "cv.html";
-  const cvPage = `<main id="main" class="cv-page wrap"><a class="back-link" href="${home}">← ${L.home}</a><div class="cv-heading"><div><p class="eyebrow">CURRICULUM VITAE / 2026</p><h1>${esc(T(profile.name))}<span class="blue">.</span></h1><p>${esc(T(profile.intro))}</p><a href="mailto:${profile.email}">${profile.email}</a></div><div class="cv-actions"><a class="button" href="cv_taichiuchida${lang === "ja" ? "-ja" : ""}.pdf" download>${L.cvDownload} ↓</a><a class="button button-outline print-button" href="cv_taichiuchida${lang === "ja" ? "-ja" : ""}.pdf" target="_blank" rel="noopener noreferrer">${L.print}<span class="sr-only"> (${lang === "ja" ? "新しいタブ" : "new tab"})</span></a><span class="mono">${L.updated}</span></div></div><section><h2>${L.education}</h2>${rows(education)}</section><section><h2>${L.research}</h2>${rows(projects.map((p) => [p.date, [p.org + " · " + p.title[0], p.org + " · " + p.title[1]], p.summary]))}${rows(earlierResearch)}</section><section><h2>${L.publications}</h2>${publicationList()}</section><section><h2>${L.awards}</h2>${rows(awards)}</section><section><h2>${L.activities}</h2>${rows(activities)}</section><section><h2>${L.skills}</h2>${skillsBlock()}</section><p class="cv-print-note">taichi-u.github.io · ${L.updated}</p></main>`;
+  const cvDescription = lang === "ja"
+    ? "内田 大智のCV。京都大学での学歴、宇宙工学・ロボティクスの研究経験、留学、発表・執筆、受賞・採択、使用技術を掲載。PDF版もダウンロードできます。"
+    : "Taichi Uchida's CV: education at Kyoto University, aerospace and robotics research, international research stays, presentations, awards, and skills. PDF available.";
+  const cvPage = `<main id="main" class="cv-page wrap"><a class="back-link" href="${homeHref}">← ${L.home}</a><div class="cv-heading"><div><p class="eyebrow">CURRICULUM VITAE / 2026</p><h1>${esc(T(profile.name))}<span class="blue">.</span></h1><p>${esc(T(profile.intro))}</p><a href="mailto:${profile.email}">${profile.email}</a></div><div class="cv-actions"><a class="button" href="cv_taichiuchida${lang === "ja" ? "-ja" : ""}.pdf" download>${L.cvDownload} ↓</a><a class="button button-outline print-button" href="cv_taichiuchida${lang === "ja" ? "-ja" : ""}.pdf" target="_blank" rel="noopener noreferrer">${L.print}<span class="sr-only"> (${lang === "ja" ? "新しいタブ" : "new tab"})</span></a><span class="mono">${L.updated}</span></div></div><section><h2>${L.education}</h2>${rows(education)}</section><section><h2>${L.research}</h2>${rows(projects.map((p) => [p.date, [p.org + " · " + p.title[0], p.org + " · " + p.title[1]], p.summary]))}${rows(earlierResearch)}</section><section><h2>${L.publications}</h2>${publicationList()}</section><section><h2>${L.awards}</h2>${rows(awards)}</section><section><h2>${L.activities}</h2>${rows(activities)}</section><section><h2>${L.skills}</h2>${skillsBlock()}</section><p class="cv-print-note">taichi-u.github.io · ${L.updated}</p></main>`;
   await writeFile(
     cv,
-    head("CV — " + T(profile.name), T(profile.intro), "", cv, cvOther) +
+    head("CV — " + T(profile.name), cvDescription, "", cv, cvOther) +
       header("", false, cvOther) +
       cvPage +
       footer() +
@@ -374,7 +364,7 @@ for (const lang of ["en", "ja"]) {
     lang === "ja"
       ? "研究、企画運営、国際交流、スポーツなどの活動記録です。分野とキーワードで検索できます。"
       : "Records of research, event organization, international exchange, sport, and other activities. Filter by category or search by keyword.";
-  const archivePage = `<main id="main" class="archive-page wrap"><a class="back-link" href="${home}#beyond">← ${L.home}</a><div class="archive-hero"><p class="eyebrow">ACTIVITY ARCHIVE / ${archiveCount} ENTRIES</p><h1>${archiveName}<span class="blue">.</span></h1><p>${archiveIntro}</p></div><div class="archive-controls" hidden><div class="archive-search"><label for="archive-search">${lang === "ja" ? "検索" : "Search"}</label><input type="search" id="archive-search" placeholder="${lang === "ja" ? "例：宇宙、インド、2021" : "Try space, India, 2021"}" autocomplete="off"><button type="button" class="filter-button" data-reset-search>${lang === "ja" ? "リセット" : "Reset"}</button></div><div class="filters" role="group" aria-label="${lang === "ja" ? "活動の分野" : "Activity categories"}"><button class="filter-button" data-archive-filter="all" aria-pressed="true">${lang === "ja" ? "すべて" : "All"}</button>${archiveGroups.map((g) => `<button class="filter-button" data-archive-filter="${g.id}" aria-pressed="false">${esc(T(g.title))}</button>`).join("")}</div></div><p id="archive-count" class="mono" role="status" aria-live="polite" aria-atomic="true" data-unit="${lang === "ja" ? "件の記録" : "entries"}">${archiveCount} ${lang === "ja" ? "件の記録" : "entries"}</p><p id="archive-empty" hidden>${lang === "ja" ? "該当する記録はありません。キーワードを変えるか、リセットしてください。" : "No matching entries. Try a different term or reset the filters."}</p>${archiveGroups.map((g) => `<section class="archive-group" id="${g.id}"><h2>${esc(T(g.title))}</h2>${g.entries.map(([date, en, ja, enText, jaText, event], i) => `<details class="archive-entry" id="${g.id}-${i + 1}" data-category="${g.id}"><summary><span class="mono">${date === "School years" && lang === "ja" ? "中学時代" : esc(date)}</span><span>${esc(lang === "ja" ? ja : en)}</span><span class="plus" aria-hidden="true">＋</span></summary><p>${esc(lang === "ja" ? jaText : enText)}</p>${event ? eventPhotos(event) + `<p class="event-source">${ext(event.url, lang === "ja" ? "イベント公式サイト" : "Official event page")}</p>` : ""}</details>`).join("")}</section>`).join("")}<div class="archive-callout"><p>${lang === "ja" ? "現在の研究と開発の詳細はこちら。" : "Details of current research and software projects."}</p><a href="${home}#research">${L.allWork} ${arrow}</a></div></main>`;
+  const archivePage = `<main id="main" class="archive-page wrap"><a class="back-link" href="${homeHref}#beyond">← ${L.home}</a><div class="archive-hero"><p class="eyebrow">ACTIVITY ARCHIVE / ${archiveCount} ENTRIES</p><h1>${archiveName}<span class="blue">.</span></h1><p>${archiveIntro}</p></div><div class="archive-controls" hidden><div class="archive-search"><label for="archive-search">${lang === "ja" ? "検索" : "Search"}</label><input type="search" id="archive-search" placeholder="${lang === "ja" ? "例：宇宙、インド、2021" : "Try space, India, 2021"}" autocomplete="off"><button type="button" class="filter-button" data-reset-search>${lang === "ja" ? "リセット" : "Reset"}</button></div><div class="filters" role="group" aria-label="${lang === "ja" ? "活動の分野" : "Activity categories"}"><button class="filter-button" data-archive-filter="all" aria-pressed="true">${lang === "ja" ? "すべて" : "All"}</button>${archiveGroups.map((g) => `<button class="filter-button" data-archive-filter="${g.id}" aria-pressed="false">${esc(T(g.title))}</button>`).join("")}</div></div><p id="archive-count" class="mono" role="status" aria-live="polite" aria-atomic="true" data-unit="${lang === "ja" ? "件の記録" : "entries"}">${archiveCount} ${lang === "ja" ? "件の記録" : "entries"}</p><p id="archive-empty" hidden>${lang === "ja" ? "該当する記録はありません。キーワードを変えるか、リセットしてください。" : "No matching entries. Try a different term or reset the filters."}</p>${archiveGroups.map((g) => `<section class="archive-group" id="${g.id}"><h2>${esc(T(g.title))}</h2>${g.entries.map(([date, en, ja, enText, jaText, event], i) => `<details class="archive-entry" id="${g.id}-${i + 1}" data-category="${g.id}"><summary><span class="mono">${date === "School years" && lang === "ja" ? "中学時代" : esc(date)}</span><span>${esc(lang === "ja" ? ja : en)}</span><span class="plus" aria-hidden="true">＋</span></summary><p>${esc(lang === "ja" ? jaText : enText)}</p>${event ? eventPhotos(event) + `<p class="event-source">${ext(event.url, lang === "ja" ? "イベント公式サイト" : "Official event page")}</p>` : ""}</details>`).join("")}</section>`).join("")}<div class="archive-callout"><p>${lang === "ja" ? "現在の研究と開発の詳細はこちら。" : "Details of current research and software projects."}</p><a href="${homeHref}#research">${L.allWork} ${arrow}</a></div></main>`;
   await writeFile(
     archiveFile,
     head(
@@ -411,7 +401,8 @@ const paths = [
 ];
 await writeFile(
   "sitemap.xml",
-  `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${paths.map((p) => `<url><loc>https://taichi-u.github.io/${p}</loc><lastmod>${profile.updated}</lastmod></url>`).join("")}</urlset>\n`,
+  // Omit lastmod until actual per-page modification dates are maintained.
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${paths.map((p) => `<url><loc>${canonicalUrl(p)}</loc>${/^gallery(?:-ja)?\.html$/.test(p) ? galleryPhotos.map(photo => `<image:image><image:loc>${canonicalUrl(`assets/images/${photo.file}.webp`)}</image:loc></image:image>`).join("") : ""}</url>`).join("\n")}\n</urlset>\n`,
 );
 await writeFile(
   "robots.txt",

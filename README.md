@@ -78,6 +78,8 @@ The browser suite covers both languages at widths from 320 to 1440 pixels, galle
 
 `check:cdp` uses Chrome DevTools Protocol Runtime, Log, Network, Audits, and Performance domains to inspect every published page at a mobile viewport. It checks lazy images, responsive image transfer budgets, and layout stability when the main script is delayed. Reports and screenshots go to `artifacts/cdp-checks/` (override with `CDP_OUTPUT`). Performance values are local lab observations, not real-user measurements.
 
+`npm run check:seo` checks all generated pages for canonical URLs, reciprocal language annotations, unique metadata, structured data, and gallery image sitemap entries. Set `SEO_BASE_URL=https://taichi-u.github.io/` to check deployed responses. See `docs/seo-review.md` for the official guidance and implementation notes. Preserve the Search Console verification tag in `scripts/seo.mjs` when rebuilding.
+
 `MEASURE_LABEL=after npm run measure:gallery` collects three cold-cache gallery samples per viewport using CDP network and CPU throttling. It reports initial LCP, layout shifts, image bytes, and full-gallery image bytes after scrolling. Set `MEASURE_SAMPLES` or `MEASURE_OUTPUT` to override the sample count or the `artifacts/gallery-performance/` output directory. Keep the same browser, server, and workload when comparing runs.
 
 Hackathon photographs have 640px and 960px WebP variants alongside the 1500px originals. `srcset` with automatic sizing selects the appropriate file; retain all three variants when replacing a photo. They were encoded at quality 82. Image dimensions in `scripts/build.mjs` must match the actual files so layout space is correct before loading. The static check also validates every `srcset` URL.

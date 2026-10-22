@@ -6,6 +6,7 @@
     "build": "node scripts/build.mjs",
     "dev": "node scripts/serve.mjs",
     "check": "node scripts/check.mjs",
+    "check:seo": "node scripts/check-seo.mjs",
     "check:browser": "node scripts/check-browser.mjs",
     "check:scene": "node scripts/check-scene.mjs",
     "build:scene": "node scripts/build-scene.mjs",

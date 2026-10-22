@@ -60,10 +60,14 @@ for (const [file, html] of pages) {
   for (const href of assetUrls) {
     if (/^(?:https?:|mailto:|data:)/.test(href)) continue;
     const [path, hash] = href.split("#");
-    const target = path
+    let target = path
       ? resolve(dirname(file), decodeURIComponent(path))
       : file;
-    const item = await stat(target).catch(() => null);
+    let item = await stat(target).catch(() => null);
+    if (item?.isDirectory()) {
+      target = resolve(target, "index.html");
+      item = await stat(target).catch(() => null);
+    }
     assert(item?.isFile(), `${file}: missing ${href}`);
     if (hash && pages.has(target))
       assert(
