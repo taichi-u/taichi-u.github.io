@@ -22,7 +22,7 @@ for photo in photos:
         with Image.open(thumbnail) as existing:
             thumbnail_width = existing.width
     candidates = []
-    for width in sorted({min(size, image.width) for size in (400, 800, 1200)}):
+    for width in sorted({min(size, image.width) for size in (400, 600, 800, 1200)}):
         if width == image.width:
             path = source
         elif thumbnail_width == width:

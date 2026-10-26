@@ -44,6 +44,7 @@ try {
   });
   page.on("response", response => { if (response.status() >= 400) errors.push(`${response.status()}: ${response.url()}`); });
   const waitModel = async name => {
+    await page.locator("[data-scene]").scrollIntoViewIfNeeded();
     await page.waitForFunction(name => document.querySelector("[data-scene]")?.dataset.model === name, name);
     await page.waitForFunction(() => getComputedStyle(document.querySelector(".scene-canvas")).opacity === "1");
   };
@@ -86,7 +87,7 @@ try {
     await waitModel("satellite");
     assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `Overflow at ${width}px`);
     await page.locator(".scene-controls").scrollIntoViewIfNeeded();
-    for (const choice of await page.locator(".scene-controls button").all()) {
+    for (const choice of await page.locator(".scene-controls button:visible").all()) {
       const bounds = await choice.boundingBox();
       assert(bounds.width > 0 && bounds.x >= 0 && bounds.x + bounds.width <= width, `Clipped controls at ${width}px`);
     }
@@ -175,7 +176,7 @@ try {
   await deferred.goto(`${base}/index-ja.html#contact`);
   await deferred.waitForLoadState("networkidle");
   assert.deepEqual(sceneRequests, [], "Deep link must not initialize or download an offscreen 3D scene");
-  await deferred.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
+  await deferred.locator("[data-scene]").scrollIntoViewIfNeeded();
   await deferred.locator("[data-scene].is-ready").waitFor();
   assert(sceneRequests.some(url => url.endsWith("scene.min.js")));
   assert(sceneRequests.some(url => url.endsWith("satellite.glb.gz")));

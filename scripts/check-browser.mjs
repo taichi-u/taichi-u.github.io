@@ -299,7 +299,7 @@ try {
   await reducedPage.goto(base + "/index-ja.html");
   assert.equal(
     await reducedPage
-      .locator(".orbit-satellite")
+      .locator(".hero-slide:visible .opening-photo")
       .evaluate((e) => getComputedStyle(e).animationName),
     "none",
   );

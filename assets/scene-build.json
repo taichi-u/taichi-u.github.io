@@ -6,11 +6,11 @@
     "assets/vendor/three/RoomEnvironment.js": "3abf1ce79bb64c3ebd457be5e5f587ac5b29ef84436cba0d49c7720d020a5905",
     "assets/vendor/three/three.core.min.js": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de",
     "assets/vendor/three/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
-    "scene.js": "c549c6952ebbb411e1a9fe845bb1fb550055816adbeb2bdd8a91b0d919ad0de2"
+    "scene.js": "a98cb1bb5ffaa90446ca23cedff4fdc14618de9d3f2e31544422c96bd7318f16"
   },
   "output": {
     "path": "scene.min.js",
-    "bytes": 624871,
-    "sha256": "43db0e4627f87776b1e6223db343ff77d3ce0a469bde6de20f3972600ccf8f98"
+    "bytes": 627031,
+    "sha256": "58d2e2c1667b217aa7af85a65faea3e8edbfcf42aea8b2c9f7519506135cc941"
   }
 }

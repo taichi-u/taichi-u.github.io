@@ -7,12 +7,12 @@ export const profile = {
   email: "uchida.taichi.84f@st.kyoto-u.ac.jp",
   updated: "2026-09-21",
   intro: [
-    "Fourth-year aerospace engineering student at Kyoto University, researching mission design, trajectory optimization, and robotics.",
-    "京都大学 工学部物理工学科 宇宙基礎工学コースの学部4年生。ミッション設計、軌道最適化、ロボティクスを研究しています。",
+    "I’m a fourth-year aerospace engineering student at Kyoto University. My research covers mission design, trajectory optimization, and robotics.",
+    "京都大学 工学部4年。物理工学科 宇宙基礎工学コース。研究分野はミッション設計、軌道最適化、ロボティクス。",
   ],
   about: [
-    "I research mission design and low-thrust trajectory optimization at JAXA ISAS, and learning-based control and lunar robotics at Kyoto University.",
-    "JAXA宇宙科学研究所でミッション設計と低推力軌道最適化、京都大学で学習モデルを用いた制御と月面ロボットの研究に取り組んでいます。",
+    "At JAXA ISAS, I work on mission design and low-thrust trajectory optimization. At Kyoto University, I study learning-based control and lunar robotics.",
+    "JAXA宇宙科学研究所：ミッション設計・低推力軌道最適化。京都大学：学習モデルを用いた制御・月面ロボット。",
   ],
   about2: [
     "My previous work includes robot arm control at DFKI in Germany, metagenomic analysis at Georgia Tech in the United States, and halophilic archaea research at Tokyo Tech’s Earth-Life Science Institute.",
@@ -20,7 +20,7 @@ export const profile = {
   ],
   next: [
     "Planning to join the five-year doctoral program in Space and Astronautical Science at SOKENDAI in April 2027, in Naoya Ozaki’s Mission Design Lab.",
-    "2027年4月より、総合研究大学院大学 先端学術院 先端学術専攻 宇宙科学コースの5年一貫博士課程、尾崎直哉研究室（Mission Design Lab）に進学予定です。",
+    "2027年4月、総合研究大学院大学 先端学術院 先端学術専攻 宇宙科学コースの5年一貫博士課程へ進学予定。尾崎直哉研究室（Mission Design Lab）。",
   ],
 };
 
@@ -223,8 +223,8 @@ export const projects = [
       "京都大学医学部陸上部",
     ],
     summary: [
-      "A custom React and Firebase application for the Kyoto University Medical School Track & Field Team.",
-      "京都大学医学部陸上部に向けて、React・Firebaseによる競技記録管理アプリを設計・開発・運用。",
+      "A React and Firebase app for the Kyoto University Medical School Track & Field Team, currently in trial use.",
+      "京都大学医学部陸上部の競技記録管理アプリ。React・Firebaseで開発し、部内で試用中。",
     ],
     role: ["Lead developer & system administrator", "開発・システム管理"],
     question: [

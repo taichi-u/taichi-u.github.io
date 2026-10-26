@@ -17,11 +17,12 @@ const browser = await chromium.launch({
   ...(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {}),
 });
 const results = [];
+const layoutOnly = process.env.CDP_LAYOUT_ONLY === "1";
 try {
   const sitemap = await readFile("sitemap.xml", "utf8");
   const paths = [...sitemap.matchAll(/<loc>https:\/\/taichi-u.github.io\/(.*?)<\/loc>/g)]
     .map((match) => match[1] || "index.html");
-  for (const path of paths) {
+  for (const path of layoutOnly ? [] : paths) {
     const context = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
     const page = await context.newPage();
     const cdp = await context.newCDPSession(page);
@@ -52,6 +53,12 @@ try {
       assert(/-(640|960)\.webp$/.test(photo.url), `${path}: unnecessarily large mobile event photo: ${photo.url}`);
       assert(photo.bytes > 0 && photo.bytes < 70000, `${path}: mobile event photo exceeds transfer budget`);
     }
+    for (const width of [320, 390, 768, 1440]) {
+      await page.setViewportSize({ width, height: 844 });
+      assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `${path}: overflow at ${width}px`);
+    }
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.waitForLoadState("networkidle");
     assert.deepEqual(errors, [], `${path}: console or runtime errors`);
     assert.deepEqual(failures, [], `${path}: network failures`);
     assert.deepEqual(issues, [], `${path}: DevTools Issues`);
@@ -61,8 +68,8 @@ try {
     console.log(`PASS CDP: ${path}`);
   }
   // Inspect only the initial gallery viewport before scrolling or opening a photo.
-  for (const profile of [
-    { width: 390, height: 844, dpr: 2, imageBudget: 250000 },
+  for (const profile of layoutOnly ? [] : [
+    { width: 390, height: 844, dpr: 2, imageBudget: 350000 },
     { width: 1440, height: 1000, dpr: 1, imageBudget: 300000 },
   ]) {
     const context = await browser.newContext({ viewport: { width: profile.width, height: profile.height }, deviceScaleFactor: profile.dpr });
@@ -78,6 +85,7 @@ try {
         loading: image.loading,
         bytes: performance.getEntriesByName(image.currentSrc).at(-1)?.encodedBodySize || 0,
       })));
+      // B shows photos at 581 CSS pixels; use 600px on desktop, up to 800px on DPR2 mobile.
       const loaded = initial.filter(image => image.bytes > 0);
       assert(loaded.length > 0 && loaded.length < initial.length, "offscreen gallery photos must stay deferred");
       assert.equal(initial[0].loading, "eager", "the leading photo must not be lazy-loaded");
@@ -86,7 +94,7 @@ try {
       for (const image of loaded) {
         const candidate = galleryImages[image.id].find(candidate => new URL(candidate.src, base + "/").href === image.url);
         assert(candidate, `unknown gallery image candidate: ${image.url}`);
-        assert(candidate.width <= (profile.dpr === 1 ? 400 : 800), `oversized gallery image at ${profile.width}px: ${image.url}`);
+        assert(candidate.width <= (profile.dpr === 1 ? 600 : 800), `oversized gallery image at ${profile.width}px: ${image.url}`);
       }
       const bytes = loaded.reduce((sum, image) => sum + image.bytes, 0);
       assert(bytes < profile.imageBudget, `initial gallery image transfer budget exceeded at ${profile.width}px: ${bytes}`);
@@ -149,7 +157,7 @@ try {
       console.log(`PASS CDP: delayed script keeps gallery layout stable at ${width}px`);
     } finally { releaseScript(); await context.close(); }
   }
-  console.log(`PASS: ${paths.length} pages via CDP; no errors, failed requests or DevTools Issues; mobile image budgets and delayed-script layout checks.`);
+  console.log(layoutOnly ? "PASS CDP: delayed-script layout checks" : `PASS: ${paths.length} pages via CDP; no errors, failed requests or DevTools Issues; mobile image budgets and delayed-script layout checks.`);
 } finally {
   await writeFile(`${output}/report.json`, JSON.stringify(results, null, 2));
   await browser.close();

@@ -78,7 +78,70 @@ for (const motionButton of motionButtons) motionButton.addEventListener("click",
   syncMotion();
 });
 
-// Load 3D after critical content, when a visible page approaches the hero.
+// Four personal photographs; only the first image is fetched on initial load.
+const slideshow = document.querySelector('[data-slideshow]');
+if (slideshow) {
+  const slides = [...slideshow.querySelectorAll('.hero-slide')];
+  const pauseButton = slideshow.querySelector('[data-slide-pause]');
+  const status = slideshow.querySelector('.slideshow-status');
+  const ja = root.lang === 'ja';
+  let current = 0, request = 0, timer = 0;
+  let paused = false, visible = false, hovering = false, focused = false;
+  slideshow.querySelector('.slideshow-controls').hidden = false;
+  function schedule() {
+    clearTimeout(timer);
+    const reduced = root.dataset.motion === 'off';
+    pauseButton.disabled = reduced;
+    pauseButton.setAttribute('aria-pressed', String(paused || reduced));
+    pauseButton.textContent = ja ? (paused || reduced ? '再生' : '一時停止') : (paused || reduced ? 'Play' : 'Pause');
+    if (!paused && !reduced && visible && !document.hidden && !hovering && !focused)
+      timer = setTimeout(() => show(current + 1, false), 8000);
+  }
+  async function show(index, manual) {
+    clearTimeout(timer);
+    if (manual) paused = true;
+    const next = (index + slides.length) % slides.length;
+    const selection = ++request;
+    const image = slides[next].querySelector('img');
+    try {
+      if (image.dataset.src) {
+        image.srcset = image.dataset.srcset;
+        image.src = image.dataset.src;
+      }
+      await image.decode();
+      delete image.dataset.src;
+      delete image.dataset.srcset;
+      if (selection !== request) return;
+      // A photo requested by the timer must not replace one being examined.
+      if (!manual && (paused || !visible || document.hidden || hovering || focused || root.dataset.motion === 'off')) {schedule(); return;}
+      slides[current].hidden = true;
+      current = next;
+      slides[current].hidden = false;
+      slideshow.querySelector('.slide-count').textContent = `${current + 1} / ${slides.length}`;
+      if (manual) status.textContent = `${current + 1} / ${slides.length}: ${image.alt}`;
+    } catch {
+      if (selection !== request) return;
+      paused = true;
+      status.textContent = ja ? '写真を読み込めませんでした。前後のボタンで選び直せます。' : 'This photo could not load. Use the previous or next button to try again.';
+    }
+    schedule();
+  }
+  pauseButton.addEventListener('click', () => {paused = !paused; schedule();});
+  slideshow.querySelector('[data-slide-previous]').addEventListener('click', () => show(current - 1, true));
+  slideshow.querySelector('[data-slide-next]').addEventListener('click', () => show(current + 1, true));
+  slideshow.addEventListener('pointerenter', event => {if (event.pointerType === 'mouse') {hovering = true; schedule();}});
+  slideshow.addEventListener('pointerleave', () => {hovering = false; schedule();});
+  slideshow.addEventListener('focusin', () => {focused = true; schedule();});
+  slideshow.addEventListener('focusout', () => requestAnimationFrame(() => {focused = slideshow.contains(document.activeElement); schedule();}));
+  document.addEventListener('visibilitychange', schedule);
+  new MutationObserver(schedule).observe(root,{attributes:true,attributeFilter:['data-motion']});
+  new IntersectionObserver(([entry]) => {visible = entry.isIntersecting; schedule();}).observe(slideshow);
+  window.addEventListener('pagehide', () => clearTimeout(timer));
+  window.addEventListener('pageshow', schedule);
+  schedule();
+}
+
+// Load 3D after critical content, once at least half the model surface is visible.
 const sceneStage = document.querySelector("[data-scene]");
 if (sceneStage) {
   const sceneURL = new URL("scene.min.js", document.currentScript.src);
@@ -89,7 +152,8 @@ if (sceneStage) {
     if (started || !pageLoaded || document.hidden) return;
     // Recheck current bounds: a deep-link jump can follow an observer callback.
     const bounds = sceneStage.getBoundingClientRect();
-    if (bounds.bottom < -200 || bounds.top > innerHeight + 200 || !bounds.width || !bounds.height) return;
+    const visibleHeight = Math.min(bounds.bottom, innerHeight) - Math.max(bounds.top, 0);
+    if (!bounds.width || !bounds.height || visibleHeight < Math.min(bounds.height, innerHeight) / 2) return;
     started = true;
     sceneObserver?.disconnect();
     document.removeEventListener("visibilitychange", loadScene);
@@ -98,7 +162,7 @@ if (sceneStage) {
     import(sceneURL.href).catch(error => console.warn("3D background unavailable:", error));
   };
   if ("IntersectionObserver" in window) {
-    sceneObserver = new IntersectionObserver(loadScene, { rootMargin: "200px" });
+    sceneObserver = new IntersectionObserver(loadScene, { threshold: [0, 0.5, 1] });
     sceneObserver.observe(sceneStage);
   } else {
     window.addEventListener("scroll", loadScene, { passive: true });
@@ -126,7 +190,7 @@ if (filters && cards.length) {
       card.hidden =
         button.dataset.filter !== "all" &&
         !card.dataset.category.split(" ").includes(button.dataset.filter);
-    count.textContent = `${String(cards.filter((card) => !card.hidden).length).padStart(2, "0")} ${count.dataset.unit}`;
+    count.textContent = `${String(cards.filter((card) => !card.hidden).length)} ${count.dataset.unit}`;
   });
 }
 

@@ -15,7 +15,12 @@
     "build:cv": "node scripts/build-cv.mjs",
     "check:cdp": "node scripts/check-cdp.mjs",
     "build:gallery-images": "python3 scripts/build-gallery-images.py",
-    "measure:gallery": "node scripts/measure-gallery.mjs"
+    "measure:gallery": "node scripts/measure-gallery.mjs",
+    "build:design-study": "node scripts/build-design-study.mjs",
+    "check:design-study": "node scripts/check-design-study.mjs",
+    "check:interactions": "node scripts/check-interactions.mjs",
+    "check:slideshow": "node scripts/check-slideshow.mjs",
+    "measure:design": "node scripts/measure-design.mjs"
   },
   "devDependencies": {
     "esbuild": "0.25.10"

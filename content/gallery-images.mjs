@@ -8,6 +8,12 @@ export const galleryImages = {
       "bytes": 14904
     },
     {
+      "src": "assets/images/gallery/responsive/svalbard-2025-600.webp",
+      "width": 600,
+      "height": 450,
+      "bytes": 31380
+    },
+    {
       "src": "assets/images/gallery/svalbard-2025-thumb.webp",
       "width": 800,
       "height": 600,
@@ -26,6 +32,12 @@ export const galleryImages = {
       "width": 400,
       "height": 534,
       "bytes": 12550
+    },
+    {
+      "src": "assets/images/gallery/dfki-visit-thumb.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 21190
     },
     {
       "src": "assets/images/gallery/responsive/dfki-visit-800.webp",
@@ -48,6 +60,12 @@ export const galleryImages = {
       "bytes": 26458
     },
     {
+      "src": "assets/images/gallery/responsive/fujiwara-bento-600.webp",
+      "width": 600,
+      "height": 450,
+      "bytes": 59874
+    },
+    {
       "src": "assets/images/gallery/fujiwara-bento-thumb.webp",
       "width": 800,
       "height": 600,
@@ -66,6 +84,12 @@ export const galleryImages = {
       "width": 400,
       "height": 225,
       "bytes": 8078
+    },
+    {
+      "src": "assets/images/gallery/responsive/georgia-tech-presentation-600.webp",
+      "width": 600,
+      "height": 338,
+      "bytes": 13592
     },
     {
       "src": "assets/images/gallery/georgia-tech-presentation-thumb.webp",
@@ -88,6 +112,12 @@ export const galleryImages = {
       "bytes": 31106
     },
     {
+      "src": "assets/images/gallery/germany-beer-currywurst-thumb.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 61950
+    },
+    {
       "src": "assets/images/gallery/responsive/germany-beer-currywurst-800.webp",
       "width": 800,
       "height": 1067,
@@ -106,6 +136,12 @@ export const galleryImages = {
       "width": 400,
       "height": 533,
       "bytes": 25708
+    },
+    {
+      "src": "assets/images/gallery/bayern-match-thumb.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 60950
     },
     {
       "src": "assets/images/gallery/responsive/bayern-match-800.webp",
@@ -142,6 +178,12 @@ export const galleryImages = {
       "bytes": 12686
     },
     {
+      "src": "assets/images/gallery/responsive/singapore-protein-600.webp",
+      "width": 600,
+      "height": 612,
+      "bytes": 21940
+    },
+    {
       "src": "assets/images/gallery/singapore-protein.webp",
       "width": 604,
       "height": 616,
@@ -154,6 +196,12 @@ export const galleryImages = {
       "width": 400,
       "height": 533,
       "bytes": 31460
+    },
+    {
+      "src": "assets/images/gallery/bremen-walk-thumb.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 68036
     },
     {
       "src": "assets/images/gallery/responsive/bremen-walk-800.webp",
@@ -176,6 +224,12 @@ export const galleryImages = {
       "bytes": 11568
     },
     {
+      "src": "assets/images/gallery/responsive/running-600.webp",
+      "width": 600,
+      "height": 374,
+      "bytes": 24066
+    },
+    {
       "src": "assets/images/gallery/responsive/running-800.webp",
       "width": 800,
       "height": 499,
@@ -196,6 +250,12 @@ export const galleryImages = {
       "bytes": 20904
     },
     {
+      "src": "assets/images/gallery/responsive/isas-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 43970
+    },
+    {
       "src": "assets/images/isas.webp",
       "width": 750,
       "height": 1000,
@@ -210,6 +270,12 @@ export const galleryImages = {
       "bytes": 3274
     },
     {
+      "src": "assets/images/gallery/responsive/diving-600.webp",
+      "width": 600,
+      "height": 614,
+      "bytes": 5904
+    },
+    {
       "src": "assets/images/diving.webp",
       "width": 602,
       "height": 616,
@@ -222,6 +288,12 @@ export const galleryImages = {
       "width": 400,
       "height": 267,
       "bytes": 12004
+    },
+    {
+      "src": "assets/images/gallery/responsive/codex-fest-discussion-600.webp",
+      "width": 600,
+      "height": 400,
+      "bytes": 21806
     },
     {
       "src": "assets/images/gallery/responsive/codex-fest-discussion-800.webp",
@@ -244,6 +316,12 @@ export const galleryImages = {
       "bytes": 16578
     },
     {
+      "src": "assets/images/gallery/responsive/codex-fest-badge-600.webp",
+      "width": 600,
+      "height": 400,
+      "bytes": 28536
+    },
+    {
       "src": "assets/images/gallery/responsive/codex-fest-badge-800.webp",
       "width": 800,
       "height": 534,
@@ -262,6 +340,12 @@ export const galleryImages = {
       "width": 400,
       "height": 400,
       "bytes": 13110
+    },
+    {
+      "src": "assets/images/gallery/responsive/portrait-600.webp",
+      "width": 600,
+      "height": 600,
+      "bytes": 24072
     },
     {
       "src": "assets/images/gallery/responsive/portrait-800.webp",

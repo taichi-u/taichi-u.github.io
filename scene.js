@@ -80,37 +80,48 @@ async function init() {
   let renderHeight = 0;
   let renderPixelRatio = 0;
   let angle = 0.45;
+  let pitch = 0;
+  let pointer = null;
+  let previousPointer = null;
+  let resumeAt = 0;
+  let resumeTimer = 0;
+  let touchActive = false;
+  const touchButton = controls.querySelector('[data-scene-touch]');
+  const maxPitch = Math.PI * 5 / 12;
   const frameInterval = 1000 / 30;
 
   const motionAllowed = () => !reducedMotion.matches && document.documentElement.dataset.motion !== "off";
   const canDraw = () => activeModel && visible && !document.hidden && !contextLost;
-  const canAnimate = () => canDraw() && motionAllowed();
+  const canAnimate = () => canDraw() && motionAllowed() && pointer === null && performance.now() >= resumeAt;
   const draw = () => {
     if (!canDraw()) return;
     if (environmentNeedsUpdate) createEnvironment();
     pivot.rotation.y = angle;
+    pivot.rotation.x = pitch;
     renderer.render(scene, camera);
     needsRender = false;
     if (!presented) {
       presented = true;
       stage.classList.add("is-ready");
       controls.hidden = false;
+      canvas.tabIndex = 0;
     }
   };
   function animate(time) {
     frame = 0;
-    if (!canAnimate()) return;
+    if (!canDraw()) return;
+    const rotating = canAnimate();
     // Rotation follows elapsed time even when we skip a display refresh.
-    if (lastTime) angle += (time - lastTime) / 1000 * (Math.PI * 2 / 65);
-    lastTime = time;
+    if (rotating && lastTime) angle += (time - lastTime) / 1000 * (Math.PI * 2 / 65);
+    lastTime = rotating ? time : 0;
     // The small tolerance accommodates submillisecond RAF timestamp rounding.
-    if (time >= nextDrawTime - 0.5) {
+    if ((rotating || needsRender) && time >= nextDrawTime - 0.5) {
       draw();
       // Keep the deadline phase, so a 32/60/120Hz display does not halve the rate.
       if (!nextDrawTime) nextDrawTime = time;
       nextDrawTime += frameInterval * Math.max(1, Math.floor((time - nextDrawTime) / frameInterval) + 1);
     }
-    frame = requestAnimationFrame(animate);
+    if (rotating || needsRender) frame = requestAnimationFrame(animate);
   }
   function syncAnimation() {
     cancelAnimationFrame(frame);
@@ -121,6 +132,88 @@ async function init() {
     if (canAnimate()) frame = requestAnimationFrame(animate);
     else if (needsRender) draw();
   }
+  function requestDraw() {
+    needsRender = true;
+    if (canDraw() && !frame) frame = requestAnimationFrame(animate);
+  }
+  function holdAutoRotation() {
+    clearTimeout(resumeTimer);
+    resumeAt = performance.now() + 3000;
+    lastTime = 0;
+    stage.dataset.animating = 'false';
+    resumeTimer = setTimeout(() => {
+      resumeAt = 0;
+      syncAnimation();
+    }, 3000);
+  }
+  function rotateBy(yawChange, pitchChange) {
+    angle += yawChange;
+    pitch = THREE.MathUtils.clamp(pitch + pitchChange, -maxPitch, maxPitch);
+    holdAutoRotation();
+    requestDraw();
+  }
+  function resetView() {
+    angle = activeModel === 'robot' ? -0.45 : 0.45;
+    pitch = 0;
+    holdAutoRotation();
+    requestDraw();
+  }
+  function releasePointer() {
+    if (pointer === null) return;
+    const id = pointer;
+    pointer = null;
+    previousPointer = null;
+    stage.classList.remove('is-dragging');
+    if (canvas.hasPointerCapture(id)) canvas.releasePointerCapture(id);
+    holdAutoRotation();
+  }
+  function setTouchActive(active) {
+    touchActive = active;
+    stage.classList.toggle('is-interactive', active);
+    if (touchButton) {
+      touchButton.setAttribute('aria-pressed', String(active));
+      touchButton.textContent = isJapanese ? (active ? '操作を終了' : '3Dを操作') : (active ? 'Finish interacting' : 'Interact with 3D');
+    }
+    if (!active) releasePointer();
+  }
+  touchButton?.addEventListener('click', () => setTouchActive(!touchActive));
+  canvas.addEventListener('pointerdown', event => {
+    if (!canDraw() || pointer !== null || !event.isPrimary || event.button !== 0) return;
+    if (event.pointerType === 'touch' && !touchActive) return;
+    event.preventDefault();
+    canvas.focus({ preventScroll: true });
+    pointer = event.pointerId;
+    previousPointer = {x:event.clientX, y:event.clientY};
+    canvas.setPointerCapture(pointer);
+    stage.classList.add('is-dragging');
+    holdAutoRotation();
+    syncAnimation();
+  });
+  canvas.addEventListener('pointermove', event => {
+    if (event.pointerId !== pointer || !previousPointer) return;
+    const bounds = canvas.getBoundingClientRect();
+    rotateBy((event.clientX - previousPointer.x) / bounds.width * Math.PI * 2,
+      (event.clientY - previousPointer.y) / bounds.height * Math.PI);
+    previousPointer = {x:event.clientX,y:event.clientY};
+  });
+  for (const type of ['pointerup','pointercancel','lostpointercapture']) canvas.addEventListener(type, event => {
+    if (event.pointerId === pointer) releasePointer();
+  });
+  const step = Math.PI / 12;
+  const directions = {left:[-step,0],right:[step,0],up:[0,-step],down:[0,step]};
+  for (const button of controls.querySelectorAll('[data-scene-rotate]')) button.addEventListener('click', () => {
+    if (canDraw()) rotateBy(...directions[button.dataset.sceneRotate]);
+  });
+  controls.querySelector('[data-scene-reset]')?.addEventListener('click', resetView);
+  canvas.addEventListener('keydown', event => {
+    if (!canDraw()) return;
+    const direction = {ArrowLeft:'left',ArrowRight:'right',ArrowUp:'up',ArrowDown:'down'}[event.key];
+    if (direction) { event.preventDefault(); rotateBy(...directions[direction]); }
+    if (event.key === 'Home') { event.preventDefault(); resetView(); }
+    if (event.key === 'Escape' && touchActive) {
+      event.preventDefault(); setTouchActive(false); touchButton?.focus({preventScroll:true});
+    }
+  });
   function resize() {
     const bounds = stage.getBoundingClientRect();
     const width = bounds.width, height = bounds.height;
@@ -214,6 +307,7 @@ async function init() {
       lamps[0].shadow.autoUpdate = name !== "planet";
       lamps[0].shadow.needsUpdate = name !== "planet";
       angle = name === "robot" ? -0.45 : 0.45;
+      pitch = 0;
       for (const button of choices) button.setAttribute("aria-pressed", String(button.dataset.model === name));
       stage.dataset.model = name;
       resize();
@@ -244,12 +338,15 @@ async function init() {
   const preferenceObserver = new MutationObserver(syncAnimation);
   preferenceObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-motion"] });
   reducedMotion.addEventListener("change", syncAnimation);
-  document.addEventListener("visibilitychange", syncAnimation);
+  document.addEventListener("visibilitychange", () => { if (document.hidden) releasePointer(); syncAnimation(); });
   window.addEventListener("pagehide", () => {
     cancelAnimationFrame(frame);
     frame = 0;
     lastTime = 0;
     nextDrawTime = 0;
+    releasePointer();
+    clearTimeout(resumeTimer);
+    resumeAt = 0;
   });
   window.addEventListener("pageshow", syncAnimation);
   canvas.addEventListener("webglcontextlost", event => {
@@ -259,6 +356,8 @@ async function init() {
     presented = false;
     stage.classList.remove("is-ready");
     controls.hidden = true;
+    canvas.tabIndex = -1;
+    setTouchActive(false);
     syncAnimation();
   });
   canvas.addEventListener("webglcontextrestored", () => {

@@ -87,3 +87,21 @@ Hackathon photographs have 640px and 960px WebP variants alongside the 1500px or
 ## Publication
 
 GitHub Pages serves the static files from the root of `main` at https://taichi-u.github.io/. Run the build and checks, regenerate the CV PDFs when their content changes, then commit the generated files and push to `main`. No hosting migration is required.
+
+## デザイン比較プレビュー
+
+`npm run build:scene` と `npm run build:design-study` で、`artifacts/design-study/index.html` に日英2案の比較用ページを生成します。`npm run dev` の起動後、`http://127.0.0.1:4173/artifacts/design-study/index.html` で確認できます。2026年10月26日に案Bを選択し、写真のスライドショーを加えた構成を公開ページへ反映しました。
+
+- `content/design-study.mjs`: 参考サイトの観察と文言の変更例。
+- `design-study.css`: 2案の表示。
+- `npm run check:design-study`: 4画面幅、日英、写真操作、3D入力・タッチ・動きを減らす設定の検証。既存テストと同様に必要に応じて `PLAYWRIGHT_MODULE` と `CHROME_PATH` を指定。
+- `DESIGN_EVIDENCE=/path/to/captures npm run build:design-study` で調査画面をローカル比較資料へコピーできます。参考サイトの画面は `artifacts/` 内のみで扱い、公開サイトへ配布しません。
+
+
+## 写真と3Dの操作
+
+トップの写真は8秒ごとに切り替わります。前後ボタンで選ぶと停止し、ホバー・フォーカス・画面外・非表示タブでも切り替えを休止します。初期表示では1枚目だけ取得し、後続画像は切り替え時に読み込みます。読み込み失敗時は元の写真を保ち、前後ボタンで再試行できます。
+
+3Dはドラッグ、矢印キー・ボタン、Homeキー・初期位置ボタンで操作できます。スマートフォンでは「3Dを操作」で開始し、「操作を終了」でスクロールに戻ります。操作後3秒で自動回転を再開しますが、手動停止やOSの動きを減らす設定では再開しません。自動回転を止めても手動操作できます。
+
+`npm run check:interactions` はCDPタッチと描画ピクセルで3D入力を検証します。`npm run check:slideshow` は4画面幅×日英、読み込み、停止、失敗からの再試行、レイアウトの安定性を検証します。`measure:design` は初期表示と3Dをスクロールで表示した後の負荷を分けて計測します。比較は他のブラウザー検証を止め、同じ条件で順に実行してください。
