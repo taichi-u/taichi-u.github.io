@@ -725,6 +725,15 @@ export const media = [
     ["Interview · Print", "インタビュー・紙面掲載"],
     "",
   ],
+  [
+    "2014",
+    ["Nora Nora · Children’s agriculture magazine", "こども農業雑誌 のらのら"],
+    [
+      "Winter issue (No. 13) · Making New Year decorations from 30 rice-straw stalks",
+      "冬号（No.13）「ワラ30本の正月飾り」",
+    ],
+    "https://www.ruralnet.or.jp/syokunou/201412/03.pdf",
+  ],
 ];
 
 export const skills = [
