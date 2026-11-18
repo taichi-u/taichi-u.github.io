@@ -26,7 +26,7 @@ Reference pages were opened in Chromium with agent-browser. Screenshots and live
 - Current year: fourth-year undergraduate, directly confirmed by the user.
 - Planned enrollment: **総合研究大学院大学 先端学術院 先端学術専攻 宇宙科学コース 5年一貫博士課程 尾崎直哉研究室 (Mission Design Lab), April 2027**. Kept separate from current affiliations.
 - New technical work and recent presentations were drawn from the provided CVs. New source attachments are kept outside the repository.
-- The 70th UKAREN paper is labeled **submitted in August 2026**, not accepted, published, or already presented.
+- The 70th UKAREN entry is a **poster presentation in the student session (November 2026)**, confirmed by the user with the participation certificate and poster.
 - The athletics application is described as **in trial use**, per the newly supplied project narrative.
 - The latest explicit user message says **3,800 chocolate bananas over two days**. This takes precedence over the old website's “one day” and an older narrative's “3,200.” The date is left as school years because records differ.
 - Pathways athletics captaincy is described as selection for a future role that did not commence due to lockdown, not a role actually held.

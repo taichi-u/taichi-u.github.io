@@ -66,8 +66,8 @@ export const projects = [
       ],
     ],
     outcome: [
-      "Oral presentation at SPS 2026 (March 2026). A paper on HDDP-based low-thrust optimization was submitted to the 70th UKAREN in August 2026.",
-      "2026年3月の惑星圏シンポジウム（SPS 2026）で口頭発表。HDDPによる低推力軌道最適化の論文を第70回宇宙科学技術連合講演会へ2026年8月に投稿（投稿段階）。",
+      "Oral presentation at SPS 2026 (March 2026). Poster presentation on HDDP-based feedback control and re-optimization of low-thrust many-revolution trajectories at the 70th UKAREN (November 2026).",
+      "2026年3月の惑星圏シンポジウム（SPS 2026）で口頭発表。2026年11月の第70回宇宙科学技術連合講演会で、HDDPを用いた低推力多重周回軌道のフィードバック制御・再最適化についてポスター発表。",
     ],
     tags: ["Julia", "DDP / HDDP", "Astrodynamics"],
     photo: "isas",
@@ -423,11 +423,11 @@ export const education = [
 
 export const publications = [
   [
-    "2026.08",
-    ["Paper submitted", "論文投稿"],
+    "2026.11",
+    ["Poster presentation", "ポスター発表"],
     [
-      "HDDP-based trajectory optimization for low-thrust GTO-to-GEO transfers",
-      "GTOからGEOへの低推力軌道遷移におけるHDDPを用いた軌道最適化",
+      "Feedback control and re-optimization of low-thrust many-revolution trajectories using HDDP",
+      "HDDPを用いた低推力多重周回軌道のフィードバック制御および再最適化手法の検討",
     ],
     "70th UKAREN",
     "",

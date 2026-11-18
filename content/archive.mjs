@@ -417,11 +417,11 @@ export const archiveGroups = [
     title: ["Awards, talks & learning", "受賞・発表・学び"],
     entries: [
       [
-        "2026.08",
-        "70th UKAREN · Paper submitted",
-        "第70回宇宙科学技術連合講演会・論文投稿",
-        "Submitted a paper on HDDP-based low-thrust trajectory optimization from GTO to GEO. Listed as submitted; acceptance or presentation is not implied.",
-        "「GTOからGEOへの低推力軌道遷移におけるHDDPを用いた軌道最適化」を投稿。採択・発表済みではなく、投稿段階として記載しています。",
+        "2026.11",
+        "70th UKAREN · Poster presentation",
+        "第70回宇宙科学技術連合講演会・ポスター発表",
+        "Presented a poster in the student session on feedback control and re-optimization of low-thrust many-revolution trajectories using HDDP.",
+        "学生セッションで「HDDPを用いた低推力多重周回軌道のフィードバック制御および再最適化手法の検討」をポスター発表。",
       ],
       [
         "2026.03",
