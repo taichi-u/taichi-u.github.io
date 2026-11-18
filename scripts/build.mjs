@@ -152,6 +152,7 @@ const labels = {
 
 // Intrinsic dimensions reserve the correct space before a lazy image is decoded.
 const imageDimensions = {
+  "hddp-gto-geo": [1184, 1040],
   "robot-arm": [1000, 900],
   presentation: [1000, 563],
   isas: [750, 1000],
@@ -166,6 +167,7 @@ function imageSize(name) {
 }
 
 function visual(p, root, T) {
+  if (p.figure) return `<figure class="case-photo case-figure"><img src="${root}assets/images/${p.figure.image}.webp" ${imageSize(p.figure.image)} alt="${esc(T(p.figure.alt))}" loading="lazy" decoding="async"><figcaption>${esc(T(p.figure.caption))}</figcaption></figure>`;
   if (p.visual !== "photo") return "";
   return `<figure class="case-photo"><img src="${root}assets/images/${p.image}.webp" ${imageSize(p.image)} alt="${esc(T(p.title))}" loading="lazy" decoding="async"></figure>`;
 }
@@ -239,7 +241,7 @@ for (const lang of ["en", "ja"]) {
   const workMeta = (p) => `<p class="work-meta"><span>${esc(p.org)}</span><time>${esc(p.date)}</time></p>`;
   const workLink = (p) => `<a href="research/${projectFile(p)}" data-project="${p.id}">${esc(T(p.title))}</a>`;
   const [leadProject, ...otherProjects] = projects;
-  const research = `<section id="research" class="section wrap">${sectionHead("", "", L.research)}<span id="projects" class="anchor-alias"></span><article class="work-lead">${leadProject.photo ? `<img src="assets/images/${leadProject.photo}.webp" ${imageSize(leadProject.photo)} alt="${esc(T(leadProject.photoAlt))}" loading="lazy" decoding="async">` : ""}<div>${workMeta(leadProject)}<h3>${workLink(leadProject)}</h3><p>${esc(T(leadProject.summary))}</p><p class="work-outcome">${esc(T(leadProject.outcome))}</p></div></article><div class="work-pair">${otherProjects.slice(0, 2).map((p) => `<article class="work-card">${workMeta(p)}<h3>${workLink(p)}</h3><p>${esc(T(p.summary))}</p></article>`).join("")}</div><ul class="work-list">${otherProjects.slice(2).map((p) => `<li><h3>${workLink(p)}</h3>${workMeta(p)}</li>`).join("")}</ul><p class="section-more"><a href="${archiveFile}">${lang === "ja" ? "これまでの研究・活動の記録" : "Earlier research and activity records"} ${arrow}</a></p></section>`;
+  const research = `<section id="research" class="section wrap">${sectionHead("", "", L.research)}<span id="projects" class="anchor-alias"></span><article class="work-lead">${leadProject.figure ? `<figure class="work-figure"><img src="assets/images/${leadProject.figure.image}.webp" ${imageSize(leadProject.figure.image)} alt="${esc(T(leadProject.figure.alt))}" loading="lazy" decoding="async"><figcaption>${esc(T(leadProject.figure.caption))}</figcaption></figure>` : leadProject.photo ? `<img src="assets/images/${leadProject.photo}.webp" ${imageSize(leadProject.photo)} alt="${esc(T(leadProject.photoAlt))}" loading="lazy" decoding="async">` : ""}<div>${workMeta(leadProject)}<h3>${workLink(leadProject)}</h3><p>${esc(T(leadProject.summary))}</p><p class="work-outcome">${esc(T(leadProject.outcome))}</p></div></article><div class="work-pair">${otherProjects.slice(0, 2).map((p) => `<article class="work-card">${workMeta(p)}<h3>${workLink(p)}</h3><p>${esc(T(p.summary))}</p></article>`).join("")}</div><ul class="work-list">${otherProjects.slice(2).map((p) => `<li><h3>${workLink(p)}</h3>${workMeta(p)}</li>`).join("")}</ul><p class="section-more"><a href="${archiveFile}">${lang === "ja" ? "これまでの研究・活動の記録" : "Earlier research and activity records"} ${arrow}</a></p></section>`;
   const journey = `<section id="journey" class="section journey-section"><div class="wrap">${sectionHead("03", "EXPERIENCE", lang === "ja" ? "経歴" : "Experience")}<div class="journey-columns"><div id="education"><h3 class="subheading">${L.education}</h3>${rows(education.slice(0, 2))}</div><div><h3 class="subheading">${L.publications}</h3><ol class="publication-list">${publications.slice(0, 3).map(([date, type, name, venue, url]) => `<li><div class="publication-meta"><span class="mono">${date}</span><span class="status-tag">${esc(T(type))}</span></div><div><h4>${url ? ext(url, T(name)) : esc(T(name))}</h4><p>${esc(venue)}</p></div></li>`).join("")}</ol></div></div><p class="section-more"><a href="${cv}">${lang === "ja" ? "学歴・発表・受賞・スキルの一覧はCVへ" : "Full education, presentations, awards and skills in the CV"} ${arrow}</a></p></div></section>`;
   function eventPhotos(event) {
     return `<div class="event-photos">${event.photos.map((photo) => `<figure><img src="assets/images/${photo.file}.webp" srcset="assets/images/${photo.file}-640.webp 640w, assets/images/${photo.file}-960.webp 960w, assets/images/${photo.file}.webp 1500w" sizes="auto, (max-width: 560px) calc(100vw - 40px), 612px" width="1500" height="1001" loading="lazy" decoding="async" alt="${esc(T(photo.caption))}"><figcaption>${esc(T(photo.caption))}</figcaption></figure>`).join("")}</div>`;

@@ -31,6 +31,17 @@ export const projects = [
     org: "JAXA / ISAS",
     date: "2025.08 —",
     visual: "orbit",
+    figure: {
+      image: "hddp-gto-geo",
+      alt: [
+        "Plot of a low-thrust spiral transfer from GTO to GEO, projected on the equatorial plane",
+        "GTOからGEOへの低推力スパイラル遷移軌道の赤道面投影図",
+      ],
+      caption: [
+        "Nominal low-thrust transfer from GTO to GEO obtained with HDDP: 183 revolutions over 114.3 days, projected on the equatorial plane of the Earth-centered inertial frame. 1: start, 2: end. From the poster at the 70th UKAREN (November 2026).",
+        "HDDPで求めたGTOからGEOへの低推力遷移の公称軌道。183周・114.3日、地球中心慣性系の赤道面投影。①初期、②終端。第70回宇宙科学技術連合講演会（2026年11月）のポスターより。",
+      ],
+    },
     title: [
       "Outer-planet mission design and trajectory optimization",
       "外惑星探査のミッション設計と軌道最適化",

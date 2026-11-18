@@ -99,7 +99,8 @@ html:lang(en)[data-design=b] .hero-title h1{letter-spacing:-.02em}
 [data-design=b] .scene-input-controls{padding-top:4px}
 [data-design=b] .work-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--muted);letter-spacing:.02em}
 [data-design=b] .work-lead{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:44px;align-items:center;padding-bottom:40px}
-[data-design=b] .work-lead img{width:100%;aspect-ratio:4/3!important;object-fit:cover}
+[data-design=b] .work-lead img{width:100%;height:auto}
+[data-design=b] .work-lead>img{aspect-ratio:4/3!important;object-fit:cover}
 [data-design=b] .work-lead h3{font-size:28px;line-height:1.4;margin-top:10px}
 [data-design=b] .work-lead p{margin-top:14px}
 [data-design=b] .work-lead .work-outcome{font-size:14px;color:var(--muted)}
@@ -137,3 +138,7 @@ html:lang(en)[data-design=b] .hero-title h1{letter-spacing:-.02em}
 [data-design=b] .hero-slides::after{background:linear-gradient(to top,rgba(10,12,16,.74),rgba(10,12,16,.18) 42%,rgba(10,12,16,0) 62%)}
 [data-design=b] .slideshow-controls{background:rgba(10,12,16,.55)}
 [data-design=b] .scene-choices button[aria-pressed=true]{border-bottom-color:var(--link);color:var(--link)}
+[data-design=b] .work-lead{align-items:start}
+[data-design=b] .work-lead .work-figure img{border:1px solid var(--line)}
+[data-design=b] .work-figure figcaption{margin-top:10px;font-size:13px;line-height:1.7;color:var(--muted)}
+[data-design=b] .case-figure img{border:1px solid var(--line)}
