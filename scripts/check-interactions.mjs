@@ -17,13 +17,13 @@ const visibleModel=async(p=page)=>{
   await p.locator('[data-scene].is-ready').waitFor();
 };
 const pause=async(p=page)=>{
-  if(await p.locator('html').getAttribute('data-motion')!=='off') await p.locator('.scene-motion-button').click();
+  if(await p.locator('html').getAttribute('data-motion')!=='off') await p.locator('.motion-toggle').dispatchEvent('click');
 };
 try{
  await page.setViewportSize({width:1440,height:1000});
  await page.goto(`${base}/index-ja.html`); await visibleModel(); await pause();
  const canvas=page.locator('.scene-canvas');
- await page.locator('[data-scene-reset]').click();
+ await page.locator('.scene-canvas').press('Home');
  const initial=await canvas.screenshot();
  const box=await canvas.boundingBox();
  await page.mouse.move(box.x+box.width*.4,box.y+box.height*.4);await page.mouse.down();
@@ -34,15 +34,15 @@ try{
  assert(initial.equals(await canvas.screenshot()),'Home must restore the initial orientation');
  await page.keyboard.press('ArrowRight');
  assert(!initial.equals(await canvas.screenshot()),'Arrow key must rotate the model');
- await page.locator('[data-scene-reset]').click();
- for(let i=0;i<7;i++)await page.locator('[data-scene-rotate=up]').click();
+ await page.locator('.scene-canvas').press('Home');
+ for(let i=0;i<7;i++)await page.locator('.scene-canvas').press('ArrowUp');
  const limit=await canvas.screenshot();
- for(let i=0;i<7;i++)await page.locator('[data-scene-rotate=up]').click();
+ for(let i=0;i<7;i++)await page.locator('.scene-canvas').press('ArrowUp');
  assert(limit.equals(await canvas.screenshot()),'Pitch must clamp before the model flips');
- await page.locator('[data-scene-reset]').click();
- await page.locator('.scene-motion-button').click();
+ await page.locator('.scene-canvas').press('Home');
+ await page.locator('.motion-toggle').dispatchEvent('click');
  await page.waitForFunction(()=>document.querySelector('[data-scene]').dataset.animating==='true');
- await page.locator('[data-scene-rotate=right]').click();
+ await page.locator('.scene-canvas').press('ArrowRight');
  assert.equal(await page.locator('[data-scene]').getAttribute('data-animating'),'false');
  await page.waitForTimeout(1500);
  assert.equal(await page.locator('[data-scene]').getAttribute('data-animating'),'false');
@@ -52,8 +52,8 @@ try{
  checks.push('3D: mouse drag, keyboard, reset, pitch limit, manual rotation while paused, 3-second resumption, offscreen suspension');
  const reduced=await browser.newContext({reducedMotion:'reduce',viewport:{width:1440,height:1000}});
  const rp=await reduced.newPage();await rp.goto(`${base}/index.html`);await visibleModel(rp);
- assert(await rp.locator('.scene-motion-button').isDisabled());
- const r0=await rp.locator('canvas').screenshot();await rp.locator('[data-scene-rotate=left]').click();
+ assert(await rp.locator('.motion-toggle').isDisabled());
+ const r0=await rp.locator('canvas').screenshot();await rp.locator('.scene-canvas').press('ArrowLeft');
  assert(!r0.equals(await rp.locator('canvas').screenshot()));
  assert.equal(await rp.locator('[data-scene]').getAttribute('data-animating'),'false');
  await reduced.close();checks.push('Reduced motion: static by default, manual rotation remains available');
@@ -79,7 +79,7 @@ try{
  await mobile.close();checks.push('CDP touch: normal scrolling → explicit 3D activation and rotation → restored scrolling');
  const noGL=await browser.newContext();await noGL.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,...args){return type.startsWith('webgl')?null:original.call(this,type,...args);};});
  const fp=await noGL.newPage();await fp.goto(`${base}/index-ja.html`);await fp.waitForLoadState('networkidle');assert(await fp.locator('.planet').isVisible());assert(await fp.locator('.scene-controls').isHidden());await noGL.close();
- const noJS=await browser.newContext({javaScriptEnabled:false});const np=await noJS.newPage();await np.goto(`${base}/index-ja.html`);assert.equal(await np.locator('.project-card').count(),8);assert(await np.locator('.planet').isVisible());await noJS.close();
+ const noJS=await browser.newContext({javaScriptEnabled:false});const np=await noJS.newPage();await np.goto(`${base}/index-ja.html`);assert.equal(await np.locator('#research a[data-project]').count(),8);assert(await np.locator('.planet').isVisible());await noJS.close();
  checks.push('No WebGL / JavaScript: fallback model and factual content remain available');
  assert.deepEqual(errors,[]);
  await writeFile('artifacts/design-study/interaction-checks.json',JSON.stringify(checks,null,2));

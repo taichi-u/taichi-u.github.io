@@ -69,3 +69,71 @@ html[data-motion=off] *,html[data-motion=off] *::before,html[data-motion=off] *:
 @media(max-width:600px){.hero-slide figcaption{min-height:6em}}
 /* Keep the mobile header stable before the deferred menu script runs. */
 @media(scripting:enabled) and (max-width:820px){.site-header nav{display:none}.site-header nav.is-open{display:flex}.site-header .menu-toggle[hidden]{display:block!important;visibility:hidden;pointer-events:none}}
+/* 2026-11 homepage: photo-led hero with the name on the photo, fewer controls, shorter sections */
+[data-design=b] .hero{display:block;padding-block:28px 56px}
+[data-design=b] .hero-slides{display:grid;position:relative;background:var(--soft)}
+[data-design=b] .hero-slide{display:contents}
+[data-design=b] .hero-slide .opening-photo{grid-area:1/1;width:100%;height:auto;aspect-ratio:16/9;max-height:min(68vh,640px);object-fit:cover}
+[data-design=b] .hero-slides::after{content:"";grid-area:1/1;z-index:1;pointer-events:none;background:linear-gradient(to top,rgba(12,22,16,.74),rgba(12,22,16,.18) 42%,rgba(12,22,16,0) 62%)}
+[data-design=b] .hero-slide figcaption{grid-area:2/1;min-height:1.7em;margin-top:10px;background:var(--paper);font-size:13px;color:var(--muted)}
+[data-design=b] .hero-slides{background:none}
+[data-design=b] .hero-title{grid-area:1/1;align-self:end;z-index:2;padding:0 36px 30px;color:#fff;pointer-events:none}
+[data-design=b] .hero-title h1{font-size:clamp(34px,5.2vw,60px);line-height:1.15;font-weight:700;letter-spacing:.02em;text-shadow:0 1px 18px rgba(0,0,0,.35)}
+html:lang(en)[data-design=b] .hero-title h1{letter-spacing:-.02em}
+[data-design=b] .hero-title .name-en{margin-top:8px;color:rgba(255,255,255,.88);font-size:17px;letter-spacing:.04em}
+[data-design=b] .slideshow-controls{position:absolute;top:14px;right:14px;z-index:3;margin:0;gap:6px;padding:4px;border-radius:999px;background:rgba(12,22,16,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+[data-design=b] .slideshow-controls button{border:0;border-radius:999px;background:none;color:#fff;min-height:36px;min-width:36px;padding:0 12px;font-size:12px}
+[data-design=b] .slideshow-controls button:hover{background:rgba(255,255,255,.18)}
+[data-design=b] .slideshow-controls button:focus-visible{outline-color:#fff;outline-offset:-2px}
+[data-design=b] .slide-count{margin:0 2px 0 6px;color:rgba(255,255,255,.85);font-size:12px}
+[data-design=b] .hero-profile{display:grid;grid-template-columns:1.5fr 1fr;gap:56px;align-items:start;padding-top:0;margin-top:34px}
+[data-design=b] .hero-about{display:flex;gap:24px;align-items:flex-start}
+[data-design=b] .hero-about .portrait{display:block;flex:none;width:96px;height:96px;object-fit:cover;border-radius:50%}
+[data-design=b] .hero-about .intro{margin-top:0;font-size:19px;line-height:1.8;max-width:30em}
+[data-design=b] .hero-next{margin-top:12px;font-size:14px;color:var(--muted);max-width:42em}
+[data-design=b] .hero-links{margin-top:20px}
+[data-design=b] .model-viewer{margin-top:0;min-height:0}
+[data-design=b] .orbital-stage{height:210px}
+[data-design=b] .scene-controls{border-top:0}
+[data-design=b] .scene-directions,[data-design=b] [data-scene-reset],[data-design=b] .scene-motion-button,[data-design=b] .scene-drag-hint{display:none}
+[data-design=b] .scene-input-controls{padding-top:4px}
+[data-design=b] .work-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--muted);letter-spacing:.02em}
+[data-design=b] .work-lead{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:44px;align-items:center;padding-bottom:40px}
+[data-design=b] .work-lead img{width:100%;aspect-ratio:4/3!important;object-fit:cover}
+[data-design=b] .work-lead h3{font-size:28px;line-height:1.4;margin-top:10px}
+[data-design=b] .work-lead p{margin-top:14px}
+[data-design=b] .work-lead .work-outcome{font-size:14px;color:var(--muted)}
+[data-design=b] .work-lead h3 a,[data-design=b] .work-card h3 a,[data-design=b] .work-list h3 a{color:var(--ink);text-decoration:none}
+[data-design=b] .work-lead h3 a:hover,[data-design=b] .work-card h3 a:hover,[data-design=b] .work-list h3 a:hover{text-decoration:underline}
+[data-design=b] .work-pair{display:grid;grid-template-columns:1fr 1fr;gap:44px;border-top:1px solid var(--line);padding-block:30px}
+[data-design=b] .work-card h3{font-size:21px;margin-top:8px}
+[data-design=b] .work-card p:not(.work-meta){margin-top:10px;font-size:15px}
+[data-design=b] .work-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+[data-design=b] .work-list li{display:flex;justify-content:space-between;align-items:baseline;gap:8px 24px;flex-wrap:wrap;padding:15px 0;border-bottom:1px solid var(--line)}
+[data-design=b] .work-list h3{font-size:16px;font-weight:600;line-height:1.6}
+[data-design=b] .section-more{margin-top:26px;font-size:15px}
+[data-design=b] .interests-line{margin-top:26px;font-size:15px;max-width:46em}
+[data-design=b] .beyond-media{margin-top:44px}
+[data-design=b] .beyond-media .affiliations{margin:0 0 36px}
+[data-design=b] .beyond-media .media-list{columns:2;column-gap:48px}
+[data-design=b] .beyond-media .media-list li{break-inside:avoid}
+@media(max-width:800px){
+[data-design=b] .hero{padding-block:16px 40px}
+[data-design=b] .hero-slide .opening-photo{aspect-ratio:4/5;max-height:70vh}
+[data-design=b] .hero-title{padding:0 20px 22px}
+[data-design=b] .hero-slide figcaption{min-height:3.4em}
+[data-design=b] .hero-profile{grid-template-columns:1fr;gap:28px;margin-top:20px}
+[data-design=b] .hero-about{gap:16px}
+[data-design=b] .hero-about .portrait{width:64px;height:64px}
+[data-design=b] .hero-about .intro{font-size:17px}
+[data-design=b] .work-lead{grid-template-columns:1fr;gap:20px;padding-bottom:28px}
+[data-design=b] .work-lead h3{font-size:23px}
+[data-design=b] .work-pair{grid-template-columns:1fr;gap:26px}
+[data-design=b] .beyond-media .media-list{columns:1}
+}
+/* 2026-11 palette: neutral ink on white; one accent, the brick red of a running track, for links and selected states */
+[data-design=b]{--ink:#16171a;--muted:#5d5f64;--link:#b5391f;--line:#e4e4e2;--paper:#fff;--soft:#f5f4f2}
+[data-design=b] .brand{font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+[data-design=b] .hero-slides::after{background:linear-gradient(to top,rgba(10,12,16,.74),rgba(10,12,16,.18) 42%,rgba(10,12,16,0) 62%)}
+[data-design=b] .slideshow-controls{background:rgba(10,12,16,.55)}
+[data-design=b] .scene-choices button[aria-pressed=true]{border-bottom-color:var(--link);color:var(--link)}

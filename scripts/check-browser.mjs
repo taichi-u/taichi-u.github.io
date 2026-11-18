@@ -42,26 +42,11 @@ try {
       fullPage: false,
     });
     assert.equal(await page.locator("h1").count(), 1);
-    assert.equal(await page.locator(".project-card").count(), 8);
-    for (const [category, count] of [
-      ["space", 4],
-      ["robotics", 3],
-      ["software", 2],
-      ["life", 2],
-      ["all", 8],
-    ]) {
-      await page.locator('[data-filter="' + category + '"]').click();
-      assert.equal(await page.locator(".project-card:visible").count(), count);
-      assert.equal(
-        await page
-          .locator('[data-filter="' + category + '"]')
-          .getAttribute("aria-pressed"),
-        "true",
-      );
-    }
-    checks.push(lang + " / all project filters");
+    assert.equal(await page.locator('#research a[data-project]').count(), 8);
+    assert.equal(await page.locator(".filters, .project-count").count(), 0);
+    checks.push(lang + " / eight project links, no filter controls");
     await page
-      .locator('.project-card a[data-project="mission-design"]')
+      .locator('#research a[data-project="mission-design"]')
       .click();
     assert(
       await page.locator("#project-mission-design").evaluate((d) => d.open),
@@ -233,7 +218,7 @@ try {
           await page.locator(".menu-toggle").getAttribute("aria-expanded"),
           "false",
         );
-        await page.locator(".project-card a[data-project]").first().click();
+        await page.locator("#research a[data-project]").first().click();
         assert.equal(await page.locator("dialog[open]").count(), 1);
         await page.screenshot({
           path: output + "/mobile-dialog-" + lang + ".png",
@@ -269,8 +254,8 @@ try {
   });
   const fallback = await nojs.newPage();
   await fallback.goto(base + "/index-ja.html");
-  assert.equal(await fallback.locator(".project-card").count(), 8);
-  await fallback.locator(".project-card a[data-project]").first().click();
+  assert.equal(await fallback.locator('#research a[data-project]').count(), 8);
+  await fallback.locator("#research a[data-project]").first().click();
   assert(fallback.url().endsWith("mission-design-ja.html"));
   assert((await fallback.locator("h1").innerText()).includes("外惑星"));
   await fallback.goto(base + "/archive-ja.html");

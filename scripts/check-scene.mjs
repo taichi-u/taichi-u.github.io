@@ -56,7 +56,7 @@ try {
       await waitModel(name);
       assert.equal(await page.locator(`button[data-model="${name}"]`).getAttribute("aria-pressed"), "true");
       // Pause while capturing a stable, reviewable view of each asset.
-      if (await page.locator("html").getAttribute("data-motion") !== "off") await page.locator(".scene-motion-button").click();
+      if (await page.locator("html").getAttribute("data-motion") !== "off") await page.locator('.motion-toggle').dispatchEvent('click');
       await page.screenshot({ path: `${output}/${lang}-${name}.png` });
     }
     checks.push(`${lang}: all three GLBs render and selection buttons synchronize`);
@@ -65,7 +65,7 @@ try {
   const pausedA = await canvas.screenshot();
   await page.waitForTimeout(450);
   assert(pausedA.equals(await canvas.screenshot()), "Paused background must remain still");
-  await page.locator(".scene-motion-button").click();
+  await page.locator('.motion-toggle').dispatchEvent('click');
   await page.waitForFunction(() => document.querySelector("[data-scene]").dataset.animating === "true");
   const movingA = await canvas.screenshot();
   await page.waitForTimeout(650);
@@ -74,10 +74,10 @@ try {
   await page.waitForFunction(() => document.querySelector("[data-scene]").dataset.animating === "false");
   await page.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
   await page.waitForFunction(() => document.querySelector("[data-scene]").dataset.animating === "true");
-  await page.locator(".scene-motion-button").click();
+  await page.locator('.motion-toggle').dispatchEvent('click');
   await page.reload();
   await waitModel("satellite");
-  assert.equal(await page.locator(".scene-motion-button").getAttribute("aria-pressed"), "true");
+  assert.equal(await page.locator('.motion-toggle').getAttribute("aria-pressed"), "true");
   assert.equal(await page.locator(".motion-toggle").getAttribute("aria-pressed"), "true");
   checks.push("Pixel-verified rotation/pause, offscreen suspension, persistent shared motion setting");
 
@@ -98,9 +98,10 @@ try {
   const reduced = await browser.newContext({ reducedMotion: "reduce" });
   const reducedPage = await reduced.newPage();
   await reducedPage.goto(`${base}/index-ja.html`);
+  await reducedPage.locator("[data-scene]").scrollIntoViewIfNeeded();
   await reducedPage.locator("[data-scene].is-ready").waitFor();
   assert.equal(await reducedPage.locator("[data-scene]").getAttribute("data-animating"), "false");
-  assert(await reducedPage.locator(".scene-motion-button").isDisabled());
+  assert(await reducedPage.locator('.motion-toggle').isDisabled());
   await reduced.close();
   checks.push("Reduced motion: static 3D model with animation disabled");
 
@@ -121,7 +122,7 @@ try {
   const staticPage = await noJS.newPage();
   await staticPage.goto(`${base}/index-ja.html`);
   assert(await staticPage.locator(".planet").isVisible());
-  assert.equal(await staticPage.locator(".project-card").count(), 8);
+  assert.equal(await staticPage.locator('#research a[data-project]').count(), 8);
   await noJS.close();
   checks.push("WebGL unavailable / JavaScript disabled: fallback and page content remain usable");
 
@@ -159,6 +160,7 @@ try {
   const legacyModels = [];
   legacy.on("request", request => { if (/\.glb(?:\.gz)?$/.test(request.url())) legacyModels.push(request.url()); });
   await legacy.goto(`${base}/index-ja.html`);
+  await legacy.locator("[data-scene]").scrollIntoViewIfNeeded();
   await legacy.locator("[data-scene].is-ready").waitFor();
   assert(legacyModels.some(url => url.endsWith("satellite.glb")));
   assert(!legacyModels.some(url => url.endsWith(".gz")));
