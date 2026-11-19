@@ -5,7 +5,7 @@ import { codexHackathon } from "./events.mjs";
 export const profile = {
   name: ["Taichi Uchida", "内田 大智"],
   email: "uchida.taichi.84f@st.kyoto-u.ac.jp",
-  updated: "2026-09-21",
+  updated: "2026-11-19",
   intro: [
     "I’m a fourth-year aerospace engineering student at Kyoto University. My research covers mission design, trajectory optimization, and robotics.",
     "京都大学 工学部4年。物理工学科 宇宙基礎工学コース。研究分野はミッション設計、軌道最適化、ロボティクス。",

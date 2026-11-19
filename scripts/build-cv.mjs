@@ -51,10 +51,32 @@ const env = {
 for (const lang of ["en", "ja"]) {
   const ja = lang === "ja";
   const T = (value) => (Array.isArray(value) ? value[ja ? 1 : 0] : value);
+  // Dates use en dashes; an open range reads "2025.08 – present".
+  const when = (date) =>
+    tex(date === "School years" && ja ? "中学時代" : date)
+      .replace(/\s*-\s*$/, ` -- ${ja ? "現在" : "present"}`)
+      .replace(/\s+-\s+/g, " -- ")
+      .replace(/(\d)-(\d)/g, "$1--$2");
   const entry = ([date, title, description], compact = false) =>
-    `\\${compact ? "cvcompact" : "cventry"}{${tex(date === "School years" && ja ? "中学時代" : date)}}{${tex(T(title))}}{${tex(T(description))}}`;
+    compact
+      ? `\\cvcompact{${when(date)}}{${tex(T(title))}}{${tex(T(description))}}`
+      : `\\cventry{${when(date)}}{${tex(T(title))}}{}{${tex(T(description))}}`;
   const section = (title, content) =>
     `\\cvsection{${tex(title)}}\n${content}\n`;
+  const [year, month] = profile.updated.split("-").map(Number);
+  const updated = ja
+    ? `${year}年${month}月更新`
+    : `Updated ${new Date(Date.UTC(year, month - 1)).toLocaleString("en", { month: "long", timeZone: "UTC" })} ${year}`;
+  // The site sets organisations in capitals; the CV uses their ordinary spelling.
+  const orgName = (org) =>
+    org
+      .split(/( · | \/ )/)
+      .map((part) =>
+        /^[A-Z&. ]+$/.test(part) && part.replace(/[^A-Z]/g, "").length > 5
+          ? part.toLowerCase().replace(/\b[a-z]/g, (c) => c.toUpperCase())
+          : part,
+      )
+      .join("");
   const page1 = [
     section(
       ja ? "学歴" : "Education",
@@ -63,12 +85,9 @@ for (const lang of ["en", "ja"]) {
     section(
       ja ? "研究・開発" : "Research & Development",
       projects
-        .map((p) =>
-          entry([
-            p.date,
-            T(p.title),
-            `${p.org} / ${T(p.role)}. ${T(p.summary)}`,
-          ]),
+        .map(
+          (p) =>
+            `\\cventry{${when(p.date)}}{${tex(T(p.title))}}{\\cvorg{${tex(orgName(p.org))}}\\enspace·\\enspace ${tex(T(p.role))}}{${tex(T(p.summary))}}`,
         )
         .join("\n"),
     ),
@@ -84,7 +103,7 @@ for (const lang of ["en", "ja"]) {
         .sort((a, b) => b[0].localeCompare(a[0]))
         .map(
           ([date, type, title, venue, url]) =>
-            `\\cventry{${tex(date)}}{${url ? `\\href{${tex(url)}}{${tex(T(title))}}` : tex(T(title))}}{${tex(venue)}. ${tex(T(type))}.}`,
+            `\\cventry{${when(date)}}{${url ? `\\href{${tex(url)}}{${tex(T(title))}}` : tex(T(title))}}{${tex(venue)}\\enspace·\\enspace ${tex(T(type))}}{}`,
         )
         .join("\n"),
     ),
@@ -102,7 +121,7 @@ for (const lang of ["en", "ja"]) {
       ja ? "スキル・資格" : "Skills & Qualifications",
       skills
         .map(
-          ([title, desc]) => `\\cvcompact{}{${tex(T(title))}}{${tex(T(desc))}}`,
+          ([title, desc]) => `\\cvskill{${tex(T(title))}}{${tex(T(desc))}}`,
         )
         .join("\n"),
     ),
@@ -113,15 +132,14 @@ for (const lang of ["en", "ja"]) {
     (ja ? "\\usepackage[haranoaji]{luatexja-preset}\n" : "") +
     `\\input{cv/preamble.tex}\n\\hypersetup{pdftitle={${tex(T(profile.name))} - Curriculum Vitae}}\n` +
     `\\begin{document}\n` +
-    `{\\fontsize{25}{30}\\selectfont\\bfseries ${tex(T(profile.name))}}` +
-    (ja ? "\\hspace{5mm}{\\large Taichi Uchida}" : "") +
-    `\\hfill{\\small ${ja ? "2026年9月更新" : "Updated September 2026"}}\\par\\vspace{5pt}\n` +
-    `${tex(T(profile.intro))}\\par\\vspace{4pt}\n` +
-    `{\\small\\href{mailto:${tex(profile.email)}}{${tex(profile.email)}}\\quad\\textbar\\quad\\href{https://taichi-u.github.io/}{taichi-u.github.io}}\\par\\vspace{4pt}\n` +
+    (ja ? "\\renewcommand{\\cvheadstyle}[1]{#1}\\linespread{0.93}\\selectfont\n" : "") +
+    `\\renewcommand{\\cvupdated}{${updated}}\n` +
+    `\\cvheader{${tex(T(profile.name))}}{${ja ? "Taichi Uchida" : ""}}{\\href{mailto:${tex(profile.email)}}{${tex(profile.email)}}}{\\href{https://taichi-u.github.io/}{taichi-u.github.io}}\n` +
+    `${tex(T(profile.intro))}\\par\n` +
     page1 +
-    "\\newpage\n" +
+    "\n" +
     page2 +
-    "\\newpage\n" +
+    "\n" +
     page3 +
     "\\end{document}\n";
   const stem = `taichi-uchida-${lang}`;

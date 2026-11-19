@@ -1,45 +1,68 @@
 % Shared typesetting for the public CVs. Compile with LuaLaTeX.
-\usepackage[a4paper,top=17mm,bottom=17mm,left=18mm,right=18mm,footskip=9mm]{geometry}
+\usepackage[a4paper,top=18mm,bottom=20mm,left=19mm,right=19mm,footskip=10mm]{geometry}
 \usepackage{fontspec}
 \setmainfont{LibertinusSerif-Regular.otf}[
-  BoldFont=LibertinusSerif-Bold.otf,
+  BoldFont=LibertinusSerif-Semibold.otf,
   ItalicFont=LibertinusSerif-Italic.otf,
-  BoldItalicFont=LibertinusSerif-BoldItalic.otf]
+  BoldItalicFont=LibertinusSerif-SemiboldItalic.otf]
 \usepackage{microtype}
+\usepackage{xcolor}
 \usepackage{titlesec}
-\usepackage{enumitem}
 \usepackage{needspace}
 \usepackage{fancyhdr}
 \usepackage{lastpage}
 \usepackage{hyperref}
 \hypersetup{hidelinks,unicode=true,pdfauthor={Taichi Uchida},pdfsubject={Public curriculum vitae}}
+% One accent, shared with the website; everything else is ink and two greys.
+\definecolor{cvaccent}{HTML}{B5391F}
+\definecolor{cvink}{HTML}{16171A}
+\definecolor{cvmuted}{HTML}{5D5F64}
+\definecolor{cvline}{HTML}{C9C9C5}
+\color{cvink}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
 \setlength{\emergencystretch}{2em}
-\linespread{1.05}
+\linespread{1.06}
 \raggedbottom
+\newcommand{\cvupdated}{}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyfoot[L]{\footnotesize Taichi Uchida\quad\textbar\quad Curriculum Vitae}
-\fancyfoot[R]{\footnotesize\thepage\,/\,\pageref*{LastPage}}
+\fancyfoot[L]{\footnotesize\color{cvmuted}Taichi Uchida\enspace·\enspace Curriculum Vitae}
+\fancyfoot[C]{\footnotesize\color{cvmuted}\cvupdated}
+\fancyfoot[R]{\footnotesize\color{cvmuted}\addfontfeatures{Numbers={Tabular,Lining}}\thepage\,/\,\pageref*{LastPage}}
 \renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0.3pt}
-\titleformat{\section}{\large\bfseries}{}{0pt}{}[\vspace{1pt}\titlerule]
-\titlespacing*{\section}{0pt}{10pt}{6pt}
-\setlist[itemize]{leftmargin=1.2em,itemsep=1pt,topsep=2pt,parsep=0pt}
-\newcommand{\cvsection}[1]{\Needspace{5\baselineskip}\section*{#1}}
-% A fixed date column and an unbroken entry keep periods and descriptions aligned.
-\newcommand{\cventry}[3]{%
-  \par\addvspace{5pt}\noindent
-  \begin{minipage}[t]{28mm}\small\raggedright #1\end{minipage}\hfill
-  \begin{minipage}[t]{\dimexpr\textwidth-33mm\relax}
-    \textbf{#2}\par\vspace{1.5pt}#3
-  \end{minipage}\par
-}
+\renewcommand{\footrulewidth}{0pt}
+% Section label: accent text over a hairline. The Japanese source redefines \cvheadstyle.
+\newcommand{\cvheadstyle}[1]{\textls[90]{\MakeUppercase{#1}}}
+\titleformat{\section}{\normalsize\bfseries\color{cvaccent}}{}{0pt}{\cvheadstyle}[{\vspace{-1.5pt}\color{cvline}\titlerule[0.4pt]}]
+\titlespacing*{\section}{0pt}{15pt}{5pt}
+\newcommand{\cvsection}[1]{\Needspace{6\baselineskip}\section*{#1}}
+\newlength{\cvdatewidth}\setlength{\cvdatewidth}{31mm}
+\newlength{\cvbodywidth}\setlength{\cvbodywidth}{\dimexpr\textwidth-\cvdatewidth-4mm\relax}
+\newcommand{\cvdate}[1]{\begin{minipage}[t]{\cvdatewidth}\small\raggedright\leavevmode\color{cvmuted}\addfontfeatures{Numbers={Tabular,Lining}}#1\end{minipage}\hfill}
+% Fixed depth under the last line of an entry, so gaps between entries stay even.
+\newcommand{\cvstrut}{\unskip\nobreak\hbox{\vrule width 0pt height 0pt depth 3.2pt}}
+\newcommand{\cvifnonempty}[2]{\if\relax\detokenize{#1}\relax\else#2\fi}
+% Header: name on the left, contact lines on the right, one ink rule below.
+\newcommand{\cvheader}[4]{%
+  \begin{minipage}[b]{.62\textwidth}{\fontsize{26}{30}\selectfont\bfseries #1}\cvifnonempty{#2}{\hspace{4mm}{\large\color{cvmuted}#2}}\end{minipage}\hfill
+  \begin{minipage}[b]{.36\textwidth}\raggedleft\small\color{cvmuted}#3\\#4\end{minipage}\par
+  \vspace{7pt}{\color{cvink}\hrule height 0.9pt}\vspace{9pt}}
+% Date, title, optional affiliation line, optional description. Entries never break across pages.
+\newcommand{\cventry}[4]{%
+  \par\addvspace{7.5pt}\noindent\cvdate{#1}%
+  \begin{minipage}[t]{\cvbodywidth}
+    \textbf{#2}\cvstrut%
+    \cvifnonempty{#3}{\par\vspace{1pt}{\small\color{cvmuted}#3\cvstrut}}%
+    \cvifnonempty{#4}{\par\vspace{1pt}#4\cvstrut}
+  \end{minipage}\par}
+\newcommand{\cvorg}[1]{{\color{cvink}#1}}
 \newcommand{\cvcompact}[3]{%
-  \par\addvspace{4pt}\noindent
-  \begin{minipage}[t]{28mm}\small\raggedright #1\end{minipage}\hfill
-  \begin{minipage}[t]{\dimexpr\textwidth-33mm\relax}
-    \textbf{#2}\if\relax\detokenize{#3}\relax\else\enspace #3\fi
-  \end{minipage}\par
-}
+  \par\addvspace{4.5pt}\noindent\cvdate{#1}%
+  \begin{minipage}[t]{\cvbodywidth}
+    \textbf{#2}\cvifnonempty{#3}{\enspace{\color{cvmuted}#3}}\cvstrut
+  \end{minipage}\par}
+\newcommand{\cvskill}[2]{%
+  \par\addvspace{4.5pt}\noindent
+  \begin{minipage}[t]{\cvdatewidth}\small\raggedright\bfseries #1\end{minipage}\hfill
+  \begin{minipage}[t]{\cvbodywidth}#2\cvstrut\end{minipage}\par}
